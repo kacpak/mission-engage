@@ -1,0 +1,11 @@
+.whiteboard {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  text-align: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}

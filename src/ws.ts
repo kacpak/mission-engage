@@ -1,8 +1,3 @@
-import WhiteboardDevTools from "./mock-whiteboard";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.tsx";
 import { WHITEBOARD_WEBSOCKET_URL } from "./consts.ts";
 
 const whiteBoardSocket = new WebSocket(WHITEBOARD_WEBSOCKET_URL);
@@ -12,10 +7,3 @@ whiteBoardSocket.addEventListener("open", () => {
 whiteBoardSocket.addEventListener("message", (event) => {
   console.log("[WS client] received", event.data);
 });
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-    <WhiteboardDevTools />
-  </StrictMode>
-);
