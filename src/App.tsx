@@ -8,7 +8,7 @@ function App() {
     <>
       <h1>Whiteboard</h1>
       {whiteboard.map((token, position) => (
-        <div>
+        <div key={position}>
           Position {position + 1}: {token ?? "nothing yet"}
         </div>
       ))}
