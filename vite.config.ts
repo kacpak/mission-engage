@@ -19,4 +19,8 @@ export default defineConfig({
     },
   },
   plugins: [react(), svgr()],
+  preview: {
+    host: true,
+    allowedHosts: ["mateuszkubu.coconet.pl", "mateuszkmbp.coconet.pl"],
+  },
 });
