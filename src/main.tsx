@@ -1,6 +1,5 @@
 import "@fontsource-variable/roboto";
 import WhiteboardDevTools from "./_mock/ui-part/DevToolsOverlay.tsx";
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createHashRouter, RouterProvider } from "react-router";
@@ -45,10 +44,10 @@ const router = createHashRouter([
 export function App() {
   useWhiteboardState();
   return (
-    <StrictMode>
+    <>
       <RouterProvider router={router} />
       <WhiteboardDevTools />
-    </StrictMode>
+    </>
   );
 }
 
