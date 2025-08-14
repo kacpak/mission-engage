@@ -7,6 +7,9 @@ import { Trailer } from "./flow/Trailer.tsx";
 import { Title } from "./flow/Title.tsx";
 import { HowTo } from "./flow/HowTo.tsx";
 import { useWhiteboardState } from "./useWhiteboardState.ts";
+import { ChooseUseCase } from "./flow/ChooseUseCase.tsx";
+import { Countdown } from "./flow/Countdown.tsx";
+import { Game } from "./flow/Game.tsx";
 
 const router = createHashRouter([
   {
@@ -22,16 +25,16 @@ const router = createHashRouter([
     Component: HowTo,
   },
   {
-    path: "useCase",
-    Component() {
-      return "select use case";
-    },
+    path: "chooseUseCase",
+    Component: ChooseUseCase,
+  },
+  {
+    path: "useCase/:useCase/start",
+    Component: Countdown,
   },
   {
     path: "useCase/:useCase/game",
-    Component() {
-      return "game";
-    },
+    Component: Game,
   },
   {
     path: "victory",

@@ -16,7 +16,7 @@ export function HowTo() {
 
   useUpdateEffect(() => {
     if (JSON.stringify(previousState) !== JSON.stringify(state) && previousState !== undefined) {
-      navigate("/howTo");
+      navigate("/chooseUseCase", { viewTransition: true });
     }
   }, [previousState, state, navigate]);
 
