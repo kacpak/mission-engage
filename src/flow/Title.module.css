@@ -1,0 +1,121 @@
+.wrapper {
+  position: absolute;
+  inset: 0;
+  view-transition-name: title-wrapper;
+}
+
+.title {
+  position: absolute;
+  left: 8%;
+  right: 34%;
+  bottom: 11%;
+
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3cqw;
+  }
+
+  h1 {
+    font-size: 7cqw;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 92.857%;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  p {
+    color: #fff;
+    text-align: center;
+    font-size: 3cqw;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 74.627%;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+  }
+}
+
+@keyframes swing {
+  from {
+    rotate: -15deg;
+  }
+  to {
+    rotate: 5deg;
+  }
+}
+
+@keyframes swing2 {
+  from {
+    rotate: 10deg;
+  }
+  to {
+    rotate: 0deg;
+  }
+}
+
+@keyframes bob {
+  from {
+    translate: 0 -50px;
+  }
+  to {
+    translate: 0 50px;
+  }
+}
+
+@keyframes bob2 {
+  from {
+    translate: 0 30px;
+  }
+  to {
+    translate: 0 -20px;
+  }
+}
+
+@keyframes slide-out-left {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.astronaut {
+  position: absolute;
+  bottom: 11%;
+  right: 6%;
+  animation-name: swing;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+
+  svg {
+    animation: bob 15s forwards infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+  }
+}
+
+.gaming-machine {
+  position: absolute;
+  bottom: 23%;
+  right: 21%;
+  animation-name: swing2;
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+
+  svg {
+    animation: bob2 17s forwards infinite;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+  }
+}
+
+::view-transition-old(title-wrapper) {
+  animation: slide-out-left 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56);
+}

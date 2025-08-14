@@ -1,21 +1,55 @@
-import WhiteboardDevTools from "./mock-whiteboard";
+import "@fontsource-variable/roboto";
+import WhiteboardDevTools from "./_mock/ui-part/DevToolsOverlay.tsx";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
-import { WHITEBOARD_WEBSOCKET_URL } from "./consts.ts";
+import { createHashRouter, RouterProvider } from "react-router";
+import { Trailer } from "./flow/Trailer.tsx";
+import { Title } from "./flow/Title.tsx";
+import { HowTo } from "./flow/HowTo.tsx";
+import { useWhiteboardState } from "./useWhiteboardState.ts";
 
-const whiteBoardSocket = new WebSocket(WHITEBOARD_WEBSOCKET_URL);
-whiteBoardSocket.addEventListener("open", () => {
-  whiteBoardSocket.send("connected");
-});
-whiteBoardSocket.addEventListener("message", (event) => {
-  console.log("[WS client] received", event.data);
-});
+const router = createHashRouter([
+  {
+    index: true,
+    Component: Trailer,
+  },
+  {
+    path: "title",
+    Component: Title,
+  },
+  {
+    path: "howTo",
+    Component: HowTo,
+  },
+  {
+    path: "useCase",
+    Component() {
+      return "select use case";
+    },
+  },
+  {
+    path: "useCase/:useCase/game",
+    Component() {
+      return "game";
+    },
+  },
+  {
+    path: "victory",
+    Component() {
+      return "victory";
+    },
+  },
+]);
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <App />
-    <WhiteboardDevTools />
-  </StrictMode>
-);
+export function App() {
+  useWhiteboardState();
+  return (
+    <StrictMode>
+      <RouterProvider router={router} />
+      <WhiteboardDevTools />
+    </StrictMode>
+  );
+}
+
+createRoot(document.getElementById("root")!).render(<App />);

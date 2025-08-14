@@ -1,0 +1,53 @@
+.wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: paint;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: var(--opacity-min);
+    transform: scale(1);
+    /* filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0)); */
+  }
+  40% {
+    opacity: var(--opacity-max);
+    transform: scale(1.15);
+    /* filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.25)); */
+  }
+  100% {
+    opacity: var(--opacity-min);
+    transform: scale(0.9);
+    /* filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0)); */
+  }
+}
+
+.twinkle-star {
+  position: absolute;
+  border-radius: 50%;
+  will-change: opacity, transform;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.8) 35%,
+    rgba(255, 255, 255, 0.5) 60%,
+    transparent 100%
+  );
+  left: var(--left);
+  top: var(--top);
+  width: calc(var(--size) * 1px);
+  height: calc(var(--size) * 1px);
+  margin-left: calc(var(--size) / 2 * -1px);
+  margin-top: calc(var(--size) / 2 * -1px);
+  opacity: var(--opacity-min);
+  box-shadow: 0 0 calc(max(2, calc(var(--size) * 2)) * 1px) var(--color);
+  animation-name: twinkle;
+  animation-delay: var(--animation-delay);
+  animation-duration: var(--animation-duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  transform-origin: center;
+}

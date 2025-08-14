@@ -1,0 +1,136 @@
+.wrapper {
+}
+
+.how-to {
+  display: flex;
+  flex-direction: column;
+  gap: 10cqh;
+
+  h1 {
+    text-align: center;
+    font-size: 3cqw;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 74.627%;
+  }
+}
+
+.rules {
+  display: flex;
+  justify-content: space-between;
+  gap: 5cqw;
+}
+
+.rule {
+  width: 22cqw;
+  min-height: 34cqh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  background: #fff;
+  border-radius: 12px;
+  color: #3c3c3c;
+  font-size: 1cqw;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  transform: translateY(-100cqh);
+  animation: drop-down 0.7s ease-in-out forwards;
+  animation-delay: calc(var(--i) * 0.2s);
+
+  h2 {
+    margin: 12px 20px;
+    font: inherit;
+    font-weight: 500;
+  }
+
+  p {
+    flex: 1;
+    padding: 20px;
+    margin: 0;
+  }
+}
+
+@keyframes drop-down {
+  to {
+    transform: translateY(0px);
+  }
+}
+
+.image {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%), #131338;
+  text-align: center;
+  height: 200px;
+  display: grid;
+  place-items: center;
+  svg {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.next {
+  text-align: center;
+  font-size: 2cqw;
+}
+
+.how-to h1,
+.next {
+  opacity: 0;
+  animation: fade-in ease-in 300ms forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.rocket-man {
+  position: absolute;
+  left: 2%;
+  top: 10%;
+  animation-name: fly-in, bob-vertical, bob-horizontal, swing;
+  animation-timing-function: ease-in, linear, linear, linear;
+  animation-duration: 300ms, 1s, 2s, 2.5s;
+  animation-fill-mode: forwards, initial, initial, initial;
+  animation-delay: 1s, 1300ms, 1300ms, 1300ms;
+  animation-iteration-count: 1, infinite, infinite, infinite;
+  animation-direction: normal, alternate, alternate, alternate;
+  transform: translateX(-30cqw) translateY(10cqw);
+}
+
+@keyframes fly-in {
+  to {
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes bob-vertical {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes bob-horizontal {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(80px);
+  }
+}
+
+@keyframes swing {
+  from {
+    rotate: 0;
+  }
+  to {
+    rotate: 10deg;
+  }
+}
