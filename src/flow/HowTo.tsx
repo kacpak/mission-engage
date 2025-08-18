@@ -57,13 +57,16 @@ export function HowTo() {
           ].map(({ title, image, description }, i) => (
             <div className={styles.rule} style={{ "--i": i } as CSSProperties}>
               <h2>{title}</h2>
-              <div className={styles.image}>{image}</div>
+              <div className={styles.image} data-index={i}>
+                {image}
+              </div>
               <p>{description}</p>
             </div>
           ))}
         </div>
         <p className={styles.next}>Once you have read this, move the astronaut on “help”.</p>
       </div>
+      <div className={styles.explosion} />
       <RocketMan className={styles.rocketMan} />
     </SpaceBackground>
   );

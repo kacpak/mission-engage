@@ -1,4 +1,5 @@
 .wrapper {
+  view-transition-name: wrapper;
 }
 
 .how-to {
@@ -65,8 +66,8 @@
   display: grid;
   place-items: center;
   svg {
-    width: 100px;
-    height: 100px;
+    width: 11cqh;
+    height: 11cqh;
   }
 }
 
@@ -88,14 +89,20 @@
   }
 }
 
+[data-index="2"] {
+  view-transition-name: xxx;
+}
+
 .rocket-man {
+  view-transition-name: rocket-man;
   position: absolute;
   left: 2%;
   top: 10%;
+  width: 20cqh;
   animation-name: fly-in, bob-vertical, bob-horizontal, swing;
   animation-timing-function: ease-in, linear, linear, linear;
   animation-duration: 300ms, 1s, 2s, 2.5s;
-  animation-fill-mode: forwards, initial, initial, initial;
+  animation-fill-mode: forwards, forwards, forwards, forwards;
   animation-delay: 1s, 1300ms, 1300ms, 1300ms;
   animation-iteration-count: 1, infinite, infinite, infinite;
   animation-direction: normal, alternate, alternate, alternate;
@@ -134,3 +141,55 @@
     rotate: 10deg;
   }
 }
+
+/* .explosion {
+  position: absolute;
+  background: white;
+  width: 1cqh;
+  height: 1cqh;
+  right: 22cqw;
+  bottom: 50cqh;
+  border-radius: 1000px;
+  scale: 1;
+  z-index: -1;
+  view-transition-name: explosion;
+}
+::view-transition-old(explosion) {
+  animation: explode 1s forwards ease-out;
+}
+@keyframes explode {
+  0% {
+    background: white;
+    z-index: -1;
+  }
+  60% {
+    opacity: 1;
+    scale: 1;
+    z-index: 2;
+  }
+  100% {
+    scale: 240;
+  }
+}
+
+::view-transition-old(wrapper) {
+  animation: donothing 1s forwards ease-out;
+}
+@keyframes donothing {
+  to {
+    opacity: 1;
+  }
+}*/
+
+/* ::view-transition-old(rocket-man) {
+  animation: crash-into-the-moon 550ms forwards cubic-bezier(0.36, 0, 0.66, -0.56);
+}
+@keyframes crash-into-the-moon {
+  95% {
+    opacity: 1;
+    transform: translateX(60cqw) translateY(20cqh);
+  }
+  100% {
+    opacity: 0;
+  }
+} */
