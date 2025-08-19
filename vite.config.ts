@@ -5,12 +5,12 @@ import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/mission-engage/",
+  base: "./",
   build: {
     rollupOptions: {
       input: {
         main: path.resolve(import.meta.dirname, "index.html"),
-        mock: path.resolve(import.meta.dirname, "src/_mock/index.html"),
+        mock: path.resolve(import.meta.dirname, "mock-index.html"),
       },
     },
   },

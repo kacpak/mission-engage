@@ -5,9 +5,7 @@ import styles from "./DevToolsOverlay.module.css";
 function DevToolsEntry() {
   return (
     <div className={styles.whiteboard}>
-      <button
-        onClick={() => window.open("/src/_mock/index.html", "mock-playground", "popup=true,width=1000,height=1000")}
-      >
+      <button onClick={() => window.open("./mock-index.html", "mock-playground", "popup=true,width=1000,height=1000")}>
         Open playground
       </button>
     </div>

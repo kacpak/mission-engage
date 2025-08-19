@@ -1,5 +1,4 @@
 import "@fontsource-variable/roboto";
-import WhiteboardDevTools from "./_mock/ui-part/DevToolsOverlay.tsx";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createHashRouter, RouterProvider } from "react-router";
@@ -10,6 +9,11 @@ import { useWhiteboardState } from "./useWhiteboardState.ts";
 import { ChooseUseCase } from "./flow/ChooseUseCase.tsx";
 import { Countdown } from "./flow/Countdown.tsx";
 import { Game } from "./flow/Game.tsx";
+
+if (localStorage.getItem("MOCK") === "true") {
+  const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
+  createRoot(document.getElementById("mock-root")!).render(<WhiteboardDevTools />);
+}
 
 const router = createHashRouter([
   {
@@ -49,7 +53,6 @@ export function App() {
   return (
     <>
       <RouterProvider router={router} />
-      <WhiteboardDevTools />
     </>
   );
 }
