@@ -67,13 +67,19 @@
   line-height: 125%;
 }
 
-.tangible {
+.tangible-dummy {
   position: absolute;
   width: 13cqh;
   height: auto;
   left: -5cqh;
   top: 2cqh;
   animation: move 1s ease-in-out 0s infinite alternate;
+  view-transition-name: tangible;
+}
+
+.tangible-dummy,
+.tangible {
+  view-transition-name: tangible;
 }
 
 @keyframes move {

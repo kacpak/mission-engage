@@ -25,7 +25,7 @@ const router = createHashRouter([
     Component: HowTo,
   },
   {
-    path: "chooseUseCase",
+    path: "chooseUseCase/:id?",
     Component: ChooseUseCase,
   },
   {
