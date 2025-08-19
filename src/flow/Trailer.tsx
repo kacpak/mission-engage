@@ -18,7 +18,7 @@ export function Trailer() {
   return (
     <SpaceBackground>
       <div className={styles.trailer}>
-        <video src="/trailer.mp4" loop autoPlay controls={false}></video>
+        <video src="trailer.mp4" loop autoPlay controls={false}></video>
       </div>
     </SpaceBackground>
   );
