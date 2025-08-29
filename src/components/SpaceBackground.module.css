@@ -4,8 +4,31 @@
   display: grid;
   place-items: center;
   position: relative;
-  background: url("../assets/background.svg");
   background-size: cover;
+
+  &[data-type="gameplay"] {
+    background-image: url("../assets/background-gameplay.png");
+  }
+
+  &[data-type="outside"] {
+    background-image: url("../assets/background-outside-gameplay.png");
+  }
+
+  &[data-overlay] {
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+  }
+  &[data-overlay*="black"]:before {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &[data-overlay*="blue"]:after {
+    background: rgba(11, 3, 82, 0.6);
+  }
 }
 
 .children {

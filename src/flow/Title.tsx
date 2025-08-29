@@ -3,10 +3,8 @@ import { useNavigate } from "react-router";
 import { useUpdateEffect, usePrevious } from "@reactuses/core";
 import styles from "./Title.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import CoconetLogo from "../assets/coconet-logo.svg?react";
-import ArrowDouble from "../assets/arrow-double.svg?react";
-import Astronaut from "../assets/astronaut.svg?react";
-import GamingMachine from "../assets/gaming-machine.svg?react";
+import robotFrontUrl from "../assets/robot-front.png?url";
+import banklingFrontUrl from "../assets/banking-front.png?url";
 
 export function Title() {
   const state = useWhiteboardState();
@@ -21,21 +19,17 @@ export function Title() {
 
   return (
     <SpaceBackground contentClassName={styles.wrapper}>
-      <div className={styles.gamingMachine}>
-        <GamingMachine />
-      </div>
-      <div className={styles.astronaut}>
-        <Astronaut />
-      </div>
       <div className={styles.title}>
         <header>
-          <CoconetLogo aria-hidden="true" />
-          <h1>Workflow Studio Quest</h1>
-          <p>
-            <ArrowDouble />
-            Let’s play and win!
-          </p>
+          <h1>
+            <span>Mission:</span>
+            <span>Engage</span>
+          </h1>
         </header>
+      </div>
+      <div className={styles.characters}>
+        <img src={robotFrontUrl} className={styles.robot} />
+        <img src={banklingFrontUrl} className={styles.bankling} />
       </div>
     </SpaceBackground>
   );

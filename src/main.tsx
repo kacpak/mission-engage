@@ -1,4 +1,5 @@
 import "@fontsource-variable/roboto";
+import "@fontsource-variable/pixelify-sans";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createHashRouter, RouterProvider } from "react-router";
@@ -7,8 +8,10 @@ import { Title } from "./flow/Title.tsx";
 import { HowTo } from "./flow/HowTo.tsx";
 import { useWhiteboardState } from "./useWhiteboardState.ts";
 import { ChooseUseCase } from "./flow/ChooseUseCase.tsx";
-import { Countdown } from "./flow/Countdown.tsx";
+import { GameCountdown } from "./flow/GameCountdown.tsx";
 import { Game } from "./flow/Game.tsx";
+import GameIntro from "./flow/GameIntro.tsx";
+import { GameInstruction } from "./flow/GameInstruction.tsx";
 
 if (localStorage.getItem("MOCK") === "true") {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -29,16 +32,29 @@ const router = createHashRouter([
     Component: HowTo,
   },
   {
-    path: "chooseUseCase/:id?",
+    path: "chooseUseCase",
     Component: ChooseUseCase,
   },
   {
-    path: "useCase/:useCase/start",
-    Component: Countdown,
-  },
-  {
     path: "useCase/:useCase/game",
-    Component: Game,
+    children: [
+      {
+        index: true,
+        Component: GameIntro,
+      },
+      {
+        path: "instruction",
+        Component: GameInstruction,
+      },
+      {
+        path: "countdown",
+        Component: GameCountdown,
+      },
+      {
+        path: "game",
+        Component: Game,
+      },
+    ],
   },
   {
     path: "victory",

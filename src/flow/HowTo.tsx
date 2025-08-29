@@ -7,7 +7,6 @@ import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import GoalImage from "../assets/goal.svg?react";
 import ControlsImage from "../assets/controls.svg?react";
 import HelpImage from "../assets/help.svg?react";
-import RocketMan from "../assets/rocket-man.svg?react";
 
 export function HowTo() {
   const state = useWhiteboardState();
@@ -21,7 +20,7 @@ export function HowTo() {
   }, [previousState, state, navigate]);
 
   return (
-    <SpaceBackground className={styles.wrapper}>
+    <SpaceBackground className={styles.wrapper} overlay={["black", "blue"]}>
       <div className={styles.howTo}>
         <header>
           <h1>How to play</h1>
@@ -66,8 +65,6 @@ export function HowTo() {
         </div>
         <p className={styles.next}>Once you have read this, move the astronaut on “help”.</p>
       </div>
-      <div className={styles.explosion} />
-      <RocketMan className={styles.rocketMan} />
     </SpaceBackground>
   );
 }

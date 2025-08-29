@@ -1,14 +1,13 @@
 .wrapper {
   position: absolute;
   inset: 0;
-  view-transition-name: title-wrapper;
 }
 
 .title {
   position: absolute;
-  left: 8%;
-  right: 34%;
-  bottom: 11%;
+  top: 23cqh;
+  left: 11cqh;
+  view-transition-name: title-wrapper;
 
   header {
     display: flex;
@@ -18,62 +17,38 @@
   }
 
   h1 {
-    font-size: 7cqw;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 92.857%;
-    text-transform: uppercase;
-    margin: 0;
-  }
+    text-box: trim-both cap alphabetic;
 
-  p {
-    color: #fff;
-    text-align: center;
-    font-size: 3cqw;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 74.627%;
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 15px;
+    span:first-of-type {
+      text-box: inherit;
+      font-size: 11.87868056cqh;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 133.333%;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    span:last-of-type {
+      text-box: inherit;
+      margin-top: -3cqh;
+      display: block;
+      font-family: var(--pixel-font-family);
+      color: #57cc99;
+      font-size: 24.94520833cqh;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
+    }
   }
 }
 
-@keyframes swing {
-  from {
-    rotate: -15deg;
-  }
-  to {
-    rotate: 5deg;
-  }
+::view-transition-old(title-wrapper) {
+  animation: slide-out-left 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56);
 }
-
-@keyframes swing2 {
-  from {
-    rotate: 10deg;
-  }
-  to {
-    rotate: 0deg;
-  }
-}
-
-@keyframes bob {
-  from {
-    translate: 0 -50px;
-  }
-  to {
-    translate: 0 50px;
-  }
-}
-
-@keyframes bob2 {
-  from {
-    translate: 0 30px;
-  }
-  to {
-    translate: 0 -20px;
-  }
+::view-transition-new(title-wrapper) {
+  animation: slide-in-right 500ms forwards ease-in-out;
 }
 
 @keyframes slide-out-left {
@@ -82,40 +57,55 @@
   }
 }
 
-.astronaut {
-  position: absolute;
-  bottom: 11%;
-  right: 6%;
-  animation-name: swing;
-  animation-duration: 10s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: linear;
-
-  svg {
-    animation: bob 15s forwards infinite;
-    animation-direction: alternate;
-    animation-timing-function: linear;
+@keyframes slide-in-right {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
 
-.gaming-machine {
+.robot {
   position: absolute;
-  bottom: 23%;
-  right: 21%;
-  animation-name: swing2;
-  animation-duration: 7s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: linear;
+  left: 57.77777778cqh;
+  aspect-ratio: 2 / 3;
+  height: 50.06944444cqh;
+  bottom: -3cqh;
+}
 
-  svg {
-    animation: bob2 17s forwards infinite;
-    animation-direction: alternate;
-    animation-timing-function: linear;
+.bankling {
+  position: absolute;
+  right: 0;
+  aspect-ratio: 47/70;
+  height: 66.59722222cqh;
+  bottom: 4cqh;
+}
+
+.characters {
+  position: absolute;
+  inset: 0;
+  view-transition-name: characters;
+}
+
+::view-transition-old(characters) {
+  animation: slide-out-right 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56);
+}
+::view-transition-new(characters) {
+  animation: slide-in-left 500ms forwards ease-in-out;
+}
+
+@keyframes slide-out-right {
+  to {
+    transform: translateX(100%);
   }
 }
 
-::view-transition-old(title-wrapper) {
-  animation: slide-out-left 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56);
+@keyframes slide-in-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

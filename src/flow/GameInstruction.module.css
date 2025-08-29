@@ -1,0 +1,11 @@
+.wrapper {
+  display: grid;
+  place-items: center;
+  color: #fff;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: 6.94444444cqh;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+}

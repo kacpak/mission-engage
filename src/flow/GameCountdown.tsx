@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router";
-import styles from "./Countdown.module.css";
+import styles from "./GameCountdown.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export function Countdown() {
+export function GameCountdown() {
   const navigate = useNavigate();
   const [countdown, setCoundown] = useState(3);
 
@@ -19,14 +19,14 @@ export function Countdown() {
   }, []);
 
   useEffect(() => {
-    if (countdown === 0) {
-      navigate("/useCase/xyz/game", { viewTransition: true });
+    if (countdown < 0) {
+      navigate("../game", { viewTransition: true });
     }
   }, [countdown, navigate]);
 
   return (
-    <SpaceBackground className={styles.wrapper}>
-      <h1>{countdown}</h1>
+    <SpaceBackground type="gameplay" className={styles.wrapper}>
+      {countdown > 0 ? `${countdown}...` : "Go!"}
     </SpaceBackground>
   );
 }
