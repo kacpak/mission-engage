@@ -1,6 +1,9 @@
 import styles from "./Game.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import { useEffect, useState } from "react";
+import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
+import HeartFull from "../assets/heart_full.svg?react";
+import HeartEmpty from "../assets/heart_empty.svg?react";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -25,7 +28,15 @@ export function Game() {
   const playTime = usePlayTime(startTime);
   return (
     <SpaceBackground className={styles.wrapper} type="gameplay" overlay={["black"]}>
-      <h1>Game! Play time: {playTime}</h1>
+      <div className={styles.playerStats}>
+        <PlayerStatsBG className={styles.playerStatsBg} />
+        <div className={styles.player}>Player 1</div>
+        <div className={styles.lifeGauge}>
+          {["full", "full", "empty"].map((heart) => (heart === "full" ? <HeartFull /> : <HeartEmpty />))}
+        </div>
+        <div className={styles.playTime}>{playTime}</div>
+      </div>
+      <h1>Game!</h1>
     </SpaceBackground>
   );
 }
