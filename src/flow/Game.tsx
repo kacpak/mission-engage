@@ -7,6 +7,7 @@ import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useParams } from "react-router";
+import { MAX_LIFES } from "../consts.ts";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -29,6 +30,7 @@ const usePlayTime = (startDate: Date) => {
 export function Game() {
   const { useCase } = useParams<{ useCase: string }>();
   const [startTime] = useState(new Date());
+  const [lifesLeft, setLifesLeft] = useState(MAX_LIFES);
   const playTime = usePlayTime(startTime);
   return (
     <SpaceBackground className={styles.wrapper} type="gameplay" overlay={["black"]}>
@@ -36,7 +38,9 @@ export function Game() {
         <PlayerStatsBG className={styles.playerStatsBg} />
         <div className={styles.player}>Player 1</div>
         <div className={styles.lifeGauge}>
-          {["full", "full", "empty"].map((heart) => (heart === "full" ? <HeartFull /> : <HeartEmpty />))}
+          {Array(MAX_LIFES)
+            .fill(null)
+            .map((_, i) => (lifesLeft >= i + 1 ? <HeartFull /> : <HeartEmpty />))}
         </div>
         <div className={styles.playTime}>{playTime}</div>
       </div>
