@@ -5,6 +5,7 @@ import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import AstronautTangible from "../assets/astronaut-tangible.svg?react";
 import Arrow from "../assets/arrow.svg?react";
 import { useEffect, useMemo, useState } from "react";
+import { USE_CASES } from "../consts.ts";
 
 const useTimer = (choice: string | undefined) => {
   const [timeLeft, setTimeLeft] = useState<number | null>(0);
@@ -46,7 +47,7 @@ export function ChooseUseCase() {
 
   useEffect(() => {
     if (choice && typeof timeLeft === "number" && timeLeft <= 0) {
-      navigate(`/useCase/${choice ?? ""}/game`, { viewTransition: true });
+      navigate(`/useCase/${USE_CASES[parseInt(choice.slice(1)) - 1]}/game`, { viewTransition: true });
     }
   }, [choice, navigate, timeLeft]);
 
@@ -73,7 +74,7 @@ export function ChooseUseCase() {
             <AstronautTangible className={styles.tangibleDummy} />
           </>
         )}
-        {["Self service", "Account opening", "Accept terms and conditions"].map((text, i) => (
+        {USE_CASES.map((text, i) => (
           <div key={i} className={styles.useCase}>
             <div className={styles.box}>
               {`s${i + 1}` === choice ? <AstronautTangible className={styles.tangible} /> : i + 1}

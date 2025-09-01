@@ -12,8 +12,9 @@ import { GameCountdown } from "./flow/GameCountdown.tsx";
 import { Game } from "./flow/Game.tsx";
 import GameIntro from "./flow/GameIntro.tsx";
 import { GameInstruction } from "./flow/GameInstruction.tsx";
+import { IS_MOCK } from "./consts.ts";
 
-if (localStorage.getItem("MOCK") === "true") {
+if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
   createRoot(document.getElementById("mock-root")!).render(<WhiteboardDevTools />);
 }

@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
+import banklingBackUrl from "../assets/bankling-back.png?url";
+import robotBackUrl from "../assets/robot-back.png?url";
+import { useParams } from "react-router";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -24,6 +27,7 @@ const usePlayTime = (startDate: Date) => {
 };
 
 export function Game() {
+  const { useCase } = useParams<{ useCase: string }>();
   const [startTime] = useState(new Date());
   const playTime = usePlayTime(startTime);
   return (
@@ -36,7 +40,12 @@ export function Game() {
         </div>
         <div className={styles.playTime}>{playTime}</div>
       </div>
-      <h1>Game!</h1>
+      <div className={styles.heros}>
+        <img src={banklingBackUrl} className={styles.bankling} />
+        <img src={robotBackUrl} className={styles.robot} />
+      </div>
+      <div className={styles.villan}></div>
+      <div className={styles.useCase}>{useCase}</div>
     </SpaceBackground>
   );
 }

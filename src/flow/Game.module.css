@@ -2,7 +2,6 @@
 }
 
 .player-stats {
-  text-box: trim-both cap alphabetic;
   position: absolute;
   top: 0;
   left: 0;
@@ -15,13 +14,34 @@
 }
 
 .player-stats-bg {
-  position: absolute;
-  left: -5.70833333cqh;
-  top: -6.5cqh;
-  aspect-ratio: 767/228;
-  width: auto;
-  height: 23.33333333cqh;
   z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 15.83333333cqh;
+  aspect-ratio: 767/228;
+}
+
+.player-stats-bg-1 {
+  left: -21.04166667cqh;
+  top: -7.5cqh;
+  aspect-ratio: 1070/266;
+  height: 18.47222222cqh;
+}
+
+.player-stats-bg-2 {
+  left: -27.70833333cqh;
+  top: 4.72222222cqh;
+  aspect-ratio: 644/160;
+  height: 11.11111111cqh;
+}
+
+.player-stats-bg-3 {
+  left: -15.97222222cqh;
+  top: -3.68055556cqh;
+  aspect-ratio: 924/230;
+  height: 15.97222222cqh;
 }
 
 .player {
@@ -56,4 +76,59 @@
   font-style: normal;
   font-weight: 500;
   line-height: 1;
+}
+
+.bankling {
+  position: absolute;
+  bottom: -17.15277778cqh;
+  left: -12.08333333cqh;
+  width: auto;
+  height: 61.94444444cqh;
+  aspect-ratio: 19/21;
+}
+
+.robot {
+  width: auto;
+  height: 38.68055556cqh;
+  aspect-ratio: 185/277;
+  position: absolute;
+  bottom: -10.97222222cqh;
+  left: 31.73611111cqh;
+}
+
+.use-case {
+  position: absolute;
+  bottom: 3.61111111cqh;
+  right: 3.61111111cqh;
+  color: #fff;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: 4.16666667cqh;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 83.333%;
+  text-transform: uppercase;
+  padding: 3cqh 7cqh;
+
+  &:before,
+  &:after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    background: black;
+    inset: 0;
+    clip-path: polygon(0 100%, 10% 0, 100% 0, 90% 100%);
+  }
+
+  &:before {
+    background: #141232;
+    top: 1cqh;
+    right: 2cqh;
+  }
+
+  &:after {
+    background: #050321;
+    bottom: 1cqh;
+    left: 2cqh;
+  }
 }
