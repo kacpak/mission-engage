@@ -30,7 +30,7 @@ const usePlayTime = (startDate: Date) => {
 export function Game() {
   const { useCase } = useParams<{ useCase: string }>();
   const [startTime] = useState(new Date());
-  const [lifesLeft, setLifesLeft] = useState(MAX_LIFES);
+  const [lifesLeft] = useState(MAX_LIFES);
   const playTime = usePlayTime(startTime);
   return (
     <SpaceBackground className={styles.wrapper} type="gameplay" overlay={["black"]}>
