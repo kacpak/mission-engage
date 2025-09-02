@@ -7,7 +7,7 @@ import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useParams } from "react-router";
-import { MAX_LIFES, type TANGIBLES } from "../consts.ts";
+import { MAX_LIFES, type TANGIBLES, USE_CASES, WINNING_ORDERS } from "../consts.ts";
 import { useWhiteboardState } from "../useWhiteboardState.ts";
 import type { ComponentType, ComponentProps } from "react";
 import TangibleSlot from "../components/TangibleSlot.tsx";
@@ -15,6 +15,7 @@ import TangibleForm from "../assets/tangible-form.svg?react";
 import TangibleSign from "../assets/tangible-sign.svg?react";
 import TangibleDataProcessing from "../assets/tangible-data-processing.svg?react";
 import TangibleApproval from "../assets/tangible-approval.svg?react";
+import { isEqual } from "es-toolkit";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -44,9 +45,15 @@ const tangibles: Partial<Record<(typeof TANGIBLES)[number], ComponentType<Compon
 export const ImproperTangible: FunctionComponent = () => "❌";
 
 export function Game() {
-  const state = useWhiteboardState();
-  const workflow = useMemo(() => [state?.s1, state?.s2, state?.s3, state?.s4], [state]);
-  const { useCase } = useParams<{ useCase: string }>();
+  const boardState = useWhiteboardState();
+  const { useCase } = useParams<{ useCase: (typeof USE_CASES)[number] }>();
+  const workflow = useMemo(() => [boardState?.s1, boardState?.s2, boardState?.s3, boardState?.s4], [boardState]);
+  const gameState = useMemo(
+    () =>
+      workflow.every((_) => !!_) ? (isEqual(workflow, WINNING_ORDERS[useCase!]) ? "success" : "error") : "pending",
+    [workflow, useCase],
+  );
+  console.log("gameState", gameState);
   const [startTime] = useState(new Date());
   const [lifesLeft] = useState(MAX_LIFES);
   const playTime = usePlayTime(startTime);

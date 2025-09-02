@@ -6,4 +6,10 @@ export const USE_CASES = ["Self service", "Account opening", "Accept terms and c
 
 export const TANGIBLES = ["astronaut", "alien", "form-flow", "signature", "approval", "data-processing"] as const;
 
+export const WINNING_ORDERS: Record<(typeof USE_CASES)[number], (typeof TANGIBLES)[number][]> = {
+  "Accept terms and conditions": ["data-processing", "form-flow", "signature", "data-processing"],
+  "Account opening": ["form-flow", "signature", "approval", "data-processing"],
+  "Self service": ["form-flow", "signature", "approval", "data-processing"],
+};
+
 export const MAX_LIFES = 3;

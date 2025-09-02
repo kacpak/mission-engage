@@ -15,6 +15,7 @@
     "@fontsource-variable/pixelify-sans": "^5.2.6",
     "@fontsource-variable/roboto": "^5.2.6",
     "@reactuses/core": "^6.0.6",
+    "es-toolkit": "^1.39.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.8.1",
