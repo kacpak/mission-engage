@@ -102,21 +102,20 @@ export function Game() {
         {workflow.map((tangible, i) => {
           const TangibleIcon = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
           return (
-            <div key={`${i}-${tangible}`} className={styles.workflowStep}>
-              <TangibleSlot
-                className={styles.tangibleBg}
-                type={
-                  gameState === "success"
-                    ? "success"
-                    : gameState === "error"
-                      ? "error"
-                      : TangibleIcon
-                        ? "pending"
-                        : "neutral"
-                }
-              />
-              <div>{TangibleIcon ? <TangibleIcon className={styles.tangibleIcon} /> : i + 1}</div>
-            </div>
+            <TangibleSlot
+              key={`${i}-${tangible}`}
+              type={
+                gameState === "success"
+                  ? "success"
+                  : gameState === "error"
+                    ? "error"
+                    : TangibleIcon
+                      ? "pending"
+                      : "neutral"
+              }
+            >
+              {TangibleIcon ? <TangibleIcon className={styles.tangibleIcon} /> : i + 1}
+            </TangibleSlot>
           );
         })}
       </div>
