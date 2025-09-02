@@ -132,3 +132,34 @@
     left: 2cqh;
   }
 }
+
+.workflow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.47222222cqh;
+}
+
+.workflow-step {
+  display: grid;
+  place-items: center;
+
+  color: #fff;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: 10.41666667cqh;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+
+  > * {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.tangible-icon {
+  aspect-ratio: 1/1;
+  width: auto;
+  height: 13.125cqh;
+  display: block;
+}

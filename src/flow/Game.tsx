@@ -1,13 +1,20 @@
 import styles from "./Game.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import { useEffect, useState } from "react";
+import { type FunctionComponent, useEffect, useMemo, useState } from "react";
 import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useParams } from "react-router";
-import { MAX_LIFES } from "../consts.ts";
+import { MAX_LIFES, type TANGIBLES } from "../consts.ts";
+import { useWhiteboardState } from "../useWhiteboardState.ts";
+import type { ComponentType, ComponentProps } from "react";
+import TangibleSlot from "../components/TangibleSlot.tsx";
+import TangibleForm from "../assets/tangible-form.svg?react";
+import TangibleSign from "../assets/tangible-sign.svg?react";
+import TangibleDataProcessing from "../assets/tangible-data-processing.svg?react";
+import TangibleApproval from "../assets/tangible-approval.svg?react";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -27,7 +34,18 @@ const usePlayTime = (startDate: Date) => {
   return playTime;
 };
 
+const tangibles: Partial<Record<(typeof TANGIBLES)[number], ComponentType<ComponentProps<"svg">>>> = {
+  "form-flow": TangibleForm,
+  "data-processing": TangibleDataProcessing,
+  approval: TangibleApproval,
+  signature: TangibleSign,
+};
+
+export const ImproperTangible: FunctionComponent = () => "❌";
+
 export function Game() {
+  const state = useWhiteboardState();
+  const workflow = useMemo(() => [state?.s1, state?.s2, state?.s3, state?.s4], [state]);
   const { useCase } = useParams<{ useCase: string }>();
   const [startTime] = useState(new Date());
   const [lifesLeft] = useState(MAX_LIFES);
@@ -49,6 +67,17 @@ export function Game() {
         <img src={robotBackUrl} className={styles.robot} />
       </div>
       <div className={styles.villan}></div>
+      <div className={styles.workflow}>
+        {workflow.map((tangible, i) => {
+          const TangibleIcon = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
+          return (
+            <div key={`${i}-${tangible}`} className={styles.workflowStep}>
+              <TangibleSlot className={styles.tangibleBg} type={TangibleIcon ? "pending" : "neutral"} />
+              <div>{TangibleIcon ? <TangibleIcon className={styles.tangibleIcon} /> : i + 1}</div>
+            </div>
+          );
+        })}
+      </div>
       <div className={styles.useCase}>{useCase}</div>
     </SpaceBackground>
   );
