@@ -1,6 +1,6 @@
 import styles from "./Game.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import { type FunctionComponent, useEffect, useMemo, useState } from "react";
+import { type FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
@@ -19,8 +19,9 @@ import { isEqual } from "es-toolkit";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
+  const interval = useRef<ReturnType<typeof setInterval>>(null);
   useEffect(() => {
-    const interval = setInterval(() => {
+    interval.current = setInterval(() => {
       const timePlayedInSeconds = Math.floor((new Date().getTime() - startDate.getTime()) / 1000);
       const seconds = timePlayedInSeconds % 60;
       const minutes = Math.floor(timePlayedInSeconds / 60);
@@ -29,10 +30,17 @@ const usePlayTime = (startDate: Date) => {
     }, 100);
 
     return () => {
-      clearInterval(interval);
+      if (interval.current) {
+        clearInterval(interval.current);
+      }
     };
   }, [startDate]);
-  return playTime;
+  const stopPlayTime = useCallback(() => {
+    if (interval.current) {
+      clearInterval(interval.current);
+    }
+  }, []);
+  return { playTime, stopPlayTime };
 };
 
 const tangibles: Partial<Record<(typeof TANGIBLES)[number], ComponentType<ComponentProps<"svg">>>> = {
@@ -53,10 +61,26 @@ export function Game() {
       workflow.every((_) => !!_) ? (isEqual(workflow, WINNING_ORDERS[useCase!]) ? "success" : "error") : "pending",
     [workflow, useCase],
   );
-  console.log("gameState", gameState);
   const [startTime] = useState(new Date());
-  const [lifesLeft] = useState(MAX_LIFES);
-  const playTime = usePlayTime(startTime);
+  const [lifesLeft, setLifesLeft] = useState(MAX_LIFES);
+  const { playTime, stopPlayTime } = usePlayTime(startTime);
+
+  useEffect(() => {
+    if (gameState === "error") {
+      setLifesLeft((_) => _ - 1);
+    } else if (gameState === "success") {
+      stopPlayTime();
+      alert("you won");
+    }
+  }, [gameState, stopPlayTime]);
+
+  useEffect(() => {
+    if (lifesLeft <= 0) {
+      stopPlayTime();
+      alert("you lost");
+    }
+  }, [lifesLeft, stopPlayTime]);
+
   return (
     <SpaceBackground className={styles.wrapper} type="gameplay" overlay={["black"]}>
       <div className={styles.playerStats}>
@@ -65,7 +89,7 @@ export function Game() {
         <div className={styles.lifeGauge}>
           {Array(MAX_LIFES)
             .fill(null)
-            .map((_, i) => (lifesLeft >= i + 1 ? <HeartFull /> : <HeartEmpty />))}
+            .map((_, i) => (lifesLeft >= i + 1 ? <HeartFull key={i} /> : <HeartEmpty key={i} />))}
         </div>
         <div className={styles.playTime}>{playTime}</div>
       </div>
@@ -79,7 +103,18 @@ export function Game() {
           const TangibleIcon = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
           return (
             <div key={`${i}-${tangible}`} className={styles.workflowStep}>
-              <TangibleSlot className={styles.tangibleBg} type={TangibleIcon ? "pending" : "neutral"} />
+              <TangibleSlot
+                className={styles.tangibleBg}
+                type={
+                  gameState === "success"
+                    ? "success"
+                    : gameState === "error"
+                      ? "error"
+                      : TangibleIcon
+                        ? "pending"
+                        : "neutral"
+                }
+              />
               <div>{TangibleIcon ? <TangibleIcon className={styles.tangibleIcon} /> : i + 1}</div>
             </div>
           );
