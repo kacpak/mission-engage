@@ -4,7 +4,7 @@ import { useUpdateEffect, usePrevious } from "@reactuses/core";
 import styles from "./Title.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import robotFrontUrl from "../assets/robot-front.png?url";
-import banklingFrontUrl from "../assets/banking-front.png?url";
+import banklingFrontUrl from "../assets/bankling-front.png?url";
 
 export function Title() {
   const state = useWhiteboardState();

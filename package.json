@@ -17,6 +17,7 @@
     "@reactuses/core": "^6.0.6",
     "es-toolkit": "^1.39.10",
     "react": "^19.1.0",
+    "react-canvas-confetti": "^2.0.7",
     "react-dom": "^19.1.0",
     "react-router": "^7.8.1",
     "react-use-websocket": "^4.13.0",

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 import styles from "./SpaceBackground.module.css";
 import classNames from "classnames";
 
@@ -8,6 +8,7 @@ type SpaceBackgroundProps = {
   overlay?: ("black" | "blue")[];
   type?: "gameplay" | "outside";
   children: ReactNode;
+  ref?: Ref<HTMLDivElement>;
 };
 
 export function SpaceBackground({

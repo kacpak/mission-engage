@@ -6,7 +6,7 @@ import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { MAX_LIFES, type TANGIBLES, USE_CASES, WINNING_ORDERS } from "../consts.ts";
 import { useWhiteboardState } from "../useWhiteboardState.ts";
 import type { ComponentType, ComponentProps } from "react";
@@ -16,17 +16,14 @@ import TangibleSign from "../assets/tangible-sign.svg?react";
 import TangibleDataProcessing from "../assets/tangible-data-processing.svg?react";
 import TangibleApproval from "../assets/tangible-approval.svg?react";
 import { isEqual } from "es-toolkit";
+import { msToFormattedDuration } from "../utils.ts";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
   const interval = useRef<ReturnType<typeof setInterval>>(null);
   useEffect(() => {
     interval.current = setInterval(() => {
-      const timePlayedInSeconds = Math.floor((new Date().getTime() - startDate.getTime()) / 1000);
-      const seconds = timePlayedInSeconds % 60;
-      const minutes = Math.floor(timePlayedInSeconds / 60);
-
-      setPlayTime(`${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`);
+      setPlayTime(msToFormattedDuration(new Date().getTime() - startDate.getTime()));
     }, 100);
 
     return () => {
@@ -64,15 +61,16 @@ export function Game() {
   const [startTime] = useState(new Date());
   const [lifesLeft, setLifesLeft] = useState(MAX_LIFES);
   const { playTime, stopPlayTime } = usePlayTime(startTime);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (gameState === "error") {
       setLifesLeft((_) => _ - 1);
     } else if (gameState === "success") {
       stopPlayTime();
-      alert("you won");
+      navigate(`victory/${new Date().getTime() - startTime.getTime()}`);
     }
-  }, [gameState, stopPlayTime]);
+  }, [gameState, navigate, startTime, stopPlayTime]);
 
   useEffect(() => {
     if (lifesLeft <= 0) {
