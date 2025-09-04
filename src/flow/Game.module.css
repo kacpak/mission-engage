@@ -139,6 +139,11 @@
   gap: 3.47222222cqh;
 }
 
+.tangible-slot {
+  width: calc(250 / 1440 * 100cqh);
+  height: calc(250 / 1440 * 100cqh);
+}
+
 .tangible-icon {
   aspect-ratio: 1/1;
   width: auto;

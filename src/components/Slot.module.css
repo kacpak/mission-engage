@@ -1,0 +1,93 @@
+.slot {
+  --pixel: calc(11.365 / 1440 * 100cqh);
+  --background: #232140;
+  background: var(--border-color);
+  position: relative;
+  isolation: isolate;
+  padding: calc(2 * var(--pixel));
+  clip-path: polygon(
+    /* top left*/ calc(2 * var(--pixel)) 0,
+    calc(2 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(2 * var(--pixel)),
+    0% calc(2 * var(--pixel)),
+    /* bottom left */ 0% calc(100% - 2 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(2 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(2 * var(--pixel)) 100%,
+    /* bottom right */ calc(100% - 2 * var(--pixel)) 100%,
+    calc(100% - 2 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+    100% calc(100% - 2 * var(--pixel)),
+    /* top right */ 100% calc(2 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(2 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(100% - 2 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(100% - 2 * var(--pixel)) 0%
+  );
+
+  color: #fff;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: 10.41666667cqh;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+
+  display: grid;
+  place-items: center;
+
+  > * {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  &[data-type="neutral"] {
+    --border-color: #822ff3;
+  }
+
+  &[data-type="pending"] {
+    --border-color: #aac8ff;
+  }
+
+  &[data-type="error"] {
+    --border-color: #ff6464;
+  }
+
+  &[data-type="success"] {
+    --border-color: #89ec7c;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--background);
+    z-index: -1;
+
+    clip-path: polygon(
+      /* top left*/ calc(3 * var(--pixel)) calc(1 * var(--pixel)),
+      calc(3 * var(--pixel)) calc(2 * var(--pixel)),
+      calc(2 * var(--pixel)) calc(2 * var(--pixel)),
+      calc(2 * var(--pixel)) calc(3 * var(--pixel)),
+      calc(1 * var(--pixel)) calc(3 * var(--pixel)),
+      /* bottom left */ calc(1 * var(--pixel)) calc(100% - 3 * var(--pixel)),
+      calc(2 * var(--pixel)) calc(100% - 3 * var(--pixel)),
+      calc(2 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+      calc(3 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+      calc(3 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+      /* bottom right */ calc(100% - 3 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+      calc(100% - 3 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+      calc(100% - 2 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+      calc(100% - 2 * var(--pixel)) calc(100% - 3 * var(--pixel)),
+      calc(100% - 1 * var(--pixel)) calc(100% - 3 * var(--pixel)),
+      /* top right */ calc(100% - 1 * var(--pixel)) calc(3 * var(--pixel)),
+      calc(100% - 2 * var(--pixel)) calc(3 * var(--pixel)),
+      calc(100% - 2 * var(--pixel)) calc(2 * var(--pixel)),
+      calc(100% - 3 * var(--pixel)) calc(2 * var(--pixel)),
+      calc(100% - 3 * var(--pixel)) calc(1 * var(--pixel))
+    );
+  }
+}
