@@ -73,6 +73,14 @@ const useSpeechBubble = () => {
     [hideSpeechBubble],
   );
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   return {
     speechText,
     showSpeechBubble,

@@ -14,7 +14,11 @@ export function HowTo() {
   const previousState = usePrevious(state);
 
   useUpdateEffect(() => {
-    if (JSON.stringify(previousState) !== JSON.stringify(state) && previousState !== undefined) {
+    if (
+      JSON.stringify(previousState) !== JSON.stringify(state) &&
+      previousState !== undefined &&
+      state?.s5 === "astronaut"
+    ) {
       navigate("/chooseUseCase", { viewTransition: true });
     }
   }, [previousState, state, navigate]);
@@ -63,7 +67,7 @@ export function HowTo() {
             </div>
           ))}
         </div>
-        <p className={styles.next}>Once you have read this, move the astronaut on “help”.</p>
+        <p className={styles.next}>Once you have read this, move the robot on “help”.</p>
       </div>
     </SpaceBackground>
   );

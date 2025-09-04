@@ -59,7 +59,8 @@ export function ChooseUseCase() {
       {typeof timeLeft === "number" ? (
         <div className={styles.onSelectedText}>
           <div>
-            Use case selected. The game will start in: <span>00:{String(Math.floor(timeLeft)).padStart(2, "0")}</span>
+            Use case selected. The game will start in:{" "}
+            <span>00:{String(Math.max(0, Math.floor(timeLeft))).padStart(2, "0")}</span>
           </div>
           <div>You can still change your selection.</div>
         </div>

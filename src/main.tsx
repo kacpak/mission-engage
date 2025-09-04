@@ -15,6 +15,7 @@ import { GameInstruction } from "./flow/GameInstruction.tsx";
 import { IS_MOCK } from "./consts.ts";
 import GameVictory from "./flow/GameVictory.tsx";
 import { Presents } from "./flow/Presents.tsx";
+import { useEffect } from "react";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -27,12 +28,12 @@ const router = createHashRouter([
     Component: Trailer,
   },
   {
-    path: "title",
-    Component: Title,
-  },
-  {
     path: "presents",
     Component: Presents,
+  },
+  {
+    path: "title",
+    Component: Title,
   },
   {
     path: "howTo",
@@ -78,7 +79,18 @@ const router = createHashRouter([
 ]);
 
 export function App() {
-  useWhiteboardState();
+  const state = useWhiteboardState();
+
+  useEffect(() => {
+    if (state?.s1 === "alien") {
+      router.navigate("/");
+    } else if (state?.s2 === "alien") {
+      router.navigate("/title");
+    } else if (state?.s3 === "alien") {
+      router.navigate("/chooseUseCase");
+    }
+  }, [state]);
+
   return (
     <>
       <RouterProvider router={router} />

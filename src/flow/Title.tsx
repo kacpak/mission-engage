@@ -1,21 +1,22 @@
-import { useWhiteboardState } from "../useWhiteboardState.ts";
 import { useNavigate } from "react-router";
-import { useUpdateEffect, usePrevious } from "@reactuses/core";
 import styles from "./Title.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import robotFrontUrl from "../assets/robot-front.png?url";
 import banklingFrontUrl from "../assets/bankling-front.png?url";
+import { useEffect } from "react";
 
 export function Title() {
-  const state = useWhiteboardState();
   const navigate = useNavigate();
-  const previousState = usePrevious(state);
 
-  useUpdateEffect(() => {
-    if (JSON.stringify(previousState) !== JSON.stringify(state) && previousState !== undefined) {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
       navigate("/howTo", { viewTransition: true, replace: false });
-    }
-  }, [previousState, state, navigate]);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [navigate]);
 
   return (
     <SpaceBackground contentClassName={styles.wrapper}>

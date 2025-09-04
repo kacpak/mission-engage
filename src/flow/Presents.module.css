@@ -1,23 +1,29 @@
 .wrapper {
-    display: grid;
-    place-items: center;
-    color: #fff;
-    text-align: center;
-    font-family: var(--block-font-family) sans-serif;
-    font-size: 4.4444444cqh;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1;
-    animation: fadeinout 5s linear forwards;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  text-align: center;
+  font-size: 4.4444444cqh;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+  animation: fadein 4s linear forwards;
 }
 
 .coconet-logo {
-    height: 18.26388889cqh;
-    margin-bottom: 2.43055556cqh;
+  height: 18.26388889cqh;
+  margin-bottom: 2.43055556cqh;
 }
 
-@keyframes fadeinout {
-    0%,100% { opacity: 0; }
-    30% { opacity: 1; }
-    70% { opacity: 1; }
+@keyframes fadein {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
 }

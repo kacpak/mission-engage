@@ -8,10 +8,14 @@ export function Presents() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      navigate("/title")
-    }, 5000)
-  })
+    const timeout = setTimeout(() => {
+      navigate("/title", { viewTransition: true });
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  });
 
   return (
     <SpaceBackground type="presents" contentClassName={styles.wrapper}>

@@ -11,7 +11,7 @@ export function Trailer() {
 
   useUpdateEffect(() => {
     if (JSON.stringify(previousState) !== JSON.stringify(state) && previousState !== undefined) {
-      navigate("/title", { viewTransition: true, replace: false });
+      navigate("/presents", { viewTransition: true, replace: false });
     }
   }, [previousState, state, navigate]);
 
