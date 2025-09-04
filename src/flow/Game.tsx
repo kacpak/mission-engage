@@ -7,20 +7,12 @@ import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useNavigate, useParams } from "react-router";
-import {
-  MAX_LIFES,
-  type TANGIBLES,
-  TANGIBLES_HELP_TEXT,
-  type UseCaseTitle,
-  WINNING_ORDERS,
-  type WorkflowTangible,
-} from "../consts";
+import { MAX_LIFES, TANGIBLES_HELP_TEXT, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts";
 import { useWhiteboardState } from "../useWhiteboardState.ts";
-import type { ComponentType, ComponentProps } from "react";
-import TangibleForm from "../assets/tangible-form.svg?react";
-import TangibleSign from "../assets/tangible-sign.svg?react";
-import TangibleDataProcessing from "../assets/tangible-data-processing.svg?react";
-import TangibleApproval from "../assets/tangible-approval.svg?react";
+import tangibleFormUrl from "../assets/tangible-form.png?url";
+import tangibleSignUrl from "../assets/tangible-sign.png?url";
+import tangibleDataProcessingUrl from "../assets/tangible-data-processing.png?url";
+import tangibleApprovalUrl from "../assets/tangible-approval.png?url";
 import { isEqual } from "es-toolkit";
 import { msToFormattedDuration } from "../utils.ts";
 import { Slot } from "../components/Slot.tsx";
@@ -48,11 +40,11 @@ const usePlayTime = (startDate: Date) => {
   return { playTime, stopPlayTime };
 };
 
-const tangibles: Partial<Record<(typeof TANGIBLES)[number], ComponentType<ComponentProps<"svg">>>> = {
-  "form-flow": TangibleForm,
-  "data-processing": TangibleDataProcessing,
-  approval: TangibleApproval,
-  signature: TangibleSign,
+const tangibles: Record<WorkflowTangible, string> = {
+  "form-flow": tangibleFormUrl,
+  "data-processing": tangibleDataProcessingUrl,
+  approval: tangibleApprovalUrl,
+  signature: tangibleSignUrl,
 };
 
 export const ImproperTangible: FunctionComponent = () => "❌";
@@ -178,7 +170,7 @@ export function Game() {
       </div>
       <div className={styles.workflow}>
         {workflow.map((tangible, i) => {
-          const TangibleIcon = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
+          const tangibleUrl = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
           return (
             <Slot
               className={styles.tangibleSlot}
@@ -188,12 +180,12 @@ export function Game() {
                   ? "success"
                   : gameState === "error"
                     ? "error"
-                    : TangibleIcon
+                    : tangibleUrl
                       ? "pending"
                       : "neutral"
               }
             >
-              {TangibleIcon ? <TangibleIcon className={styles.tangibleIcon} /> : i + 1}
+              {tangibleUrl ? <img src={tangibleUrl} className={styles.tangibleIcon} /> : i + 1}
             </Slot>
           );
         })}

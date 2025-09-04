@@ -153,6 +153,7 @@
   height: calc(250 / 1440 * 100cqh);
   display: grid;
   place-items: center;
+  padding: 0;
 
   text-align: center;
   font-family: var(--pixel-font-family);
@@ -163,8 +164,8 @@
 }
 
 .tangible-icon {
-  aspect-ratio: 1/1;
   width: auto;
-  height: 13.125cqh;
+  height: calc(195 / 1440 * 100cqh);
+  aspect-ratio: 328/367;
   display: block;
 }
