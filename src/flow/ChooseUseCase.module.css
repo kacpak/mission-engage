@@ -88,6 +88,14 @@
   view-transition-name: tangible;
 }
 
+.tangible {
+  display: block;
+  width: calc(200 / 1440 * 100cqh);
+  height: calc(200 / 1440 * 100cqh);
+  aspect-ratio: 1/1;
+  margin: 0 auto;
+}
+
 @keyframes move {
   to {
     transform: translateX(3cqh);
