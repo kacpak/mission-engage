@@ -58,7 +58,7 @@ export function HowTo() {
               ),
             },
           ].map(({ title, image, description }, i) => (
-            <div className={styles.rule} style={{ "--i": i } as CSSProperties}>
+            <div key={title} className={styles.rule} style={{ "--i": i } as CSSProperties}>
               <h2>{title}</h2>
               <div className={styles.image} data-index={i}>
                 {image}
