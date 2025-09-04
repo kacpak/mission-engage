@@ -1,6 +1,6 @@
 import styles from "./Game.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import { type FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { type FunctionComponent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
@@ -50,6 +50,36 @@ const tangibles: Partial<Record<(typeof TANGIBLES)[number], ComponentType<Compon
 
 export const ImproperTangible: FunctionComponent = () => "❌";
 
+const useSpeechBubble = () => {
+  const [speechText, setSpeechText] = useState<ReactNode | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+
+  const hideSpeechBubble = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setSpeechText(null);
+  }, []);
+
+  const showSpeechBubble = useCallback(
+    ({ text, timeout }: { text: ReactNode; timeout?: number }) => {
+      setSpeechText(text);
+      if (timeout) {
+        timeoutRef.current = setTimeout(() => {
+          hideSpeechBubble();
+        }, timeout);
+      }
+    },
+    [hideSpeechBubble],
+  );
+
+  return {
+    speechText,
+    showSpeechBubble,
+    hideSpeechBubble,
+  };
+};
+
 export function Game() {
   const boardState = useWhiteboardState();
   const { useCase } = useParams<{ useCase: UseCaseTitle }>();
@@ -63,22 +93,49 @@ export function Game() {
   const [lifesLeft, setLifesLeft] = useState(MAX_LIFES);
   const { playTime, stopPlayTime } = usePlayTime(startTime);
   const navigate = useNavigate();
+  const { speechText, showSpeechBubble } = useSpeechBubble();
 
   useEffect(() => {
     if (gameState === "error") {
       setLifesLeft((_) => _ - 1);
+      showSpeechBubble({
+        text: (
+          <>
+            Whoopsie!
+            <br />
+            Let's try again!
+          </>
+        ),
+        timeout: 5000,
+      });
     } else if (gameState === "success") {
       stopPlayTime();
-      navigate(`victory/${new Date().getTime() - startTime.getTime()}`);
+      showSpeechBubble({
+        text: (
+          <>
+            Woohoo!
+            <br />
+            We made it!
+          </>
+        ),
+      });
+      setTimeout(() => {
+        navigate(`victory/${new Date().getTime() - startTime.getTime()}`);
+      }, 4000);
     }
-  }, [gameState, navigate, startTime, stopPlayTime]);
+  }, [gameState, navigate, showSpeechBubble, startTime, stopPlayTime]);
 
   useEffect(() => {
     if (lifesLeft <= 0) {
       stopPlayTime();
-      alert("you lost");
+      showSpeechBubble({
+        text: <>Oh well… chaos takes the crown!</>,
+      });
+      setTimeout(() => {
+        navigate(`game-over`);
+      }, 4000);
     }
-  }, [lifesLeft, stopPlayTime]);
+  }, [lifesLeft, navigate, showSpeechBubble, stopPlayTime]);
 
   return (
     <SpaceBackground className={styles.wrapper} type="gameplay" overlay={["black"]}>
@@ -96,11 +153,7 @@ export function Game() {
         <img src={banklingBackUrl} className={styles.bankling} />
         <div className={styles.robotContainer}>
           <img src={robotBackUrl} className={styles.robot} />
-          <SpeechBubble className={styles.speechBubble}>
-            Woohoo!
-            <br />
-            We made it!
-          </SpeechBubble>
+          {speechText && <SpeechBubble className={styles.speechBubble}>{speechText}</SpeechBubble>}
         </div>
       </div>
       <div className={styles.villan}></div>
