@@ -16,6 +16,7 @@ import { IS_MOCK } from "./consts";
 import GameVictory from "./flow/GameVictory.tsx";
 import { Presents } from "./flow/Presents.tsx";
 import { useEffect } from "react";
+import GameOver from "./flow/GameOver.tsx";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -70,7 +71,8 @@ const router = createHashRouter([
             Component: GameVictory,
           },
           {
-            path: "failure",
+            path: "game-over",
+            Component: GameOver,
           },
         ],
       },
