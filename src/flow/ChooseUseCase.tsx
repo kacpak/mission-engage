@@ -70,15 +70,16 @@ export function ChooseUseCase() {
         </ol>
       )}
       <div className={styles.useCases}>
-        {USE_CASES.map(({ title, description }, i) => (
-          <Slot key={i} className={styles.useCase}>
-            <div className={styles.title}>{title}</div>
-            <div className={styles.choice}>
-              {`s${i + 1}` === choice ? <OkIcon className={styles.tangible} /> : i + 1}
-            </div>
-            <div className={styles.description}>{description}</div>
-          </Slot>
-        ))}
+        {USE_CASES.map(({ title, description }, i) => {
+          const isSelected = `s${i + 1}` === choice;
+          return (
+            <Slot key={i} className={styles.useCase} type={isSelected ? "success" : "neutral"}>
+              <div className={styles.title}>{title}</div>
+              <div className={styles.choice}>{isSelected ? <OkIcon className={styles.tangible} /> : i + 1}</div>
+              <div className={styles.description}>{description}</div>
+            </Slot>
+          );
+        })}
         {!choice && (
           <>
             <Arrow className={styles.arrow} />
