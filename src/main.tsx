@@ -14,6 +14,7 @@ import GameIntro from "./flow/GameIntro.tsx";
 import { GameInstruction } from "./flow/GameInstruction.tsx";
 import { IS_MOCK } from "./consts.ts";
 import GameVictory from "./flow/GameVictory.tsx";
+import { Presents } from "./flow/Presents.tsx";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -28,6 +29,10 @@ const router = createHashRouter([
   {
     path: "title",
     Component: Title,
+  },
+  {
+    path: "presents",
+    Component: Presents,
   },
   {
     path: "howTo",

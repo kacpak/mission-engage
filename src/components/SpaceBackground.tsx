@@ -6,7 +6,7 @@ type SpaceBackgroundProps = {
   className?: string;
   contentClassName?: string;
   overlay?: ("black" | "blue")[];
-  type?: "gameplay" | "outside";
+  type?: "gameplay" | "outside" | "presents";
   children: ReactNode;
   ref?: Ref<HTMLDivElement>;
 };

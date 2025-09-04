@@ -14,6 +14,10 @@
     background-image: url("../assets/background-outside-gameplay.png");
   }
 
+  &[data-type="presents"] {
+    background-image: url("../assets/background-presents.png");
+  }
+
   &[data-overlay] {
     &:before,
     &:after {
