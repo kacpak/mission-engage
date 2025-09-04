@@ -170,7 +170,7 @@ export function Game() {
       </div>
       <div className={styles.workflow}>
         {workflow.map((tangible, i) => {
-          const tangibleUrl = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
+          const tangibleUrl = tangible ? tangibles[tangible as keyof typeof tangibles] : null;
           return (
             <Slot
               className={styles.tangibleSlot}
@@ -185,7 +185,15 @@ export function Game() {
                       : "neutral"
               }
             >
-              {tangibleUrl ? <img src={tangibleUrl} className={styles.tangibleIcon} /> : i + 1}
+              {tangible ? (
+                tangibleUrl ? (
+                  <img src={tangibleUrl} className={styles.tangibleIcon} />
+                ) : (
+                  <ImproperTangible />
+                )
+              ) : (
+                i + 1
+              )}
             </Slot>
           );
         })}
