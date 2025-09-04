@@ -12,7 +12,7 @@ import { GameCountdown } from "./flow/GameCountdown.tsx";
 import { Game } from "./flow/Game.tsx";
 import GameIntro from "./flow/GameIntro.tsx";
 import { GameInstruction } from "./flow/GameInstruction.tsx";
-import { IS_MOCK } from "./consts.ts";
+import { IS_MOCK } from "./consts";
 import GameVictory from "./flow/GameVictory.tsx";
 import { Presents } from "./flow/Presents.tsx";
 import { useEffect } from "react";

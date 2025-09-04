@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export const WHITEBOARD_WEBSOCKET_URL = localStorage.getItem("WS_URL") ?? "ws://localhost:8123";
 
 export const IS_MOCK = localStorage.getItem("MOCK") === "true";
@@ -24,11 +26,22 @@ export const USE_CASES = [
 export type UseCaseTitle = (typeof USE_CASES)[number]["title"];
 
 export const TANGIBLES = ["astronaut", "alien", "form-flow", "signature", "approval", "data-processing"] as const;
+export type WorkflowTangible = Exclude<(typeof TANGIBLES)[number], "alien" | "astronaut">;
 
-export const WINNING_ORDERS: Record<UseCaseTitle, (typeof TANGIBLES)[number][]> = {
+export const WINNING_ORDERS: Record<UseCaseTitle, WorkflowTangible[]> = {
   "Accept terms & conditions": ["data-processing", "form-flow", "signature", "data-processing"],
   "Account opening": ["form-flow", "signature", "approval", "data-processing"],
   "Self service": ["form-flow", "signature", "approval", "data-processing"],
+};
+
+export const TANGIBLES_HELP_TEXT: Record<WorkflowTangible, ReactNode> = {
+  approval:
+    "The Accept step allows users to either approve or decline the content or putput of a specific step in the workflow.",
+  signature:
+    "The signature step enables users to accept or reject the content or output of a step by providing a signature to it.",
+  "form-flow": "This form step enables users to fill out forms to collect structured input.",
+  "data-processing":
+    "The data processing step either sends data to an external system and waits for a response or receives it.",
 };
 
 export const MAX_LIFES = 3;

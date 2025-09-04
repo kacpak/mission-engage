@@ -1,7 +1,7 @@
 import styles from "./GameVictory.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import { useParams } from "react-router";
-import { type UseCaseTitle } from "../consts.ts";
+import { type UseCaseTitle } from "../consts";
 import { msToFormattedDuration } from "../utils.ts";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import robotFrontUrl from "../assets/robot-front.png?url";

@@ -7,7 +7,14 @@ import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useNavigate, useParams } from "react-router";
-import { MAX_LIFES, type TANGIBLES, type UseCaseTitle, WINNING_ORDERS } from "../consts.ts";
+import {
+  MAX_LIFES,
+  type TANGIBLES,
+  TANGIBLES_HELP_TEXT,
+  type UseCaseTitle,
+  WINNING_ORDERS,
+  type WorkflowTangible,
+} from "../consts";
 import { useWhiteboardState } from "../useWhiteboardState.ts";
 import type { ComponentType, ComponentProps } from "react";
 import TangibleForm from "../assets/tangible-form.svg?react";
@@ -54,15 +61,20 @@ const useSpeechBubble = () => {
   const [speechText, setSpeechText] = useState<ReactNode | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
 
-  const hideSpeechBubble = useCallback(() => {
+  const clearBubbleTimeout = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    setSpeechText(null);
   }, []);
+
+  const hideSpeechBubble = useCallback(() => {
+    clearBubbleTimeout();
+    setSpeechText(null);
+  }, [clearBubbleTimeout]);
 
   const showSpeechBubble = useCallback(
     ({ text, timeout }: { text: ReactNode; timeout?: number }) => {
+      clearBubbleTimeout();
       setSpeechText(text);
       if (timeout) {
         timeoutRef.current = setTimeout(() => {
@@ -70,16 +82,14 @@ const useSpeechBubble = () => {
         }, timeout);
       }
     },
-    [hideSpeechBubble],
+    [clearBubbleTimeout, hideSpeechBubble],
   );
 
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+      clearBubbleTimeout();
     };
-  }, []);
+  }, [clearBubbleTimeout]);
 
   return {
     speechText,
@@ -101,7 +111,16 @@ export function Game() {
   const [lifesLeft, setLifesLeft] = useState(MAX_LIFES);
   const { playTime, stopPlayTime } = usePlayTime(startTime);
   const navigate = useNavigate();
-  const { speechText, showSpeechBubble } = useSpeechBubble();
+  const { speechText, showSpeechBubble, hideSpeechBubble } = useSpeechBubble();
+  const helpTangible = useMemo(() => boardState?.s5 as WorkflowTangible | null, [boardState]);
+
+  useEffect(() => {
+    if (!helpTangible) {
+      hideSpeechBubble();
+    } else {
+      showSpeechBubble({ text: TANGIBLES_HELP_TEXT[helpTangible] });
+    }
+  }, [helpTangible, hideSpeechBubble, showSpeechBubble]);
 
   useEffect(() => {
     if (gameState === "error") {
@@ -128,7 +147,7 @@ export function Game() {
         ),
       });
       setTimeout(() => {
-        navigate(`victory/${new Date().getTime() - startTime.getTime()}`);
+        navigate(`victory/${new Date().getTime() - startTime.getTime()}`, { viewTransition: true });
       }, 4000);
     }
   }, [gameState, navigate, showSpeechBubble, startTime, stopPlayTime]);
@@ -140,7 +159,7 @@ export function Game() {
         text: <>Oh well… chaos takes the crown!</>,
       });
       setTimeout(() => {
-        navigate(`game-over`);
+        navigate(`game-over`, { viewTransition: true });
       }, 4000);
     }
   }, [lifesLeft, navigate, showSpeechBubble, stopPlayTime]);
@@ -157,14 +176,6 @@ export function Game() {
         </div>
         <div className={styles.playTime}>{playTime}</div>
       </div>
-      <div className={styles.heros}>
-        <img src={banklingBackUrl} className={styles.bankling} />
-        <div className={styles.robotContainer}>
-          <img src={robotBackUrl} className={styles.robot} />
-          {speechText && <SpeechBubble className={styles.speechBubble}>{speechText}</SpeechBubble>}
-        </div>
-      </div>
-      <div className={styles.villan}></div>
       <div className={styles.workflow}>
         {workflow.map((tangible, i) => {
           const TangibleIcon = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
@@ -188,6 +199,14 @@ export function Game() {
         })}
       </div>
       <div className={styles.useCase}>{useCase}</div>
+      <div className={styles.heros}>
+        <img src={banklingBackUrl} className={styles.bankling} />
+        <div className={styles.robotContainer}>
+          <img src={robotBackUrl} className={styles.robot} />
+          {speechText && <SpeechBubble className={styles.speechBubble}>{speechText}</SpeechBubble>}
+        </div>
+      </div>
+      <div className={styles.villan}></div>
     </SpaceBackground>
   );
 }
