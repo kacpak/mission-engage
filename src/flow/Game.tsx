@@ -7,16 +7,16 @@ import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useNavigate, useParams } from "react-router";
-import { MAX_LIFES, type TANGIBLES, USE_CASES, WINNING_ORDERS } from "../consts.ts";
+import { MAX_LIFES, type TANGIBLES, type UseCaseTitle, WINNING_ORDERS } from "../consts.ts";
 import { useWhiteboardState } from "../useWhiteboardState.ts";
 import type { ComponentType, ComponentProps } from "react";
-import TangibleSlot from "../components/TangibleSlot.tsx";
 import TangibleForm from "../assets/tangible-form.svg?react";
 import TangibleSign from "../assets/tangible-sign.svg?react";
 import TangibleDataProcessing from "../assets/tangible-data-processing.svg?react";
 import TangibleApproval from "../assets/tangible-approval.svg?react";
 import { isEqual } from "es-toolkit";
 import { msToFormattedDuration } from "../utils.ts";
+import { Slot } from "../components/Slot.tsx";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -51,7 +51,7 @@ export const ImproperTangible: FunctionComponent = () => "❌";
 
 export function Game() {
   const boardState = useWhiteboardState();
-  const { useCase } = useParams<{ useCase: (typeof USE_CASES)[number] }>();
+  const { useCase } = useParams<{ useCase: UseCaseTitle }>();
   const workflow = useMemo(() => [boardState?.s1, boardState?.s2, boardState?.s3, boardState?.s4], [boardState]);
   const gameState = useMemo(
     () =>
@@ -100,7 +100,8 @@ export function Game() {
         {workflow.map((tangible, i) => {
           const TangibleIcon = tangible ? (tangibles[tangible as keyof typeof tangibles] ?? ImproperTangible) : null;
           return (
-            <TangibleSlot
+            <Slot
+              className={styles.tangibleSlot}
               key={`${i}-${tangible}`}
               type={
                 gameState === "success"
@@ -113,7 +114,7 @@ export function Game() {
               }
             >
               {TangibleIcon ? <TangibleIcon className={styles.tangibleIcon} /> : i + 1}
-            </TangibleSlot>
+            </Slot>
           );
         })}
       </div>

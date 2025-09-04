@@ -2,10 +2,12 @@ import { useWhiteboardState } from "../useWhiteboardState.ts";
 import { useNavigate } from "react-router";
 import styles from "./ChooseUseCase.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import AstronautTangible from "../assets/astronaut-tangible.svg?react";
+import OkIcon from "../assets/ok-icon.svg?react";
+import robotFrontUrl from "../assets/robot-front.png?url";
 import Arrow from "../assets/arrow.svg?react";
 import { useEffect, useMemo, useState } from "react";
 import { USE_CASES } from "../consts.ts";
+import { Slot } from "../components/Slot.tsx";
 
 const useTimer = (choice: string | undefined) => {
   const [timeLeft, setTimeLeft] = useState<number | null>(0);
@@ -47,7 +49,7 @@ export function ChooseUseCase() {
 
   useEffect(() => {
     if (choice && typeof timeLeft === "number" && timeLeft <= 0) {
-      navigate(`/useCase/${USE_CASES[parseInt(choice.slice(1)) - 1]}/game`, { viewTransition: true });
+      navigate(`/useCase/${USE_CASES[parseInt(choice.slice(1)) - 1].title}/game`, { viewTransition: true });
     }
   }, [choice, navigate, timeLeft]);
 
@@ -68,20 +70,22 @@ export function ChooseUseCase() {
         </ol>
       )}
       <div className={styles.useCases}>
+        {USE_CASES.map(({ title, description }, i) => {
+          const isSelected = `s${i + 1}` === choice;
+          return (
+            <Slot key={i} className={styles.useCase} type={isSelected ? "success" : "neutral"}>
+              <div className={styles.title}>{title}</div>
+              <div className={styles.choice}>{isSelected ? <OkIcon className={styles.tangible} /> : i + 1}</div>
+              <div className={styles.description}>{description}</div>
+            </Slot>
+          );
+        })}
         {!choice && (
           <>
             <Arrow className={styles.arrow} />
-            <AstronautTangible className={styles.tangibleDummy} />
+            <img src={robotFrontUrl} alt="" className={styles.tangibleDummy} />
           </>
         )}
-        {USE_CASES.map((text, i) => (
-          <div key={i} className={styles.useCase}>
-            <div className={styles.box}>
-              {`s${i + 1}` === choice ? <AstronautTangible className={styles.tangible} /> : i + 1}
-            </div>
-            <p>{text}</p>
-          </div>
-        ))}
       </div>
     </SpaceBackground>
   );
