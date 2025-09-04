@@ -1,0 +1,48 @@
+.wrapper {
+  position: relative;
+}
+
+.bubble {
+  --pixel: calc(13 / 1440 * 100cqh);
+  background: #fff;
+  width: max-content;
+  padding: calc(3 * var(--pixel));
+  clip-path: polygon(
+    /* top left*/ calc(2 * var(--pixel)) 0,
+    calc(2 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(2 * var(--pixel)),
+    0% calc(2 * var(--pixel)),
+    /* bottom left */ 0% calc(100% - 2 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+    calc(1 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(2 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(2 * var(--pixel)) 100%,
+    /* bottom right */ calc(100% - 2 * var(--pixel)) 100%,
+    calc(100% - 2 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(100% - 1 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(100% - 2 * var(--pixel)),
+    100% calc(100% - 2 * var(--pixel)),
+    /* top right */ 100% calc(2 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(2 * var(--pixel)),
+    calc(100% - 1 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(100% - 2 * var(--pixel)) calc(1 * var(--pixel)),
+    calc(100% - 2 * var(--pixel)) 0%
+  );
+
+  color: #050321;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: calc(60 / 1440 * 100cqh);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.tail {
+  position: absolute;
+  width: calc(103 / 1440 * 100cqh);
+  height: calc(51 / 1440 * 100cqh);
+  bottom: calc(-25 / 1440 * 100cqh);
+  left: calc(-42 / 1440 * 100cqh);
+}

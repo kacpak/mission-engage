@@ -1,5 +1,5 @@
 .slot {
-  --pixel: calc(11.365 / 1440 * 100cqh);
+  --pixel: calc(13 / 1440 * 100cqh);
   --background: #232140;
   background: var(--border-color);
   position: relative;

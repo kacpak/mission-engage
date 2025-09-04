@@ -17,6 +17,7 @@ import TangibleApproval from "../assets/tangible-approval.svg?react";
 import { isEqual } from "es-toolkit";
 import { msToFormattedDuration } from "../utils.ts";
 import { Slot } from "../components/Slot.tsx";
+import { SpeechBubble } from "../components/SpeechBubble.tsx";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -93,7 +94,14 @@ export function Game() {
       </div>
       <div className={styles.heros}>
         <img src={banklingBackUrl} className={styles.bankling} />
-        <img src={robotBackUrl} className={styles.robot} />
+        <div className={styles.robotContainer}>
+          <img src={robotBackUrl} className={styles.robot} />
+          <SpeechBubble className={styles.speechBubble}>
+            Woohoo!
+            <br />
+            We made it!
+          </SpeechBubble>
+        </div>
       </div>
       <div className={styles.villan}></div>
       <div className={styles.workflow}>

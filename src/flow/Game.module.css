@@ -87,13 +87,22 @@
   aspect-ratio: 19/21;
 }
 
+.robot-container {
+  position: absolute;
+  bottom: -10.97222222cqh;
+  left: 31.73611111cqh;
+}
+
 .robot {
   width: auto;
   height: 38.68055556cqh;
   aspect-ratio: 185/277;
+}
+
+.speech-bubble.speech-bubble {
   position: absolute;
-  bottom: -10.97222222cqh;
-  left: 31.73611111cqh;
+  bottom: calc(400 / 1440 * 100cqh);
+  left: calc(100% + 3cqh);
 }
 
 .use-case {
