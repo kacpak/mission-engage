@@ -3,8 +3,7 @@
   --background: #232140;
   background: var(--border-color);
   position: relative;
-  isolation: isolate;
-  padding: calc(2 * var(--pixel));
+  padding: calc(3 * var(--pixel)) calc(2 * var(--pixel));
   clip-path: polygon(
     /* top left*/ calc(2 * var(--pixel)) 0,
     calc(2 * var(--pixel)) calc(1 * var(--pixel)),
@@ -29,20 +28,6 @@
   );
 
   color: #fff;
-  text-align: center;
-  font-family: var(--pixel-font-family);
-  font-size: 10.41666667cqh;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1;
-
-  display: grid;
-  place-items: center;
-
-  > * {
-    grid-column: 1;
-    grid-row: 1;
-  }
 
   &[data-type="neutral"] {
     --border-color: #822ff3;

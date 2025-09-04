@@ -11,16 +11,19 @@
     margin: 0;
     color: #fff;
     text-align: center;
-    font-size: 6cqh;
+    font-family: var(--pixel-font-family);
+    font-size: calc(100 / 1440 * 100cqh);
     font-style: normal;
     font-weight: 500;
-    line-height: 74.627%;
+    line-height: 50%;
   }
 
   ol {
     margin: 0;
+    width: fit-content;
+    align-self: center;
     color: #fff;
-    font-size: 4.6cqh;
+    font-size: calc(50 / 1440 * 100cqh);
     font-style: normal;
     font-weight: 400;
     line-height: 134%;
@@ -29,52 +32,55 @@
 
 .use-cases {
   display: grid;
+  grid-template-columns: repeat(3, calc(420 / 1440 * 100cqh));
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: calc(60 / 1440 * 100cqh);
   justify-content: center;
-  grid-template-columns: repeat(3, min-content);
-  gap: 7cqh;
-  justify-items: center;
   position: relative;
 }
 
 .use-case {
-  display: flex;
-  flex-direction: column;
-  gap: 3cqh;
-
-  p {
-    margin: 0;
-    color: #fff;
-    text-align: center;
-    font-size: 2.7cqh;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 133.333%;
-  }
-}
-
-.box {
   display: grid;
-  place-items: center;
-  width: 18.5cqh;
-  height: 18.5cqh;
-  border-radius: 2cqh;
-  background: #fff;
-  color: #131338;
-
-  font-size: 4cqh;
+  align-items: center;
+  grid-row: 1 / -1;
+  grid-template-rows: subgrid;
+  gap: calc(41 / 1440 * 100cqh);
+  text-align: center;
+  font-size: calc(24 / 1440 * 100cqh);
   font-style: normal;
   font-weight: 400;
-  line-height: 125%;
+  line-height: 145.833%;
+}
+
+.title {
+  font-size: calc(50 / 1440 * 100cqh);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.choice {
+  color: #fff;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: calc(150 / 1440 * 100cqh);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 133.333%;
+}
+
+.description {
 }
 
 .tangible-dummy {
   position: absolute;
   width: 13cqh;
   height: auto;
-  left: -5cqh;
-  top: 2cqh;
+  right: calc(100% - calc(-35 / 1440 * 100cqh));
+  top: calc(223 / 1440 * 100cqh);
   animation: move 1s ease-in-out 0s infinite alternate;
   view-transition-name: tangible;
+  scale: -1 1;
 }
 
 .tangible-dummy,
@@ -84,14 +90,14 @@
 
 @keyframes move {
   to {
-    transform: translateX(5cqh);
+    transform: translateX(3cqh);
   }
 }
 
 .arrow {
   position: absolute;
-  left: 7cqh;
-  top: 6cqh;
+  right: calc(100% - calc(90 / 1440 * 100cqh));
+  top: calc(325 / 1440 * 100cqh);
   width: 15cqh;
   height: auto;
 }

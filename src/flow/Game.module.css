@@ -142,6 +142,15 @@
 .tangible-slot {
   width: calc(250 / 1440 * 100cqh);
   height: calc(250 / 1440 * 100cqh);
+  display: grid;
+  place-items: center;
+
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: 10.41666667cqh;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .tangible-icon {

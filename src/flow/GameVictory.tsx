@@ -1,14 +1,14 @@
 import styles from "./GameVictory.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import { useParams } from "react-router";
-import { USE_CASES } from "../consts.ts";
+import { type UseCaseTitle } from "../consts.ts";
 import { msToFormattedDuration } from "../utils.ts";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import robotFrontUrl from "../assets/robot-front.png?url";
 import banklingFrontUrl from "../assets/bankling-front.png?url";
 
 export default function GameVictory() {
-  const { useCase, durationInMs } = useParams<{ useCase: (typeof USE_CASES)[number]; durationInMs: string }>();
+  const { useCase, durationInMs } = useParams<{ useCase: UseCaseTitle; durationInMs: string }>();
 
   return (
     <SpaceBackground type="gameplay">

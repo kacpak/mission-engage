@@ -10,8 +10,8 @@ type SlotProps = {
 
 export function Slot({ className, type = "neutral", children }: SlotProps) {
   return (
-    <div className={classNames(className, styles.slot)} data-type={type}>
-      <div className={styles.child}>{children}</div>
+    <div className={classNames(styles.slot, className)} data-type={type}>
+      {children}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import HeartEmpty from "../assets/heart_empty.svg?react";
 import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useNavigate, useParams } from "react-router";
-import { MAX_LIFES, type TANGIBLES, USE_CASES, WINNING_ORDERS } from "../consts.ts";
+import { MAX_LIFES, type TANGIBLES, type UseCaseTitle, WINNING_ORDERS } from "../consts.ts";
 import { useWhiteboardState } from "../useWhiteboardState.ts";
 import type { ComponentType, ComponentProps } from "react";
 import TangibleForm from "../assets/tangible-form.svg?react";
@@ -51,7 +51,7 @@ export const ImproperTangible: FunctionComponent = () => "❌";
 
 export function Game() {
   const boardState = useWhiteboardState();
-  const { useCase } = useParams<{ useCase: (typeof USE_CASES)[number] }>();
+  const { useCase } = useParams<{ useCase: UseCaseTitle }>();
   const workflow = useMemo(() => [boardState?.s1, boardState?.s2, boardState?.s3, boardState?.s4], [boardState]);
   const gameState = useMemo(
     () =>
