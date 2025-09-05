@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import styles from "./ChooseUseCase.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import OkIcon from "../assets/ok-icon.svg?react";
-import robotFrontUrl from "../assets/robot-front.png?url";
+import RobotFront from "../assets/robot-front.svg?react";
 import Arrow from "../assets/arrow.svg?react";
 import { useEffect, useMemo, useState } from "react";
 import { USE_CASES } from "../consts";
@@ -84,7 +84,7 @@ export function ChooseUseCase() {
         {!choice && (
           <>
             <Arrow className={styles.arrow} />
-            <img src={robotFrontUrl} alt="" className={styles.tangibleDummy} />
+            <RobotFront className={styles.tangibleDummy} />
           </>
         )}
       </div>

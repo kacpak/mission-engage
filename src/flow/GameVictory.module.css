@@ -44,8 +44,8 @@
   aspect-ratio: 2/3;
 
   position: absolute;
-  left: calc(163 / 1440 * 100cqh);
-  bottom: calc(-25 / 1440 * 100cqh);
+  left: calc(172 / 1440 * 100cqh);
+  bottom: calc(106 / 1440 * 100cqh);
 }
 
 .bankling {
@@ -54,6 +54,6 @@
   aspect-ratio: 47/70;
 
   position: absolute;
-  right: calc(54 / 1440 * 100cqh);
-  bottom: calc(47 / 1440 * 100cqh);
+  right: calc(94 / 1440 * 100cqh);
+  bottom: calc(80 / 1440 * 100cqh);
 }

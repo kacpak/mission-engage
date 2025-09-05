@@ -4,8 +4,8 @@ import { type FunctionComponent, type ReactNode, useCallback, useEffect, useMemo
 import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
-import banklingBackUrl from "../assets/bankling-back.png?url";
-import robotBackUrl from "../assets/robot-back.png?url";
+import BanklingBack from "../assets/bankling-back.svg?react";
+import RobotBack from "../assets/robot-back.svg?react";
 import { useNavigate, useParams } from "react-router";
 import { MAX_LIFES, TANGIBLES_HELP_TEXT, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts";
 import { useBoardState } from "../useBoardState.ts";
@@ -202,9 +202,9 @@ export function Game() {
       </div>
       <div className={styles.useCase}>{useCase}</div>
       <div className={styles.heros}>
-        <img src={banklingBackUrl} className={styles.bankling} />
+        <BanklingBack className={styles.bankling} />
         <div className={styles.robotContainer}>
-          <img src={robotBackUrl} className={styles.robot} />
+          <RobotBack className={styles.robot} />
           {speechText && <SpeechBubble className={styles.speechBubble}>{speechText}</SpeechBubble>}
         </div>
       </div>

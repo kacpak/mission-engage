@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
 import styles from "./Title.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import robotFrontUrl from "../assets/robot-front.png?url";
-import banklingFrontUrl from "../assets/bankling-front.png?url";
+import RobotFront from "../assets/robot-front.svg?react";
+import BanklingFront from "../assets/bankling-front.svg?react";
 import { useEffect } from "react";
 
 export function Title() {
@@ -29,8 +29,8 @@ export function Title() {
         </header>
       </div>
       <div className={styles.characters}>
-        <img src={robotFrontUrl} className={styles.robot} />
-        <img src={banklingFrontUrl} className={styles.bankling} />
+        <RobotFront className={styles.robot} />
+        <BanklingFront className={styles.bankling} />
       </div>
     </SpaceBackground>
   );

@@ -68,18 +68,21 @@
 
 .robot {
   position: absolute;
-  left: 57.77777778cqh;
-  aspect-ratio: 2 / 3;
-  height: 50.06944444cqh;
-  bottom: -3cqh;
+  right: calc(628 / 1440 * 100cqh);
+  bottom: calc(108 / 1440 * 100cqh);
+  width: auto;
+  height: calc(502 / 1440 * 100cqh);
+  aspect-ratio: 431/502;
 }
 
 .bankling {
   position: absolute;
-  right: 0;
-  aspect-ratio: 47/70;
-  height: 66.59722222cqh;
-  bottom: 4cqh;
+  right: calc(36 / 1440 * 100cqh);
+  bottom: calc(103 / 1440 * 100cqh);
+  width: auto;
+  height: calc(882 / 1440 * 100cqh);
+  aspect-ratio: 541/882;
+  scale: -1 1;
 }
 
 .characters {

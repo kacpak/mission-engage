@@ -74,7 +74,7 @@
 
 .tangible-dummy {
   position: absolute;
-  width: 13cqh;
+  width: calc(193 / 1440 * 100cqh);
   height: auto;
   right: calc(100% - calc(-35 / 1440 * 100cqh));
   top: calc(223 / 1440 * 100cqh);
