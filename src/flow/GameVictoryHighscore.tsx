@@ -1,15 +1,14 @@
-import styles from "./GameVictory.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
-export default function GameOver() {
+export default function GameVictoryHighscore() {
   const navigate = useNavigate();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate("cleanup", { viewTransition: true, replace: false });
-    }, 8_000);
+      navigate("/", { viewTransition: true, replace: false });
+    }, 15_000);
 
     return () => {
       clearTimeout(timeout);
@@ -18,10 +17,7 @@ export default function GameOver() {
 
   return (
     <SpaceBackground type="gameplay">
-      <div className={styles.content}>
-        <div className={styles.title}>Too bad!</div>
-        <div className={styles.text}>Maybe next time...</div>
-      </div>
+      Here we will display highscore list after we implement a server :) In 15s you'll be redirected to looping trailer
     </SpaceBackground>
   );
 }

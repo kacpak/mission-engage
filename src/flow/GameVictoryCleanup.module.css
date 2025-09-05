@@ -1,0 +1,27 @@
+.wrapper {
+  color: #fff;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+
+  font-size: calc(67 / 1440 * 100cqh);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 129.851%;
+  max-width: calc(1420 / 1440 * 100cqh);
+}
+
+.text {
+  margin-bottom: calc(69 / 1440 * 100cqh);
+}
+
+.your-time-label {
+  margin-bottom: calc(30 / 1440 * 100cqh);
+}
+
+.your-time {
+  color: #57cc99;
+  font-size: calc(120 / 1440 * 100cqh);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 72.5%;
+}
