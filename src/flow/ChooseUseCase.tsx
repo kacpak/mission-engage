@@ -1,4 +1,4 @@
-import { useWhiteboardState } from "../useWhiteboardState.ts";
+import { useBoardState } from "../useBoardState.ts";
 import { useNavigate } from "react-router";
 import styles from "./ChooseUseCase.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
@@ -39,7 +39,7 @@ const useTimer = (choice: string | undefined) => {
 };
 
 export function ChooseUseCase() {
-  const state = useWhiteboardState();
+  const state = useBoardState();
   const navigate = useNavigate();
 
   const choice = Object.entries(state ?? {}).find(

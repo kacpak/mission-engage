@@ -6,7 +6,7 @@ import { createHashRouter, RouterProvider } from "react-router";
 import { Trailer } from "./flow/Trailer.tsx";
 import { Title } from "./flow/Title.tsx";
 import { HowTo } from "./flow/HowTo.tsx";
-import { useWhiteboardState } from "./useWhiteboardState.ts";
+import { useBoardState } from "./useBoardState.ts";
 import { ChooseUseCase } from "./flow/ChooseUseCase.tsx";
 import { GameCountdown } from "./flow/GameCountdown.tsx";
 import { Game } from "./flow/Game.tsx";
@@ -81,7 +81,7 @@ const router = createHashRouter([
 ]);
 
 export function App() {
-  const state = useWhiteboardState();
+  const state = useBoardState();
 
   useEffect(() => {
     if (state?.s1 === "alien") {

@@ -1,11 +1,11 @@
-import { useWhiteboardState } from "../useWhiteboardState.ts";
+import { useBoardState } from "../useBoardState.ts";
 import { useNavigate } from "react-router";
 import { useUpdateEffect, usePrevious } from "@reactuses/core";
 import styles from "./Trailer.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 
 export function Trailer() {
-  const state = useWhiteboardState();
+  const state = useBoardState();
   const navigate = useNavigate();
   const previousState = usePrevious(state);
 

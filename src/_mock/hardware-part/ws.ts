@@ -1,7 +1,7 @@
 import { setupWorker } from "msw/browser";
 import { ws } from "msw";
 import { WHITEBOARD_WEBSOCKET_URL } from "../../consts";
-import type { WhiteBoardStateMessage } from "../../useWhiteboardState";
+import type { WhiteBoardStateMessage } from "../../useBoardState.ts";
 
 const whiteboard = ws.link(WHITEBOARD_WEBSOCKET_URL);
 

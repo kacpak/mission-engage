@@ -2,10 +2,10 @@ import styles from "./GameInstruction.module.css";
 import { useEffect } from "react";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import { useNavigate } from "react-router";
-import { useWhiteboardState } from "../useWhiteboardState.ts";
+import { useBoardState } from "../useBoardState.ts";
 
 export function GameInstruction() {
-  const state = useWhiteboardState();
+  const state = useBoardState();
   const navigate = useNavigate();
   useEffect(() => {
     if (state && Object.values(state).every((s) => !s)) {

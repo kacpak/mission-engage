@@ -1,4 +1,4 @@
-import { useWhiteboardState } from "../useWhiteboardState.ts";
+import { useBoardState } from "../useBoardState.ts";
 import { useNavigate } from "react-router";
 import { useUpdateEffect, usePrevious } from "@reactuses/core";
 import type { CSSProperties } from "react";
@@ -9,7 +9,7 @@ import ControlsImage from "../assets/controls.svg?react";
 import HelpImage from "../assets/help.svg?react";
 
 export function HowTo() {
-  const state = useWhiteboardState();
+  const state = useBoardState();
   const navigate = useNavigate();
   const previousState = usePrevious(state);
 

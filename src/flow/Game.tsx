@@ -8,7 +8,7 @@ import banklingBackUrl from "../assets/bankling-back.png?url";
 import robotBackUrl from "../assets/robot-back.png?url";
 import { useNavigate, useParams } from "react-router";
 import { MAX_LIFES, TANGIBLES_HELP_TEXT, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts";
-import { useWhiteboardState } from "../useWhiteboardState.ts";
+import { useBoardState, useSendToBoard } from "../useBoardState.ts";
 import tangibleFormUrl from "../assets/tangible-form.png?url";
 import tangibleSignUrl from "../assets/tangible-sign.png?url";
 import tangibleDataProcessingUrl from "../assets/tangible-data-processing.png?url";
@@ -91,7 +91,8 @@ const useSpeechBubble = () => {
 };
 
 export function Game() {
-  const boardState = useWhiteboardState();
+  const boardState = useBoardState();
+  const sendMessage = useSendToBoard();
   const { useCase } = useParams<{ useCase: UseCaseTitle }>();
   const workflow = useMemo(() => [boardState?.s1, boardState?.s2, boardState?.s3, boardState?.s4], [boardState]);
   const gameState = useMemo(
@@ -129,6 +130,7 @@ export function Game() {
       });
     } else if (gameState === "success") {
       stopPlayTime();
+      sendMessage("blink");
       showSpeechBubble({
         text: (
           <>
@@ -142,7 +144,7 @@ export function Game() {
         navigate(`victory/${new Date().getTime() - startTime.getTime()}`, { viewTransition: true });
       }, 4000);
     }
-  }, [gameState, navigate, showSpeechBubble, startTime, stopPlayTime]);
+  }, [gameState, navigate, sendMessage, showSpeechBubble, startTime, stopPlayTime]);
 
   useEffect(() => {
     if (lifesLeft <= 0) {
