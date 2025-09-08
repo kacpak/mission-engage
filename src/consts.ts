@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export const DB_FILENAME = "file:mission-engage.db";
+export const DB_FILENAME = "mission-engage.db";
 
 export const USE_CASES = [
   {

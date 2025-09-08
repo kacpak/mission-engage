@@ -1,5 +1,4 @@
-import "dotenv/config";
-import { drizzle } from "drizzle-orm/libsql";
+import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as schema from "./db/schema";
 import { desc, eq, sql, getTableColumns, or, lte, asc } from "drizzle-orm";
 import { DB_FILENAME, type UseCaseTitle } from "../consts.ts";

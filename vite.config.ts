@@ -47,6 +47,12 @@ export default defineConfig(({ mode }) =>
             entry: "./src/server/index.ts",
           }),
         ],
+        build: {
+          target: "node22",
+          rollupOptions: {
+            external: /node_modules/,
+          },
+        },
         server: {
           port: 3000,
         },

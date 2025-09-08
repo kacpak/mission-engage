@@ -2,14 +2,14 @@ import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import path from "node:path";
 import { addNewScore, db, getHighScores, updateScore } from "./db.ts";
-import { migrate } from "drizzle-orm/libsql/migrator";
+import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { zValidator as validator } from "@hono/zod-validator";
 import * as z from "zod";
 import { USE_CASES } from "../consts.ts";
 import { logger } from "hono/logger";
 
 console.log("Migrating database...");
-await migrate(db, { migrationsFolder: "./drizzle" });
+migrate(db, { migrationsFolder: "./drizzle" });
 console.log("✅ Migrated database.");
 
 const app = new Hono();
