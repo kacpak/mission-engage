@@ -2,26 +2,52 @@ import path from "node:path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import svgr from "vite-plugin-svgr";
+import hono from "@hono/vite-build/node";
+import honoDevServer from "@hono/vite-dev-server";
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: "./",
-  build: {
-    rollupOptions: {
-      input: {
-        main: path.resolve(import.meta.dirname, "index.html"),
-        mock: path.resolve(import.meta.dirname, "mock-index.html"),
+export default defineConfig(({ mode }) =>
+  mode === "client"
+    ? {
+        base: "./",
+        build: {
+          rollupOptions: {
+            input: {
+              main: path.resolve(import.meta.dirname, "index.html"),
+              mock: path.resolve(import.meta.dirname, "mock-index.html"),
+            },
+            output: {
+              dir: "./dist/static",
+            },
+          },
+        },
+        css: {
+          modules: {
+            localsConvention: "camelCase",
+          },
+        },
+        plugins: [react(), svgr()],
+        preview: {
+          host: true,
+          allowedHosts: ["mateuszkubu.coconet.pl", "mateuszkmbp.coconet.pl"],
+        },
+        server: {
+          proxy: {
+            "/api": "http://localhost:3000",
+          },
+        },
+      }
+    : {
+        plugins: [
+          hono({
+            entry: "./src/server.ts",
+          }),
+          honoDevServer({
+            entry: "./src/server.ts",
+          }),
+        ],
+        server: {
+          port: 3000,
+        },
       },
-    },
-  },
-  css: {
-    modules: {
-      localsConvention: "camelCase",
-    },
-  },
-  plugins: [react(), svgr()],
-  preview: {
-    host: true,
-    allowedHosts: ["mateuszkubu.coconet.pl", "mateuszkmbp.coconet.pl"],
-  },
-});
+);
