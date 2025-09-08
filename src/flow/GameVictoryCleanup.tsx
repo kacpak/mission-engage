@@ -30,9 +30,7 @@ export default function GameVictoryCleanup() {
 
   return (
     <SpaceBackground type="gameplay" contentClassName={styles.wrapper}>
-      <div className={styles.text}>
-        Please please clear the playing area and register your time with a sales person!
-      </div>
+      <div className={styles.text}>Please clear the playing area and register your time with a sales person!</div>
       <div className={styles.yourTimeLabel}>Your time</div>
       <div className={styles.yourTime}>{msToFormattedDuration(parseInt(durationInMs!))}</div>
     </SpaceBackground>

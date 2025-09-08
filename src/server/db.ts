@@ -28,7 +28,7 @@ export const getHighScores = async ({ id, useCase }: { id: number; useCase: UseC
     .with(rankedScores)
     .select()
     .from(rankedScores)
-    .where(or(lte(sql`rank`, 10), eq(sql`rank`, id)))
+    .where(or(lte(sql`rank`, 10), eq(rankedScores.id, id)))
     .orderBy(asc(sql`rank`))
     .limit(11);
 };
