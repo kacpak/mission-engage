@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 
-export const WHITEBOARD_WEBSOCKET_URL = localStorage.getItem("WS_URL") ?? "ws://localhost:8123";
-
-export const IS_MOCK = localStorage.getItem("MOCK") === "true";
+export const DB_FILENAME = "file:mission-engage.db";
 
 export const USE_CASES = [
   {
@@ -22,7 +20,6 @@ export const USE_CASES = [
       "A workflow that sends an automatically initiated request to obtain consent for updated terms and conditions.",
   },
 ] as const;
-
 export type UseCaseTitle = (typeof USE_CASES)[number]["title"];
 
 export const TANGIBLES = ["astronaut", "alien", "form-flow", "signature", "approval", "data-processing"] as const;

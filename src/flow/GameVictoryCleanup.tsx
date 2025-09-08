@@ -6,13 +6,13 @@ import { useCallback, useEffect } from "react";
 import styles from "./GameVictoryCleanup.module.css";
 
 export default function GameVictoryCleanup() {
-  const { durationInMs } = useParams<{ durationInMs: string }>();
+  const { id, durationInMs } = useParams<{ durationInMs: string; id: string }>();
   const boardState = useBoardState();
   const navigate = useNavigate();
 
   const goToHighscore = useCallback(
-    () => navigate("../highscore", { viewTransition: true, replace: false }),
-    [navigate],
+    () => navigate(`../${id}/highscore`, { viewTransition: true, replace: false }),
+    [id, navigate],
   );
 
   useEffect(() => {

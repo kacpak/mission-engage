@@ -12,7 +12,6 @@ import { GameCountdown } from "./flow/GameCountdown.tsx";
 import { Game } from "./flow/Game.tsx";
 import GameIntro from "./flow/GameIntro.tsx";
 import { GameInstruction } from "./flow/GameInstruction.tsx";
-import { IS_MOCK } from "./consts";
 import GameVictory from "./flow/GameVictory.tsx";
 import { Presents } from "./flow/Presents.tsx";
 import { useEffect } from "react";
@@ -20,6 +19,8 @@ import GameOver from "./flow/GameOver.tsx";
 import GameVictoryCleanup from "./flow/GameVictoryCleanup.tsx";
 import GameOverCleanup from "./flow/GameOverCleanup.tsx";
 import GameVictoryHighscore from "./flow/GameVictoryHighscore.tsx";
+import { IS_MOCK } from "./consts.client.ts";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -77,11 +78,11 @@ const router = createHashRouter([
                 Component: GameVictory,
               },
               {
-                path: "register-and-cleanup",
+                path: ":id/register-and-cleanup",
                 Component: GameVictoryCleanup,
               },
               {
-                path: "highscore",
+                path: ":id/highscore",
                 Component: GameVictoryHighscore,
               },
             ],
@@ -102,6 +103,8 @@ const router = createHashRouter([
   },
 ]);
 
+export const queryClient = new QueryClient();
+
 export function App() {
   const state = useBoardState();
 
@@ -116,9 +119,9 @@ export function App() {
   }, [state]);
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-    </>
+    </QueryClientProvider>
   );
 }
 

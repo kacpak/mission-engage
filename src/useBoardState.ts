@@ -1,6 +1,6 @@
 import useWebSocket from "react-use-websocket";
-import { WHITEBOARD_WEBSOCKET_URL } from "./consts";
 import * as v from "valibot";
+import { WHITEBOARD_WEBSOCKET_URL } from "./consts.client.ts";
 
 const tangibleOrNull = v.nullable(v.string());
 

@@ -3,7 +3,7 @@ import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 import { Draggable } from "./Draggable";
 import { Droppable } from "./Dropable";
 import styles from "./Playground.module.css";
-import { TANGIBLES } from "../../consts";
+import { TANGIBLES } from "../../consts.ts";
 import { useUpdateEffect } from "@reactuses/core";
 
 const FIELDS = ["flow-1", "flow-2", "flow-3", "flow-4", "help"] as const;

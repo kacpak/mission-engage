@@ -6,7 +6,7 @@ import OkIcon from "../assets/ok-icon.svg?react";
 import RobotFront from "../assets/robot-front.svg?react";
 import Arrow from "../assets/arrow.svg?react";
 import { useEffect, useMemo, useState } from "react";
-import { USE_CASES } from "../consts";
+import { USE_CASES } from "../consts.ts";
 import { Slot } from "../components/Slot.tsx";
 
 const useTimer = (choice: string | undefined) => {
