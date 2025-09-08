@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) =>
         plugins: [
           hono({
             entry: "./src/server/index.ts",
-            port: 4000
+            port: 4123,
           }),
           honoDevServer({
             entry: "./src/server/index.ts",
@@ -55,7 +55,7 @@ export default defineConfig(({ mode }) =>
           },
         },
         server: {
-          port: 4000,
+          port: 3000,
         },
       },
 );
