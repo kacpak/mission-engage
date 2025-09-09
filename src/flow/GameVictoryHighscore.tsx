@@ -47,7 +47,7 @@ export default function GameVictoryHighscore() {
       <ul className={styles.list}>
         {data?.map(({ rank, id: myId, playTimeInMs, name }) => {
           const isMe = parseInt(id!, 10) === myId;
-          const playerName = name ?? `Player ${myId}`;
+          const playerName = name || `Player ${myId}`;
           return (
             <li key={id} className={styles.listItem} data-is-me={isMe}>
               <div className={styles.rank}>{rank}</div>

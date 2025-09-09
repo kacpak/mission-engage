@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import path from "node:path";
-import { addNewScore, db, getHighScores, updateScore } from "./db.ts";
+import { addNewScore, db, getAllScores, getHighScores, updateScore } from "./db.ts";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { zValidator as validator } from "@hono/zod-validator";
 import * as z from "zod";
@@ -31,11 +31,24 @@ const useCaseAndIdValidator = validator(
     id: z.coerce.number(),
   }),
 );
+
+const idValidator = validator(
+  "param",
+  z.object({
+    id: z.coerce.number(),
+  }),
+);
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const route = app
   .get("/api/highscore/:useCase/:id", useCaseAndIdValidator, async (c) => {
     const { id, useCase } = c.req.valid("param");
     const scores = await getHighScores({ useCase, id });
+    return c.json(scores);
+  })
+  .get("/api/all-scores/:useCase", useCaseValidator, async (c) => {
+    const { useCase } = c.req.valid("param");
+    const scores = await getAllScores({ useCase });
     return c.json(scores);
   })
   .post(
@@ -54,8 +67,8 @@ const route = app
     },
   )
   .put(
-    "/api/highscore/:useCase/:id",
-    useCaseAndIdValidator,
+    "/api/highscore/:id",
+    idValidator,
     validator(
       "json",
       z.object({
