@@ -41,6 +41,12 @@ export default function Dashboard() {
           </button>
         ))}
       </div>
+      <hr />
+      <div>
+        <a href={`api/export/${useCase}`} download>
+          Export entries with email
+        </a>
+      </div>
       <div className={styles.table}>
         <div className={classNames(styles.row, styles.headerRow)}>
           <div>ID</div>

@@ -1,12 +1,13 @@
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import path from "node:path";
-import { addNewScore, db, getAllScores, getHighScores, updateScore } from "./db.ts";
+import { addNewScore, db, getAllScores, getHighScores, getHighScoresForExport, updateScore } from "./db.ts";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { zValidator as validator } from "@hono/zod-validator";
 import * as z from "zod";
 import { USE_CASES } from "../consts.ts";
 import { logger } from "hono/logger";
+import Papa from "papaparse";
 
 console.log("Migrating database...");
 migrate(db, { migrationsFolder: "./drizzle" });
@@ -89,6 +90,14 @@ const route = app
       return c.json(updatedScore);
     },
   );
+
+app.get("/api/export/:useCase", useCaseValidator, async (c) => {
+  const { useCase } = c.req.valid("param");
+  const data = await getHighScoresForExport({ useCase });
+  const csv = Papa.unparse(data);
+  c.header("Content-Disposition", `attachment; filename=${useCase} scores.csv`);
+  return c.body(csv);
+});
 
 export type AppType = typeof route;
 

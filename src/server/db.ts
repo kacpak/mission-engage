@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/better-sqlite3";
 import * as schema from "./db/schema";
-import { desc, eq, sql, getTableColumns, or, lte, asc } from "drizzle-orm";
+import { desc, eq, sql, getTableColumns, or, lte, asc, and, isNotNull } from "drizzle-orm";
 import { DB_FILENAME, type UseCaseTitle } from "../consts.ts";
 
 export const db = drizzle({ connection: DB_FILENAME, schema });
@@ -55,4 +55,15 @@ export const updateScore = async ({
   notes?: string;
 }) => {
   return db.update(schema.scores).set({ name, email, notes }).where(eq(schema.scores.id, id)).returning();
+};
+
+export const getHighScoresForExport = async ({ useCase }: { useCase: UseCaseTitle }) => {
+  return db
+    .select({
+      ...getTableColumns(schema.scores),
+      rank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${schema.scores.playTimeInMs} ASC)`.as("rank"),
+    })
+    .from(schema.scores)
+    .where(and(eq(schema.scores.useCase, useCase), isNotNull(schema.scores.email)))
+    .orderBy(asc(sql`rank`));
 };
