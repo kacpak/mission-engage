@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) =>
             input: {
               main: path.resolve(import.meta.dirname, "index.html"),
               mock: path.resolve(import.meta.dirname, "mock-index.html"),
+              admin: path.resolve(import.meta.dirname, "admin.html"),
             },
             output: {
               dir: "./dist/static",
