@@ -169,3 +169,21 @@
   aspect-ratio: 328/367;
   display: block;
 }
+
+.villan {
+  position: absolute;
+  top: calc(143 / 1440 * 100cqh);
+  right: calc(199 / 1440 * 100cqh);
+  width: calc(630 / 1440 * 100cqh);
+  height: calc(826 / 1440 * 100cqh);
+  aspect-ratio: 45/59;
+}
+
+.villan-hand {
+  position: absolute;
+  top: calc(460 / 1440 * 100cqh);
+  right: calc(260 / 1440 * 100cqh);
+  width: calc(175 / 1440 * 100cqh);
+  height: calc(192 / 1440 * 100cqh);
+  aspect-ratio: 72/79;
+}

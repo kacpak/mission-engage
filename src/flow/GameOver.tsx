@@ -2,6 +2,7 @@ import styles from "./GameVictory.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import villanUrl from "../assets/chaos.png?url";
 
 export default function GameOver() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function GameOver() {
         <div className={styles.title}>Too bad!</div>
         <div className={styles.text}>Maybe next time...</div>
       </div>
+      <img src={villanUrl} alt="" className={styles.villan} />
     </SpaceBackground>
   );
 }

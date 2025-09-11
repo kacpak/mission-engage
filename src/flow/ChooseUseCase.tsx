@@ -66,7 +66,7 @@ export function ChooseUseCase() {
         </div>
       ) : (
         <ol>
-          <li>Move the astronaut on one of the use cases</li>
+          <li>Move the robot on one of the use cases</li>
           <li>The game will start automatically after some time</li>
         </ol>
       )}

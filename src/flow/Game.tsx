@@ -13,6 +13,8 @@ import tangibleFormUrl from "../assets/tangible-form.png?url";
 import tangibleSignUrl from "../assets/tangible-sign.png?url";
 import tangibleDataProcessingUrl from "../assets/tangible-data-processing.png?url";
 import tangibleApprovalUrl from "../assets/tangible-approval.png?url";
+import villanUrl from "../assets/chaos.png?url";
+import villanHandUrl from "../assets/chaos-hand.png?url";
 import { isEqual } from "es-toolkit";
 import { msToFormattedDuration } from "../utils.ts";
 import { Slot } from "../components/Slot.tsx";
@@ -188,6 +190,7 @@ export function Game() {
         </div>
         <div className={styles.playTime}>{playTime}</div>
       </div>
+      <img src={villanUrl} alt="" className={styles.villan} />
       <div className={styles.workflow}>
         {workflow.map((tangible, i) => {
           const tangibleUrl = tangible ? tangibles[tangible as keyof typeof tangibles] : null;
@@ -218,6 +221,7 @@ export function Game() {
           );
         })}
       </div>
+      <img src={villanHandUrl} alt="" className={styles.villanHand} />
       <div className={styles.useCase}>{useCase}</div>
       <div className={styles.heros}>
         <BanklingBack className={styles.bankling} />
@@ -226,7 +230,6 @@ export function Game() {
           {speechText && <SpeechBubble className={styles.speechBubble}>{speechText}</SpeechBubble>}
         </div>
       </div>
-      <div className={styles.villan}></div>
     </SpaceBackground>
   );
 }

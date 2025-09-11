@@ -57,3 +57,12 @@
   right: calc(94 / 1440 * 100cqh);
   bottom: calc(80 / 1440 * 100cqh);
 }
+
+.villan {
+  position: absolute;
+  top: calc(142 / 1440 * 100cqh);
+  right: calc(165 / 1440 * 100cqh);
+  width: calc(474 / 1440 * 100cqh);
+  height: calc(621 / 1440 * 100cqh);
+  aspect-ratio: 158/207;
+}
