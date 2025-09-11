@@ -25,7 +25,7 @@ export default function GameOverCleanup() {
 
   return (
     <SpaceBackground type="gameplay" contentClassName={styles.wrapper}>
-      Please please clear the playing area!
+      Please clear the playing area!
       <br />
       Thank you!
     </SpaceBackground>
