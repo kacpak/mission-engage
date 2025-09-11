@@ -17,6 +17,7 @@ import { isEqual } from "es-toolkit";
 import { msToFormattedDuration } from "../utils.ts";
 import { Slot } from "../components/Slot.tsx";
 import { SpeechBubble } from "../components/SpeechBubble.tsx";
+import { useTimeoutFn } from "@reactuses/core";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -115,7 +116,25 @@ export function Game() {
     }
   }, [helpTangible, hideSpeechBubble, showSpeechBubble]);
 
+  const [isPendingVictoryNavigation, startNavigationToVictoryScreen] = useTimeoutFn(
+    () => navigate(`victory/${new Date().getTime() - startTime.getTime()}`, { viewTransition: true }),
+    4000,
+    { immediate: false },
+  );
+
+  const [isPendingGameOverNavigation, startNavigationToGameOver] = useTimeoutFn(
+    () => navigate(`game-over`, { viewTransition: true }),
+    4000,
+    { immediate: false },
+  );
+
+  const isPendingNavigation = isPendingVictoryNavigation || isPendingGameOverNavigation;
+
   useEffect(() => {
+    if (isPendingNavigation) {
+      return;
+    }
+
     if (gameState === "error") {
       setLifesLeft((_) => _ - 1);
       showSpeechBubble({
@@ -140,23 +159,22 @@ export function Game() {
           </>
         ),
       });
-      setTimeout(() => {
-        navigate(`victory/${new Date().getTime() - startTime.getTime()}`, { viewTransition: true });
-      }, 4000);
+      startNavigationToVictoryScreen();
     }
-  }, [gameState, navigate, showSpeechBubble, startTime, stopPlayTime]);
+  }, [gameState, isPendingNavigation, showSpeechBubble, startNavigationToVictoryScreen, stopPlayTime]);
 
   useEffect(() => {
+    if (isPendingNavigation) {
+      return;
+    }
     if (lifesLeft <= 0) {
       stopPlayTime();
       showSpeechBubble({
         text: <>Oh well… chaos takes the crown!</>,
       });
-      setTimeout(() => {
-        navigate(`game-over`, { viewTransition: true });
-      }, 4000);
+      startNavigationToGameOver();
     }
-  }, [lifesLeft, navigate, showSpeechBubble, stopPlayTime]);
+  }, [isPendingNavigation, lifesLeft, showSpeechBubble, startNavigationToGameOver, stopPlayTime]);
 
   return (
     <SpaceBackground className={styles.wrapper} type="gameplay" overlay={["black"]}>
