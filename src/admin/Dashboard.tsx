@@ -47,7 +47,7 @@ export default function Dashboard() {
         <a href={`api/export/${useCase}`} download>
           Export entries with email
         </a>{" "}
-        / <a href={`./index.html#/highscore/${useCase}`}>Show nice highscores for screenshots</a>
+        / <a href={`./#/highscore/${useCase}`}>Show nice highscores for screenshots</a>
       </div>
       <div className={styles.table}>
         <div className={classNames(styles.row, styles.headerRow)}>
