@@ -1,4 +1,4 @@
-import { WHITEBOARD_WEBSOCKET_URL } from "./consts";
+import { WHITEBOARD_WEBSOCKET_URL } from "./consts.client.ts";
 
 const whiteBoardSocket = new WebSocket(WHITEBOARD_WEBSOCKET_URL);
 whiteBoardSocket.addEventListener("open", () => {
