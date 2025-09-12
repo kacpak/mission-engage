@@ -1,40 +1,9 @@
-import { WHITEBOARD_WEBSOCKET_URL } from "./consts.client.ts";
+import { WHITEBOARD_WEBSOCKET_URL } from "./consts";
 
-
-
-const connect = () => {
-  const socket = new WebSocket(WHITEBOARD_WEBSOCKET_URL)
-
-  socket.onopen = () => {
-    console.log('[Client] Connected to WS server')
-    connected = true
-  }
-
-  socket.onmessage = (event: any) => {
-    console.log('[Client] Message from server:', event.data)
-  }
-
-  socket.onclose = () => {
-    connected = false
-    console.warn('[Client] Disconnected. Reconnecting in 10s...')
-  }
-
-  socket.onerror = (err: any) => {
-    connected = false
-    console.error('[Client] WebSocket error:', err)
-    socket?.close()
-  }
-
-  return socket
-}
-
-let connected = false
-
-connect()
-
-setInterval(() => {
-  if (!connected) {
-    console.log('try to reconnect ...')
-    connect()
-  }
-}, 10000)
+const whiteBoardSocket = new WebSocket(WHITEBOARD_WEBSOCKET_URL);
+whiteBoardSocket.addEventListener("open", () => {
+  whiteBoardSocket.send("connected");
+});
+whiteBoardSocket.addEventListener("message", (event) => {
+  console.log("[WS client] received", event.data);
+});

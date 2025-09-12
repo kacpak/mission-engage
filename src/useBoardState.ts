@@ -21,8 +21,15 @@ export type WhiteBoardStateMessage = v.InferOutput<typeof WhiteboardStateMessage
 export const useBoardState = () => {
   const { lastJsonMessage } = useWebSocket<WhiteBoardStateMessage>(WHITEBOARD_WEBSOCKET_URL, {
     share: true,
+    shouldReconnect: () =>  true,
     reconnectAttempts: Infinity,
-    reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000),
+    reconnectInterval: 10000,
+    onClose: (event) => {
+      console.warn('WebSocket geschlossen:', event);
+    },
+    onError: (event) => {
+      console.error('WebSocket Fehler:', event);
+    },
     filter: (message) => {
       try {
         const messageAsObject = JSON.parse(message.data as string);
