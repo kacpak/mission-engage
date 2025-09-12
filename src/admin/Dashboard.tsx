@@ -116,7 +116,9 @@ function ScoreRow({ item }: { item: ScoreItem }) {
       <div>{msToFormattedDuration(item.playTimeInMs)}</div>
       <div>{new Date(item.wonAt).toLocaleString()}</div>
       <div>
-        <Link to={`update-user/${item.id}`}>Register user</Link>
+        <Link to={`update-user/${item.id}`} target="_blank">
+          Register user
+        </Link>
       </div>
       <div>
         <input type="text" name="nickname" defaultValue={item.nickname ?? ""} disabled={isPending} />
