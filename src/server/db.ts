@@ -12,7 +12,8 @@ export const getAllScores = async ({ useCase }: { useCase: UseCaseTitle }) => {
   });
 };
 
-export const getHighScores = async ({ id, useCase }: { id: number; useCase: UseCaseTitle }) => {
+export const getHighScoresIncludingId = async ({ id, useCase }: { id?: number; useCase: UseCaseTitle }) => {
+  const whereUseCaseAndRegistered = and(eq(schema.scores.useCase, useCase), isNotNull(schema.scores.email));
   const rankedScores = db.$with("ranked").as(
     db
       .select({
@@ -20,16 +21,27 @@ export const getHighScores = async ({ id, useCase }: { id: number; useCase: UseC
         rank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${schema.scores.playTimeInMs} ASC)`.as("rank"),
       })
       .from(schema.scores)
-      .where(eq(schema.scores.useCase, useCase)),
+      .where(id ? or(whereUseCaseAndRegistered, eq(schema.scores.id, id)) : whereUseCaseAndRegistered),
   );
 
   return db
     .with(rankedScores)
     .select()
     .from(rankedScores)
-    .where(or(lte(sql`rank`, 10), eq(rankedScores.id, id)))
+    .where(id ? or(lte(sql`rank`, 10), eq(rankedScores.id, id)) : lte(sql`rank`, 10))
     .orderBy(asc(sql`rank`))
     .limit(11);
+};
+
+export const getHighScoresForExport = async ({ useCase }: { useCase: UseCaseTitle }) => {
+  return db
+    .select({
+      ...getTableColumns(schema.scores),
+      rank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${schema.scores.playTimeInMs} ASC)`.as("rank"),
+    })
+    .from(schema.scores)
+    .where(and(eq(schema.scores.useCase, useCase), isNotNull(schema.scores.email)))
+    .orderBy(asc(sql`rank`));
 };
 
 export const addNewScore = async ({ useCase, playTimeInMs }: { useCase: UseCaseTitle; playTimeInMs: number }) => {
@@ -45,25 +57,16 @@ export const addNewScore = async ({ useCase, playTimeInMs }: { useCase: UseCaseT
 
 export const updateScore = async ({
   id,
+  nickname,
   name,
   email,
   notes,
 }: {
   id: number;
+  nickname?: string;
   name?: string;
   email?: string;
   notes?: string;
 }) => {
-  return db.update(schema.scores).set({ name, email, notes }).where(eq(schema.scores.id, id)).returning();
-};
-
-export const getHighScoresForExport = async ({ useCase }: { useCase: UseCaseTitle }) => {
-  return db
-    .select({
-      ...getTableColumns(schema.scores),
-      rank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${schema.scores.playTimeInMs} ASC)`.as("rank"),
-    })
-    .from(schema.scores)
-    .where(and(eq(schema.scores.useCase, useCase), isNotNull(schema.scores.email)))
-    .orderBy(asc(sql`rank`));
+  return db.update(schema.scores).set({ nickname, name, email, notes }).where(eq(schema.scores.id, id)).returning();
 };

@@ -21,6 +21,7 @@ import GameOverCleanup from "./flow/GameOverCleanup.tsx";
 import GameVictoryHighscore from "./flow/GameVictoryHighscore.tsx";
 import { IS_MOCK } from "./consts.client.ts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import HighscoreForScreenshots from "./flow/HighscoreForScreenshots.tsx";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -100,6 +101,10 @@ const router = createHashRouter([
         ],
       },
     ],
+  },
+  {
+    path: "highscore/:useCase",
+    Component: HighscoreForScreenshots,
   },
 ]);
 

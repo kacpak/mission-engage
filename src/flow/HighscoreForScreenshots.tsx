@@ -1,6 +1,5 @@
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import type { AppType } from "../server";
 import { hc } from "hono/client";
@@ -9,19 +8,17 @@ import { msToFormattedDuration } from "../utils.ts";
 import styles from "./GameVictoryHighscore.module.css";
 
 const client = hc<AppType>("");
-const $getHighscores = client.api.highscore[":useCase"][":id"].$get;
+const $getHighscores = client.api.highscore[":useCase"].$get;
 
-export default function GameVictoryHighscore() {
-  const { id, useCase } = useParams<{ useCase: UseCaseTitle; id: string }>();
-  const navigate = useNavigate();
+export default function HighscoreForScreenshots() {
+  const { useCase } = useParams<{ useCase: UseCaseTitle }>();
 
   const { data } = useQuery({
-    queryKey: ["highscores", id, useCase],
+    queryKey: ["highscores", useCase],
     queryFn: async () => {
       const res = await $getHighscores({
         param: {
           useCase: useCase!,
-          id: id!,
         },
       });
       if (!res.ok) {
@@ -31,28 +28,17 @@ export default function GameVictoryHighscore() {
     },
   });
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      navigate("/", { viewTransition: true, replace: false });
-    }, 15_000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [navigate]);
-
   return (
     <SpaceBackground type="gameplay">
       <div className={styles.title}>Highscores</div>
       <ul className={styles.list}>
         {data?.map(({ rank, id: myId, playTimeInMs, nickname }) => {
-          const isMe = parseInt(id!, 10) === myId;
           const playerName = nickname || `Player ${myId}`;
           return (
-            <li key={myId} className={styles.listItem} data-is-me={isMe}>
+            <li key={myId} className={styles.listItem}>
               <div className={styles.rank}>{rank}</div>
               <div className={styles.name}>
-                {isMe ? `You (${playerName})` : playerName}
+                {playerName}
                 <div className={styles.dots} />
               </div>
               <div className={styles.time}>{msToFormattedDuration(playTimeInMs)}</div>

@@ -45,13 +45,15 @@ export default function Dashboard() {
       <div>
         <a href={`api/export/${useCase}`} download>
           Export entries with email
-        </a>
+        </a>{" "}
+        / <a href={`./index.html#/highscore/${useCase}`}>Show nice highscores for screenshots</a>
       </div>
       <div className={styles.table}>
         <div className={classNames(styles.row, styles.headerRow)}>
           <div>ID</div>
           <div>Play time</div>
-          <div>Name</div>
+          <div>Nickname</div>
+          <div>Full name</div>
           <div>Email</div>
           <div>Notes</div>
           <div>Won at</div>
@@ -71,12 +73,13 @@ function ScoreRow({ item }: { item: ScoreItem }) {
     Error,
     InferRequestType<typeof $updateScore>["json"]
   >({
-    mutationFn: async ({ name, email, notes }) => {
+    mutationFn: async ({ nickname, name, email, notes }) => {
       const res = await $updateScore({
         param: {
           id: "" + item.id,
         },
         json: {
+          nickname,
           name,
           email,
           notes,
@@ -100,6 +103,7 @@ function ScoreRow({ item }: { item: ScoreItem }) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         updateScore({
+          nickname: formData.get("nickname") as string,
           name: formData.get("name") as string,
           email: formData.get("email") as string,
           notes: formData.get("notes") as string,
@@ -108,6 +112,9 @@ function ScoreRow({ item }: { item: ScoreItem }) {
     >
       <div>{item.id}</div>
       <div>{msToFormattedDuration(item.playTimeInMs)}</div>
+      <div>
+        <input type="text" name="nickname" defaultValue={item.nickname ?? ""} disabled={isPending} />
+      </div>
       <div>
         <input type="text" name="name" defaultValue={item.name ?? ""} disabled={isPending} />
       </div>

@@ -15,6 +15,13 @@
       "when": 1757341578408,
       "tag": "0001_glamorous_anthem",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1757662812458,
+      "tag": "0002_fantastic_baron_strucker",
+      "breakpoints": true
     }
   ]
 }

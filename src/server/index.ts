@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import path from "node:path";
-import { addNewScore, db, getAllScores, getHighScores, getHighScoresForExport, updateScore } from "./db.ts";
+import { addNewScore, db, getAllScores, getHighScoresIncludingId, getHighScoresForExport, updateScore } from "./db.ts";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { zValidator as validator } from "@hono/zod-validator";
 import * as z from "zod";
@@ -44,7 +44,12 @@ const idValidator = validator(
 const route = app
   .get("/api/highscore/:useCase/:id", useCaseAndIdValidator, async (c) => {
     const { id, useCase } = c.req.valid("param");
-    const scores = await getHighScores({ useCase, id });
+    const scores = await getHighScoresIncludingId({ useCase, id });
+    return c.json(scores);
+  })
+  .get("/api/highscore/:useCase", useCaseValidator, async (c) => {
+    const { useCase } = c.req.valid("param");
+    const scores = await getHighScoresIncludingId({ useCase });
     return c.json(scores);
   })
   .get("/api/all-scores/:useCase", useCaseValidator, async (c) => {
@@ -73,6 +78,7 @@ const route = app
     validator(
       "json",
       z.object({
+        nickname: z.string().optional(),
         name: z.string().optional(),
         email: z.email().optional(),
         notes: z.string().optional(),
@@ -80,9 +86,10 @@ const route = app
     ),
     async (c) => {
       const { id } = c.req.valid("param");
-      const { name, email, notes } = c.req.valid("json");
+      const { nickname, name, email, notes } = c.req.valid("json");
       const [updatedScore] = await updateScore({
         id,
+        nickname,
         name,
         email,
         notes,
