@@ -33,6 +33,12 @@ export const getHighScoresIncludingId = async ({ id, useCase }: { id?: number; u
     .limit(11);
 };
 
+export const getHighScoreData = async ({ id }: { id: number }) => {
+  return db.query.scores.findFirst({
+    where: eq(schema.scores.id, id),
+  });
+};
+
 export const getHighScoresForExport = async ({ useCase }: { useCase: UseCaseTitle }) => {
   return db
     .select({

@@ -1,0 +1,55 @@
+.wrapper {
+  background: url("../../assets/background-gameplay.png") no-repeat;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  background: rgba(255 255 255 / 0.95);
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h1 {
+    font-family: var(--pixel-font-family);
+    font-size: 2.5rem;
+    margin: 0 0 1rem;
+  }
+}
+
+.form-entry {
+  display: grid;
+  gap: 0.5rem;
+
+  label {
+    display: block;
+  }
+
+  input {
+    padding: 20px;
+    border: 1px solid #dcdcdc;
+    width: 100%;
+  }
+
+  [data-error="true"] {
+    border-color: red;
+  }
+
+  & + & {
+    margin-top: 2rem;
+  }
+}
+
+.error-message {
+  color: red;
+}
+
+.submit {
+  display: block;
+  margin: 20px auto 0;
+  width: 100%;
+}

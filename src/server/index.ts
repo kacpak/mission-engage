@@ -1,7 +1,15 @@
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import path from "node:path";
-import { addNewScore, db, getAllScores, getHighScoresIncludingId, getHighScoresForExport, updateScore } from "./db.ts";
+import {
+  addNewScore,
+  db,
+  getAllScores,
+  getHighScoresIncludingId,
+  getHighScoresForExport,
+  updateScore,
+  getHighScoreData,
+} from "./db.ts";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { zValidator as validator } from "@hono/zod-validator";
 import * as z from "zod";
@@ -51,6 +59,11 @@ const route = app
     const { useCase } = c.req.valid("param");
     const scores = await getHighScoresIncludingId({ useCase });
     return c.json(scores);
+  })
+  .get("/api/highscore-data/:id", idValidator, async (c) => {
+    const { id } = c.req.valid("param");
+    const data = await getHighScoreData({ id });
+    return c.json(data);
   })
   .get("/api/all-scores/:useCase", useCaseValidator, async (c) => {
     const { useCase } = c.req.valid("param");

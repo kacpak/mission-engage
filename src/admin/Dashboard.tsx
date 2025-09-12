@@ -8,6 +8,7 @@ import styles from "./Dashboard.module.css";
 import classNames from "classnames";
 import type { InferResponseType, InferRequestType } from "hono/client";
 import { queryClient } from "./admin.tsx";
+import { Link } from "react-router";
 
 const client = hc<AppType>("");
 const $getHighscores = client.api["all-scores"][":useCase"].$get;
@@ -52,12 +53,13 @@ export default function Dashboard() {
         <div className={classNames(styles.row, styles.headerRow)}>
           <div>ID</div>
           <div>Play time</div>
+          <div>Won at</div>
+          <div>Options</div>
           <div>Nickname</div>
           <div>Full name</div>
           <div>Email</div>
           <div>Notes</div>
-          <div>Won at</div>
-          <div>Options</div>
+          <div>Save changes</div>
         </div>
         {data?.map((item) => (
           <ScoreRow key={item.id} item={item} />
@@ -112,6 +114,10 @@ function ScoreRow({ item }: { item: ScoreItem }) {
     >
       <div>{item.id}</div>
       <div>{msToFormattedDuration(item.playTimeInMs)}</div>
+      <div>{new Date(item.wonAt).toLocaleString()}</div>
+      <div>
+        <Link to={`update-user/${item.id}`}>Register user</Link>
+      </div>
       <div>
         <input type="text" name="nickname" defaultValue={item.nickname ?? ""} disabled={isPending} />
       </div>
@@ -124,11 +130,10 @@ function ScoreRow({ item }: { item: ScoreItem }) {
       <div>
         <textarea name="notes" defaultValue={item.notes ?? ""} disabled={isPending} />
       </div>
-      <div>{new Date(item.wonAt).toLocaleString()}</div>
       <div>
         <button type="submit" disabled={isPending}>
           Save
-        </button>
+        </button>{" "}
         <button type="reset" disabled={isPending}>
           Reset
         </button>
