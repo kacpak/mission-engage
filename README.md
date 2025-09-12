@@ -3,7 +3,7 @@
 Create `/etc/init.d/workflow-studio-quest-ui` file with contents below
 
 ```sh
-/usr/bin/google-chrome --kiosk https://ip-of-the-hardware-controller:port --autoplay-policy=no-user-gesture-required
+/usr/bin/google-chrome --kiosk http://localhost:4123 --autoplay-policy=no-user-gesture-required
 ```
 
 Ideas
@@ -26,3 +26,10 @@ pnpm install --frozen-lockfile && \
 
 Game: http://localhost:4123  
 Admin panel: http://localhost:4123/admin.html
+
+# Configuring in runtime
+
+We can configure the client app via localStorage
+
+- `MOCK` -> `true`|`false` enables hardware mocking (please refresh the page after changing)
+- `WS_URL` -> url to websocket server reporting data from the hardware
