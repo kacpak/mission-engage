@@ -19,7 +19,10 @@ Requirements
 Instructions
 
 ```shell
-pnpm install
-pnpm build
-pnpm start
+pnpm install --frozen-lockfile && \
+  pnpm build && \
+  pnpm start
 ```
+
+Game: http://localhost:4123  
+Admin panel: http://localhost:4123/admin.html
