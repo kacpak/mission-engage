@@ -9,7 +9,7 @@ export function GameInstruction() {
   const navigate = useNavigate();
   useEffect(() => {
     if (state && Object.values(state).every((s) => !s)) {
-      navigate("../countdown", { viewTransition: true });
+      navigate("countdown", { viewTransition: true });
     }
   }, [navigate, state]);
   return (

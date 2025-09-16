@@ -55,7 +55,7 @@ export function ChooseUseCase() {
 
   return (
     <SpaceBackground className={styles.wrapper} contentClassName={styles.inner}>
-      <h1>How to choose a use case</h1>
+      <h1>Choose a use case</h1>
       {typeof timeLeft === "number" ? (
         <div className={styles.onSelectedText}>
           <div>

@@ -5,12 +5,11 @@ import "./index.css";
 import { createHashRouter, RouterProvider } from "react-router";
 import { Trailer } from "./flow/Trailer.tsx";
 import { Title } from "./flow/Title.tsx";
-import { HowTo } from "./flow/HowTo.tsx";
 import { useBoardState } from "./useBoardState.ts";
 import { ChooseUseCase } from "./flow/ChooseUseCase.tsx";
 import { GameCountdown } from "./flow/GameCountdown.tsx";
 import { Game } from "./flow/Game.tsx";
-import GameIntro from "./flow/GameIntro.tsx";
+import HowToPlayVideo from "./flow/HowToPlayVideo.tsx";
 import { GameInstruction } from "./flow/GameInstruction.tsx";
 import GameVictory from "./flow/GameVictory.tsx";
 import { Presents } from "./flow/Presents.tsx";
@@ -43,7 +42,7 @@ const router = createHashRouter([
   },
   {
     path: "howTo",
-    Component: HowTo,
+    Component: HowToPlayVideo,
   },
   {
     path: "chooseUseCase",
@@ -54,10 +53,6 @@ const router = createHashRouter([
     children: [
       {
         index: true,
-        Component: GameIntro,
-      },
-      {
-        path: "instruction",
         Component: GameInstruction,
       },
       {

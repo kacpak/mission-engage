@@ -1,6 +1,16 @@
 import styles from "./Game.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import { type FunctionComponent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type ComponentProps,
+  type ComponentType,
+  type FunctionComponent,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
@@ -9,10 +19,10 @@ import RobotBack from "../assets/robot-back.svg?react";
 import { useNavigate, useParams } from "react-router";
 import { MAX_LIFES, TANGIBLES_HELP_TEXT, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts.ts";
 import { useBoardState } from "../useBoardState.ts";
-import tangibleFormUrl from "../assets/tangible-form.png?url";
-import tangibleSignUrl from "../assets/tangible-sign.png?url";
-import tangibleDataProcessingUrl from "../assets/tangible-data-processing.png?url";
-import tangibleApprovalUrl from "../assets/tangible-approval.png?url";
+import TangibleForm from "../assets/tangible-form.svg?react";
+import TangibleSign from "../assets/tangible-sign.svg?react";
+import TangibleDataProcessing from "../assets/tangible-data.svg?react";
+import TangibleApproval from "../assets/tangible-accept.svg?react";
 import villanUrl from "../assets/chaos.png?url";
 import villanHandUrl from "../assets/chaos-hand.png?url";
 import { isEqual } from "es-toolkit";
@@ -43,11 +53,11 @@ const usePlayTime = (startDate: Date) => {
   return { playTime, stopPlayTime };
 };
 
-const tangibles: Record<WorkflowTangible, string> = {
-  "form-flow": tangibleFormUrl,
-  "data-processing": tangibleDataProcessingUrl,
-  approval: tangibleApprovalUrl,
-  signature: tangibleSignUrl,
+const tangibles: Record<WorkflowTangible, ComponentType<ComponentProps<"svg">>> = {
+  "form-flow": TangibleForm,
+  "data-processing": TangibleDataProcessing,
+  approval: TangibleApproval,
+  signature: TangibleSign,
 };
 
 export const ImproperTangible: FunctionComponent = () => "❌";
@@ -193,30 +203,16 @@ export function Game() {
       <img src={villanUrl} alt="" className={styles.villan} />
       <div className={styles.workflow}>
         {workflow.map((tangible, i) => {
-          const tangibleUrl = tangible ? tangibles[tangible as keyof typeof tangibles] : null;
+          const Tangible = tangible ? tangibles[tangible as keyof typeof tangibles] : null;
           return (
             <Slot
               className={styles.tangibleSlot}
               key={`${i}-${tangible}`}
               type={
-                gameState === "success"
-                  ? "success"
-                  : gameState === "error"
-                    ? "error"
-                    : tangibleUrl
-                      ? "pending"
-                      : "neutral"
+                gameState === "success" ? "success" : gameState === "error" ? "error" : Tangible ? "pending" : "neutral"
               }
             >
-              {tangible ? (
-                tangibleUrl ? (
-                  <img src={tangibleUrl} className={styles.tangibleIcon} />
-                ) : (
-                  <ImproperTangible />
-                )
-              ) : (
-                i + 1
-              )}
+              {tangible ? Tangible ? <Tangible className={styles.tangibleIcon} /> : <ImproperTangible /> : i + 1}
             </Slot>
           );
         })}
