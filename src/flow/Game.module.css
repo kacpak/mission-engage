@@ -171,6 +171,7 @@
 }
 
 .villan {
+  view-transition-name: villan;
   position: absolute;
   top: calc(143 / 1440 * 100cqh);
   right: calc(199 / 1440 * 100cqh);
@@ -184,6 +185,21 @@
   top: calc(460 / 1440 * 100cqh);
   right: calc(260 / 1440 * 100cqh);
   width: calc(175 / 1440 * 100cqh);
-  height: calc(192 / 1440 * 100cqh);
-  aspect-ratio: 72/79;
+  height: auto;
+  aspect-ratio: 661/907;
+}
+
+::view-transition-new(villan) {
+  animation: appear 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56);
+}
+
+@keyframes appear {
+  from {
+    scale: 0.1;
+    transform: translateY(-30%);
+  }
+  to {
+    scale: 1;
+    transform: translateY(0);
+  }
 }
