@@ -30,6 +30,7 @@ import { msToFormattedDuration } from "../utils.ts";
 import { Slot } from "../components/Slot.tsx";
 import { SpeechBubble } from "../components/SpeechBubble.tsx";
 import { useTimeoutFn } from "@reactuses/core";
+import classNames from "classnames";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -200,7 +201,7 @@ export function Game() {
         </div>
         <div className={styles.playTime}>{playTime}</div>
       </div>
-      <img src={villanUrl} alt="" className={styles.villan} />
+      <img src={villanUrl} alt="" className={classNames(styles.villan, gameState === "success" && styles.jrpgDefeat)} />
       <div className={styles.workflow}>
         {workflow.map((tangible, i) => {
           const Tangible = tangible ? tangibles[tangible as keyof typeof tangibles] : null;
@@ -217,12 +218,16 @@ export function Game() {
           );
         })}
       </div>
-      <img src={villanHandUrl} alt="" className={styles.villanHand} />
+      <img
+        src={villanHandUrl}
+        alt=""
+        className={classNames(styles.villanHand, gameState === "success" && styles.jrpgDefeat)}
+      />
       <div className={styles.useCase}>{useCase}</div>
       <div className={styles.heros}>
-        <BanklingBack className={styles.bankling} />
+        <div className={styles.bankling} />
         <div className={styles.robotContainer}>
-          <RobotBack className={styles.robot} />
+          <div className={styles.robot} />
           {speechText && <SpeechBubble className={styles.speechBubble}>{speechText}</SpeechBubble>}
         </div>
       </div>

@@ -55,9 +55,6 @@
 }
 
 .life-gauge {
-  /*position: absolute;*/
-  /*top: 2.77777778cqh;*/
-  /*left: 22.91666667cqh;*/
   display: flex;
   gap: 2.08333333cqh;
 
@@ -85,6 +82,9 @@
   width: auto;
   height: calc(858 / 1440 * 100cqh);
   aspect-ratio: 625/858;
+  animation: bob 400ms infinite linear;
+  background: url("../assets/bankling-back.svg") no-repeat;
+  background-size: contain;
 }
 
 .robot-container {
@@ -97,6 +97,10 @@
   width: auto;
   height: calc(445 / 1440 * 100cqh);
   aspect-ratio: 356/445;
+  animation: bob 350ms infinite linear;
+  animation-delay: 100ms;
+  background: url("../assets/robot-back.svg") no-repeat;
+  background-size: contain;
 }
 
 .speech-bubble.speech-bubble {
@@ -146,6 +150,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 3.47222222cqh;
+  position: relative;
+  z-index: 2;
 }
 
 .tangible-slot {
@@ -178,19 +184,10 @@
   width: calc(630 / 1440 * 100cqh);
   height: calc(826 / 1440 * 100cqh);
   aspect-ratio: 45/59;
-}
-
-.villan-hand {
-  position: absolute;
-  top: calc(460 / 1440 * 100cqh);
-  right: calc(260 / 1440 * 100cqh);
-  width: calc(175 / 1440 * 100cqh);
-  height: auto;
-  aspect-ratio: 661/907;
-}
-
-::view-transition-new(villan) {
-  animation: appear 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56);
+  max-width: 100%;
+  animation:
+    appear 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56),
+    bob 650ms infinite linear;
 }
 
 @keyframes appear {
@@ -202,4 +199,83 @@
     scale: 1;
     transform: translateY(0);
   }
+}
+
+.villan-hand {
+  position: absolute;
+  top: calc(460 / 1440 * 100cqh);
+  right: calc(260 / 1440 * 100cqh);
+  width: calc(175 / 1440 * 100cqh);
+  height: auto;
+  aspect-ratio: 661/907;
+  z-index: 3;
+  animation:
+    appear-hand 600ms forwards cubic-bezier(0.36, 0, 0.66, -0.56),
+    bob 650ms infinite linear;
+}
+
+@keyframes appear-hand {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes bob {
+  from,
+  to {
+    transform: translateY(0cqh);
+  }
+  50% {
+    transform: translateY(1.5cqh);
+  }
+}
+
+@keyframes jrpg-blink-pop {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
+  }
+  6% {
+    filter: brightness(1.6);
+    transform: translateY(-2px) scale(1.02);
+  } /* quick flash */
+  12% {
+    opacity: 0;
+    filter: brightness(1.1);
+    transform: translateY(-2px) scale(1.02);
+  }
+  20% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  30% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  52% {
+    opacity: 0;
+  }
+  64% {
+    opacity: 1;
+    transform: translateY(-8px) scale(0.96);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.55);
+    filter: brightness(0.9);
+  }
+}
+
+.jrpg-defeat {
+  animation: jrpg-blink-pop 1000ms cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  will-change: opacity, transform, filter;
 }
