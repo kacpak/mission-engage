@@ -14,8 +14,6 @@ import {
 import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
-import BanklingBack from "../assets/bankling-back.svg?react";
-import RobotBack from "../assets/robot-back.svg?react";
 import { useNavigate, useParams } from "react-router";
 import { MAX_LIFES, TANGIBLES_HELP_TEXT, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts.ts";
 import { useBoardState } from "../useBoardState.ts";
