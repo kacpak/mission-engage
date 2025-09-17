@@ -82,7 +82,7 @@
   width: auto;
   height: calc(858 / 1440 * 100cqh);
   aspect-ratio: 625/858;
-  animation: bob 400ms infinite linear;
+  animation: bob 1000ms infinite linear;
   background: url("../assets/bankling-back.svg") no-repeat;
   background-size: contain;
 }
@@ -97,7 +97,7 @@
   width: auto;
   height: calc(445 / 1440 * 100cqh);
   aspect-ratio: 356/445;
-  animation: bob 350ms infinite linear;
+  animation: bob 1000ms infinite linear;
   animation-delay: 100ms;
   background: url("../assets/robot-back.svg") no-repeat;
   background-size: contain;
@@ -185,9 +185,10 @@
   height: calc(826 / 1440 * 100cqh);
   aspect-ratio: 45/59;
   max-width: 100%;
+  --shift: 3cqh;
   animation:
     appear 500ms forwards cubic-bezier(0.36, 0, 0.66, -0.56),
-    bob 650ms infinite linear;
+    bob 2500ms infinite linear;
 }
 
 @keyframes appear {
@@ -209,9 +210,10 @@
   height: auto;
   aspect-ratio: 661/907;
   z-index: 3;
+  --shift: 3cqh;
   animation:
     appear-hand 600ms forwards cubic-bezier(0.36, 0, 0.66, -0.56),
-    bob 650ms infinite linear;
+    bob 2500ms infinite linear;
 }
 
 @keyframes appear-hand {
@@ -232,7 +234,7 @@
     transform: translateY(0cqh);
   }
   50% {
-    transform: translateY(1.5cqh);
+    transform: translateY(var(--shift, 1.5cqh));
   }
 }
 

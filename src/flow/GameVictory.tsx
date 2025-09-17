@@ -52,7 +52,7 @@ export default function GameVictory() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate(`${data?.id}/register-and-cleanup`, { viewTransition: true, replace: false });
+      navigate(`../${data?.id}/register-and-cleanup`, { viewTransition: true, replace: false });
     }, 8_000);
 
     return () => {

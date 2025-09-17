@@ -131,13 +131,13 @@ export function Game() {
 
   const [isPendingVictoryNavigation, startNavigationToVictoryScreen] = useTimeoutFn(
     () => navigate(`victory/${new Date().getTime() - startTime.getTime()}`, { viewTransition: true }),
-    4000,
+    2000,
     { immediate: false },
   );
 
   const [isPendingGameOverNavigation, startNavigationToGameOver] = useTimeoutFn(
     () => navigate(`game-over`, { viewTransition: true }),
-    4000,
+    2000,
     { immediate: false },
   );
 
@@ -201,7 +201,7 @@ export function Game() {
         </div>
         <div className={styles.playTime}>{playTime}</div>
       </div>
-      <img src={villanUrl} alt="" className={classNames(styles.villan, gameState === "success" && styles.jrpgDefeat)} />
+      <img src={villanUrl} alt="" className={classNames(styles.villan)} />
       <div className={styles.workflow}>
         {workflow.map((tangible, i) => {
           const Tangible = tangible ? tangibles[tangible as keyof typeof tangibles] : null;
@@ -218,11 +218,7 @@ export function Game() {
           );
         })}
       </div>
-      <img
-        src={villanHandUrl}
-        alt=""
-        className={classNames(styles.villanHand, gameState === "success" && styles.jrpgDefeat)}
-      />
+      <img src={villanHandUrl} alt="" className={classNames(styles.villanHand)} />
       <div className={styles.useCase}>{useCase}</div>
       <div className={styles.heros}>
         <div className={styles.bankling} />

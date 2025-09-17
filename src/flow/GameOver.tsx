@@ -9,7 +9,7 @@ export default function GameOver() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate("cleanup", { viewTransition: true, replace: false });
+      navigate("../cleanup", { viewTransition: true, replace: false });
     }, 8_000);
 
     return () => {

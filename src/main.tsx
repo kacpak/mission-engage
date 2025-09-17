@@ -10,7 +10,7 @@ import { ChooseUseCase } from "./flow/ChooseUseCase.tsx";
 import { GameCountdown } from "./flow/GameCountdown.tsx";
 import { Game } from "./flow/Game.tsx";
 import HowToPlayVideo from "./flow/HowToPlayVideo.tsx";
-import { GameInstruction } from "./flow/GameInstruction.tsx";
+import { GameReady } from "./flow/GameReady.tsx";
 import GameVictory from "./flow/GameVictory.tsx";
 import { Presents } from "./flow/Presents.tsx";
 import { useEffect } from "react";
@@ -21,6 +21,9 @@ import GameVictoryHighscore from "./flow/GameVictoryHighscore.tsx";
 import { IS_MOCK } from "./consts.client.ts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import HighscoreForScreenshots from "./flow/HighscoreForScreenshots.tsx";
+import GameVictoryOutroVideo from "./flow/GameVictoryOutroVideo.tsx";
+import GameOverOutroVideo from "./flow/GameOverOutroVideo.tsx";
+import GameIntro from "./flow/GameIntro.tsx";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -53,7 +56,11 @@ const router = createHashRouter([
     children: [
       {
         index: true,
-        Component: GameInstruction,
+        Component: GameIntro,
+      },
+      {
+        path: "ready",
+        Component: GameReady,
       },
       {
         path: "countdown",
@@ -71,6 +78,10 @@ const router = createHashRouter([
             children: [
               {
                 index: true,
+                Component: GameVictoryOutroVideo,
+              },
+              {
+                path: "congrats",
                 Component: GameVictory,
               },
               {
@@ -86,7 +97,14 @@ const router = createHashRouter([
           {
             path: "game-over",
             children: [
-              { index: true, Component: GameOver },
+              {
+                index: true,
+                Component: GameOverOutroVideo,
+              },
+              {
+                path: "message",
+                Component: GameOver,
+              },
               {
                 path: "cleanup",
                 Component: GameOverCleanup,
