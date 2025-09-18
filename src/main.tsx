@@ -24,6 +24,7 @@ import HighscoreForScreenshots from "./flow/HighscoreForScreenshots.tsx";
 import GameVictoryOutroVideo from "./flow/GameVictoryOutroVideo.tsx";
 import GameOverOutroVideo from "./flow/GameOverOutroVideo.tsx";
 import GameIntro from "./flow/GameIntro.tsx";
+import { useSound } from "react-sounds";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -124,6 +125,14 @@ const router = createHashRouter([
 export const queryClient = new QueryClient();
 
 export function App() {
+  const { play } = useSound("8-bit-Chiptune_AdobeStock_547309534_preview.m4a", {
+    loop: true,
+  });
+
+  useEffect(() => {
+    void play();
+  }, [play]);
+
   const state = useBoardState();
 
   useEffect(() => {
