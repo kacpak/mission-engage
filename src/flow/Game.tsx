@@ -129,13 +129,13 @@ export function Game() {
 
   const [isPendingVictoryNavigation, startNavigationToVictoryScreen] = useTimeoutFn(
     () => navigate(`victory/${new Date().getTime() - startTime.getTime()}`, { viewTransition: true }),
-    2000,
+    500,
     { immediate: false },
   );
 
   const [isPendingGameOverNavigation, startNavigationToGameOver] = useTimeoutFn(
     () => navigate(`game-over`, { viewTransition: true }),
-    2000,
+    500,
     { immediate: false },
   );
 
@@ -161,15 +161,15 @@ export function Game() {
     } else if (gameState === "success") {
       stopPlayTime();
       // sendMessage("blink");
-      showSpeechBubble({
-        text: (
-          <>
-            Woohoo!
-            <br />
-            We made it!
-          </>
-        ),
-      });
+      // showSpeechBubble({
+      //   text: (
+      //     <>
+      //       Woohoo!
+      //       <br />
+      //       We made it!
+      //     </>
+      //   ),
+      // });
       startNavigationToVictoryScreen();
     }
   }, [gameState, isPendingNavigation, showSpeechBubble, startNavigationToVictoryScreen, stopPlayTime]);
@@ -180,9 +180,9 @@ export function Game() {
     }
     if (lifesLeft <= 0) {
       stopPlayTime();
-      showSpeechBubble({
-        text: <>Oh well… chaos takes the crown!</>,
-      });
+      // showSpeechBubble({
+      //   text: <>Oh well… chaos takes the crown!</>,
+      // });
       startNavigationToGameOver();
     }
   }, [isPendingNavigation, lifesLeft, showSpeechBubble, startNavigationToGameOver, stopPlayTime]);
