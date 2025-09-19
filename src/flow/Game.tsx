@@ -103,8 +103,7 @@ const useSpeechBubble = () => {
 };
 
 export function Game() {
-  const boardState = useBoardState();
-  // const sendMessage = useSendToBoard();
+  const { boardState, sendMessage } = useBoardState();
   const { useCase } = useParams<{ useCase: UseCaseTitle }>();
   const workflow = useMemo(() => [boardState?.s1, boardState?.s2, boardState?.s3, boardState?.s4], [boardState]);
   const gameState = useMemo(
@@ -160,7 +159,7 @@ export function Game() {
       });
     } else if (gameState === "success") {
       stopPlayTime();
-      // sendMessage("blink");
+      sendMessage("blink");
       // showSpeechBubble({
       //   text: (
       //     <>
@@ -172,7 +171,7 @@ export function Game() {
       // });
       startNavigationToVictoryScreen();
     }
-  }, [gameState, isPendingNavigation, showSpeechBubble, startNavigationToVictoryScreen, stopPlayTime]);
+  }, [gameState, isPendingNavigation, sendMessage, showSpeechBubble, startNavigationToVictoryScreen, stopPlayTime]);
 
   useEffect(() => {
     if (isPendingNavigation) {

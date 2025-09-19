@@ -39,7 +39,7 @@ const useTimer = (choice: string | undefined) => {
 };
 
 export function ChooseUseCase() {
-  const state = useBoardState();
+  const { boardState: state } = useBoardState();
   const navigate = useNavigate();
 
   const choice = Object.entries(state ?? {}).find(

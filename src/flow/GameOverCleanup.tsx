@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useCallback, useEffect } from "react";
 
 export default function GameOverCleanup() {
-  const boardState = useBoardState();
+  const { boardState } = useBoardState();
   const navigate = useNavigate();
 
   const goToTrailer = useCallback(() => navigate("/", { viewTransition: true, replace: false }), [navigate]);

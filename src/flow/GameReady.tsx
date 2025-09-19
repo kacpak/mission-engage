@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useBoardState } from "../useBoardState.ts";
 
 export function GameReady() {
-  const state = useBoardState();
+  const { boardState: state } = useBoardState();
   const navigate = useNavigate();
   useEffect(() => {
     if (state && Object.values(state).every((s) => !s)) {

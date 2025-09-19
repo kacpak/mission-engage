@@ -133,7 +133,7 @@ export function App() {
   //   void play();
   // }, [play]);
 
-  const state = useBoardState();
+  const { boardState: state } = useBoardState();
 
   useEffect(() => {
     if (state?.s1 === "alien") {

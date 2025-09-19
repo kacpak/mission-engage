@@ -20,6 +20,7 @@ await worker.start({
   serviceWorker: {
     url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
   },
+  onUnhandledRequest: "bypass",
 });
 
 export const sendMessageToClients = (state: WhiteBoardStateMessage) => whiteboard.broadcast(JSON.stringify(state));

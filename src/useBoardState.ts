@@ -19,7 +19,7 @@ const WhiteboardStateMessageSchema = v.object({
 export type WhiteBoardStateMessage = v.InferOutput<typeof WhiteboardStateMessageSchema>;
 
 export const useBoardState = () => {
-  const { lastJsonMessage } = useWebSocket<WhiteBoardStateMessage>(WHITEBOARD_WEBSOCKET_URL, {
+  const { lastJsonMessage, sendMessage } = useWebSocket<WhiteBoardStateMessage>(WHITEBOARD_WEBSOCKET_URL, {
     share: true,
     shouldReconnect: () =>  true,
     reconnectAttempts: Infinity,
@@ -38,16 +38,8 @@ export const useBoardState = () => {
         return false;
       }
     },
+    skipAssert: true,
   });
 
-  return lastJsonMessage?.payload ?? null;
-};
-
-export const useSendToBoard = () => {
-  const { sendMessage } = useWebSocket<WhiteBoardStateMessage>(WHITEBOARD_WEBSOCKET_URL, {
-    share: true,
-    reconnectAttempts: Infinity,
-    reconnectInterval: (attemptNumber) => Math.min(Math.pow(2, attemptNumber) * 1000, 10000),
-  });
-  return sendMessage;
+  return { boardState: lastJsonMessage?.payload ?? null, sendMessage };
 };

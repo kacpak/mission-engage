@@ -7,7 +7,7 @@ import styles from "./GameVictoryCleanup.module.css";
 
 export default function GameVictoryCleanup() {
   const { id, durationInMs } = useParams<{ durationInMs: string; id: string }>();
-  const boardState = useBoardState();
+  const { boardState } = useBoardState();
   const navigate = useNavigate();
 
   const goToHighscore = useCallback(

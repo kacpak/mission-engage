@@ -5,7 +5,7 @@ import styles from "./Trailer.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
 
 export function Trailer() {
-  const state = useBoardState();
+  const { boardState: state } = useBoardState();
   const navigate = useNavigate();
   const previousState = usePrevious(state);
 
