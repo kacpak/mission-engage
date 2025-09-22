@@ -10,7 +10,11 @@ export function Trailer() {
   const previousState = usePrevious(state);
 
   useUpdateEffect(() => {
-    if (JSON.stringify(previousState) !== JSON.stringify(state) && previousState !== undefined) {
+    if (
+      JSON.stringify(previousState) !== JSON.stringify(state) &&
+      previousState !== undefined &&
+      !Object.values(state).includes("alien")
+    ) {
       navigate("/presents", { viewTransition: true, replace: false });
     }
   }, [previousState, state, navigate]);
