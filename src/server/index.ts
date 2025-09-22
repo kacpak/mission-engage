@@ -9,13 +9,17 @@ import {
   getHighScoresForExport,
   updateScore,
   getHighScoreData,
+  removeHighScoreData,
+  removeAllScores,
 } from "./db.ts";
 import { migrate } from "drizzle-orm/better-sqlite3/migrator";
 import { zValidator as validator } from "@hono/zod-validator";
 import * as z from "zod";
-import { USE_CASES } from "../consts.ts";
+import { DB_FILENAME, USE_CASES } from "../consts.ts";
 import { logger } from "hono/logger";
 import Papa from "papaparse";
+import * as fs from "node:fs";
+import { Readable } from "node:stream";
 
 console.log("Migrating database...");
 migrate(db, { migrationsFolder: "./drizzle" });
@@ -63,6 +67,15 @@ const route = app
   .get("/api/highscore-data/:id", idValidator, async (c) => {
     const { id } = c.req.valid("param");
     const data = await getHighScoreData({ id });
+    return c.json(data);
+  })
+  .delete("/api/highscore-data", async (c) => {
+    const data = await removeAllScores();
+    return c.json(data);
+  })
+  .delete("/api/highscore-data/:id", idValidator, async (c) => {
+    const { id } = c.req.valid("param");
+    const data = await removeHighScoreData({ id });
     return c.json(data);
   })
   .get("/api/all-scores/:useCase", useCaseValidator, async (c) => {
@@ -117,6 +130,13 @@ app.get("/api/export/:useCase", useCaseValidator, async (c) => {
   const csv = Papa.unparse(data);
   c.header("Content-Disposition", `attachment; filename=${useCase} scores.csv`);
   return c.body(csv);
+});
+
+app.get("/api/export-database", async (c) => {
+  c.header("Content-Disposition", `attachment; filename=mission-engage.db`);
+
+  const stream = Readable.toWeb(fs.createReadStream(DB_FILENAME)) as ReadableStream;
+  return c.body(stream);
 });
 
 export type AppType = typeof route;

@@ -39,6 +39,14 @@ export const getHighScoreData = async ({ id }: { id: number }) => {
   });
 };
 
+export const removeAllScores = async () => {
+  return db.delete(schema.scores);
+};
+
+export const removeHighScoreData = async ({ id }: { id: number }) => {
+  return db.delete(schema.scores).where(eq(schema.scores.id, id));
+};
+
 export const getHighScoresForExport = async ({ useCase }: { useCase: UseCaseTitle }) => {
   return db
     .select({

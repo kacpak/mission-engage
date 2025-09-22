@@ -44,23 +44,6 @@ body {
   container-name: root;
 }
 
-#root2 {
-  align-self: start;
-  background-color: white;
-  color: #333;
-  width: 100%;
-  height: 100%;
-
-  button {
-    background-color: #dcdcdc;
-    cursor: pointer;
-    transition: border-color 0.25s;
-  }
-  button:hover {
-    border-color: #646cff;
-  }
-}
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -99,4 +82,29 @@ input,
 textarea,
 button {
   font: inherit;
+}
+
+:where(#root2) {
+  align-self: start;
+  background-color: white;
+  color: #333;
+  width: 100%;
+  height: 100%;
+
+  button {
+    background-color: #dcdcdc;
+    cursor: pointer;
+    transition: border-color 0.25s;
+  }
+  button:hover {
+    border-color: #646cff;
+  }
+
+  button[data-type="danger"] {
+    background: #ff6464;
+  }
+}
+
+h1 {
+  font-size: 3em;
 }

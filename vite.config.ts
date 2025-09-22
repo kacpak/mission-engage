@@ -54,6 +54,7 @@ export default defineConfig(({ mode }) =>
           rollupOptions: {
             external: /node_modules/,
           },
+          minify: false,
         },
         server: {
           port: 3000,

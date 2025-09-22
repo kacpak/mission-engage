@@ -1,7 +1,18 @@
+.wrapper {
+  padding: 0.5em 2em;
+}
+
+.table-wrapper {
+  overflow: auto;
+  container-type: inline-size;
+  container-name: table-wrapper;
+}
+
 .table {
   display: grid;
   grid-template-columns: repeat(9, max-content);
-  width: 100%;
+  overflow: auto;
+  max-width: 100cqw;
   gap: 10px 20px;
 }
 
@@ -24,5 +35,22 @@
   }
   button {
     padding: 0 1em;
+  }
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.tab {
+  background: white;
+  border-radius: 0;
+  font-size: 20px;
+
+  &[aria-selected="true"] {
+    font-weight: bold;
+    border-bottom-width: 3px;
+    border-bottom-color: blue;
   }
 }
