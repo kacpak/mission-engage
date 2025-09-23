@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently bun:dev:*",
-    "dev:client": "bunx --bun vite --mode client",
-    "dev:server": "bunx --bun vite ",
-    "build": "bunx --bun tsc -b && concurrently bun:build:* -m 1",
-    "build:client": "bunx --bun vite build --mode client",
-    "build:server": "bunx --bun vite build",
+    "dev:client": "bun x --bun vite --mode client",
+    "dev:server": "bun x --bun vite ",
+    "build": "bun x --bun tsc -b && concurrently bun:build:* -m 1",
+    "build:client": "bun x --bun vite build --mode client",
+    "build:server": "bun x --bun vite build",
     "lint": "eslint .",
     "start": "bun run ./dist/index.js",
     "db:generate-migration": "drizzle-kit generate"
