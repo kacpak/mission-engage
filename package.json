@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently npm:dev:client npm:dev:server",
-    "dev:client": "vite --mode client",
-    "dev:server": "vite ",
-    "build": "tsc -b && npm run build:client && npm run build:server",
-    "build:client": "vite build --mode client",
-    "build:server": "vite build",
+    "dev": "concurrently bun:dev:*",
+    "dev:client": "bunx --bun vite --mode client",
+    "dev:server": "bunx --bun vite ",
+    "build": "bunx --bun tsc -b && concurrently bun:build:* -m 1",
+    "build:client": "bunx --bun vite build --mode client",
+    "build:server": "bunx --bun vite build",
     "lint": "eslint .",
-    "start": "node dist/index.js",
+    "start": "bun run ./dist/index.js",
     "db:generate-migration": "drizzle-kit generate"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "@fontsource-variable/pixelify-sans": "^5.2.6",
     "@fontsource-variable/roboto": "^5.2.6",
     "@hono/node-server": "^1.19.1",
+    "@hono/node-ws": "^1.2.0",
     "@hono/vite-build": "^1.7.0",
     "@hono/vite-dev-server": "^0.20.1",
     "@hono/zod-validator": "^0.7.2",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "@eslint/js": "^9.35.0",
     "@types/better-sqlite3": "^7.6.13",
+    "@types/bun": "^1.2.22",
     "@types/node": "^22.18.1",
     "@types/papaparse": "^5.3.16",
     "@types/react": "^19.1.12",

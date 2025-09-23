@@ -13,15 +13,14 @@ Ideas
 # How to run production
 
 Requirements
-- nodejs 22.17.1
-- pnpm 10.15.0
+- bun ([Intallation guide](https://bun.com/docs/installation#macos-and-linux))
 
 Instructions
 
 ```shell
-pnpm install --frozen-lockfile && \
-  pnpm build && \
-  pnpm start
+bun install && \
+  bun run build && \
+  bun run start
 ```
 
 Game: http://localhost:4123  

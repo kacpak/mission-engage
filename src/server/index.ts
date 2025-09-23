@@ -1,5 +1,6 @@
 import { Hono } from "hono";
-import { serveStatic } from "@hono/node-server/serve-static";
+import { serveStatic } from "hono/bun";
+import { upgradeWebSocket, websocket } from "hono/bun";
 import path from "node:path";
 import {
   addNewScore,
@@ -12,14 +13,13 @@ import {
   removeHighScoreData,
   removeAllScores,
 } from "./db.ts";
-import { migrate } from "drizzle-orm/better-sqlite3/migrator";
+import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { zValidator as validator } from "@hono/zod-validator";
 import * as z from "zod";
 import { DB_FILENAME, USE_CASES } from "../consts.ts";
 import { logger } from "hono/logger";
 import Papa from "papaparse";
-import * as fs from "node:fs";
-import { Readable } from "node:stream";
+import type { ServerWebSocket } from "bun";
 
 console.log("Migrating database...");
 migrate(db, { migrationsFolder: "./drizzle" });
@@ -50,6 +50,30 @@ const idValidator = validator(
   z.object({
     id: z.coerce.number(),
   }),
+);
+
+const wsClients = new Set<ServerWebSocket>();
+
+app.get(
+  "/client-ws",
+  upgradeWebSocket(() => ({
+    onOpen(_event, _ws) {
+      console.log("OPEN!");
+      const ws = _ws.raw as ServerWebSocket;
+      ws.ping();
+      ws.send("ping");
+
+      wsClients.add(ws);
+    },
+    onMessage(event, ws) {
+      console.log(`Message from client: ${event.data}`);
+      ws.send("Hello from server!");
+    },
+    onClose: (_event, ws) => {
+      wsClients.delete(ws.raw);
+      console.log("Connection closed");
+    },
+  })),
 );
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -120,6 +144,13 @@ const route = app
         email,
         notes,
       });
+      wsClients.forEach((ws) =>
+        ws.send(
+          JSON.stringify({
+            type: "refresh-highscores",
+          }),
+        ),
+      );
       return c.json(updatedScore);
     },
   );
@@ -135,10 +166,14 @@ app.get("/api/export/:useCase", useCaseValidator, async (c) => {
 app.get("/api/export-database", async (c) => {
   c.header("Content-Disposition", `attachment; filename=mission-engage.db`);
 
-  const stream = Readable.toWeb(fs.createReadStream(DB_FILENAME)) as ReadableStream;
+  const stream = Bun.file(DB_FILENAME).stream();
   return c.body(stream);
 });
 
 export type AppType = typeof route;
 
-export default app;
+Bun.serve({
+  fetch: app.fetch,
+  websocket,
+  port: 4123,
+});

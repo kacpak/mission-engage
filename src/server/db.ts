@@ -1,9 +1,11 @@
-import { drizzle } from "drizzle-orm/better-sqlite3";
+import { drizzle } from "drizzle-orm/bun-sqlite";
 import * as schema from "./db/schema";
 import { desc, eq, sql, getTableColumns, or, lte, asc, and, isNotNull } from "drizzle-orm";
 import { DB_FILENAME, type UseCaseTitle } from "../consts.ts";
+import { Database } from 'bun:sqlite';
 
-export const db = drizzle({ connection: DB_FILENAME, schema });
+const sqlite = new Database(DB_FILENAME);
+export const db = drizzle({ client: sqlite, schema });
 
 export const getAllScores = async ({ useCase }: { useCase: UseCaseTitle }) => {
   return await db.query.scores.findMany({

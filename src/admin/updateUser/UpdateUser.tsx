@@ -75,7 +75,11 @@ export function UpdateUser() {
   });
 
   const methods = useForm({
-    values: data,
+    values: {
+      nickname: data?.nickname ?? "",
+      name: data?.name ?? "",
+      email: data?.email ?? "",
+    },
     defaultValues: {
       nickname: "",
       name: "",

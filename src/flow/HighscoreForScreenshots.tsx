@@ -6,12 +6,14 @@ import { hc } from "hono/client";
 import type { UseCaseTitle } from "../consts.ts";
 import { msToFormattedDuration } from "../utils.ts";
 import styles from "./GameVictoryHighscore.module.css";
+import { useRefreshHighscores } from "../useRefreshHighscore.ts";
 
 const client = hc<AppType>("");
 const $getHighscores = client.api.highscore[":useCase"].$get;
 
 export default function HighscoreForScreenshots() {
   const { useCase } = useParams<{ useCase: UseCaseTitle }>();
+  useRefreshHighscores();
 
   const { data } = useQuery({
     queryKey: ["highscores", useCase],

@@ -1,19 +1,19 @@
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import type { AppType } from "../server";
 import { hc } from "hono/client";
 import type { UseCaseTitle } from "../consts.ts";
 import { msToFormattedDuration } from "../utils.ts";
 import styles from "./GameVictoryHighscore.module.css";
+import { useRefreshHighscores } from "../useRefreshHighscore.ts";
 
 const client = hc<AppType>("");
 const $getHighscores = client.api.highscore[":useCase"][":id"].$get;
 
 export default function GameVictoryHighscore() {
   const { id, useCase } = useParams<{ useCase: UseCaseTitle; id: string }>();
-  const navigate = useNavigate();
+  useRefreshHighscores();
 
   const { data } = useQuery({
     queryKey: ["highscores", id, useCase],
@@ -31,15 +31,15 @@ export default function GameVictoryHighscore() {
     },
   });
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      navigate("/", { viewTransition: true, replace: false });
-    }, 15_000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [navigate]);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     navigate("/", { viewTransition: true, replace: false });
+  //   }, 15_000);
+  //
+  //   return () => {
+  //     clearTimeout(timeout);
+  //   };
+  // }, [navigate]);
 
   return (
     <SpaceBackground type="gameplay">
