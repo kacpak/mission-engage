@@ -85,12 +85,14 @@
   animation: bob 1000ms infinite linear;
   background: url("../assets/bankling-back.svg") no-repeat;
   background-size: contain;
+  z-index: 2;
 }
 
 .robot-container {
   position: absolute;
   bottom: calc(-90 / 1440 * 100cqh);
   left: calc(474 / 1440 * 100cqh);
+  z-index: 2;
 }
 
 .robot {

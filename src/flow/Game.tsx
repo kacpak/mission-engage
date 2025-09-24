@@ -15,7 +15,7 @@ import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
 import { useNavigate, useParams } from "react-router";
-import { MAX_LIFES, TANGIBLES_HELP_TEXT, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts.ts";
+import { MAX_LIFES, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts.ts";
 import { useBoardState } from "../useBoardState.ts";
 import TangibleForm from "../assets/tangible-form.svg?react";
 import TangibleSign from "../assets/tangible-sign.svg?react";
@@ -29,6 +29,7 @@ import { Slot } from "../components/Slot.tsx";
 import { SpeechBubble } from "../components/SpeechBubble.tsx";
 import { useTimeoutFn } from "@reactuses/core";
 import classNames from "classnames";
+import { TANGIBLES_HELP_TEXT } from "../consts.client.ts";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -122,9 +123,9 @@ export function Game() {
     if (!helpTangible) {
       hideSpeechBubble();
     } else {
-      showSpeechBubble({ text: TANGIBLES_HELP_TEXT[helpTangible] });
+      showSpeechBubble({ text: TANGIBLES_HELP_TEXT[useCase!][helpTangible] });
     }
-  }, [helpTangible, hideSpeechBubble, showSpeechBubble]);
+  }, [helpTangible, hideSpeechBubble, showSpeechBubble, useCase]);
 
   const [isPendingVictoryNavigation, startNavigationToVictoryScreen] = useTimeoutFn(
     () => navigate(`victory/${new Date().getTime() - startTime.getTime()}`, { viewTransition: true }),
@@ -217,7 +218,7 @@ export function Game() {
       </div>
       <img src={villanHandUrl} alt="" className={classNames(styles.villanHand)} />
       <div className={styles.useCase}>{useCase}</div>
-      <div className={styles.heros}>
+      <div className={styles.heroes}>
         <div className={styles.bankling} />
         <div className={styles.robotContainer}>
           <div className={styles.robot} />
