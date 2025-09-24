@@ -58,6 +58,7 @@ export function Highscore({ highlightedId, useCase, autoRefresh }: HighscoreProp
           );
         })}
       </ul>
+      <div className={styles.useCase}>{useCase}</div>
     </SpaceBackground>
   );
 }

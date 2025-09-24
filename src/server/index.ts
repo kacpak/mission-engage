@@ -1,6 +1,5 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
-import { upgradeWebSocket, websocket } from "hono/bun";
 import path from "node:path";
 import {
   addNewScore,
@@ -19,7 +18,6 @@ import * as z from "zod";
 import { DB_FILENAME, USE_CASES } from "../consts.ts";
 import { logger } from "hono/logger";
 import Papa from "papaparse";
-import type { ServerWebSocket } from "bun";
 
 console.log("Migrating database...");
 migrate(db, { migrationsFolder: "./drizzle" });
@@ -50,30 +48,6 @@ const idValidator = validator(
   z.object({
     id: z.coerce.number(),
   }),
-);
-
-const wsClients = new Set<ServerWebSocket>();
-
-app.get(
-  "/client-ws",
-  upgradeWebSocket(() => ({
-    onOpen(_event, _ws) {
-      console.log("OPEN!");
-      const ws = _ws.raw as ServerWebSocket;
-      ws.ping();
-      ws.send("ping");
-
-      wsClients.add(ws);
-    },
-    onMessage(event, ws) {
-      console.log(`Message from client: ${event.data}`);
-      ws.send("Hello from server!");
-    },
-    onClose: (_event, ws) => {
-      wsClients.delete(ws.raw);
-      console.log("Connection closed");
-    },
-  })),
 );
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -144,13 +118,6 @@ const route = app
         email,
         notes,
       });
-      wsClients.forEach((ws) =>
-        ws.send(
-          JSON.stringify({
-            type: "refresh-highscores",
-          }),
-        ),
-      );
       return c.json(updatedScore);
     },
   );
@@ -172,8 +139,4 @@ app.get("/api/export-database", async (c) => {
 
 export type AppType = typeof route;
 
-Bun.serve({
-  fetch: app.fetch,
-  websocket,
-  port: 4123,
-});
+export default app;

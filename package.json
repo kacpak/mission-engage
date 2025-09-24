@@ -11,7 +11,7 @@
     "build:client": "bun x --bun vite build --mode client",
     "build:server": "bun x --bun vite build",
     "lint": "eslint .",
-    "start": "bun run ./dist/index.js",
+    "start": "bun --port 4123 ./dist/index.js",
     "db:generate-migration": "drizzle-kit generate"
   },
   "dependencies": {

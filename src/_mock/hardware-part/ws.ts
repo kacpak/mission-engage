@@ -16,12 +16,12 @@ export const worker = setupWorker(
     client.send("Hello from server");
   }),
 );
-// await worker.start({
-//   serviceWorker: {
-//     url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
-//   },
-//   onUnhandledRequest: "bypass",
-// });
+await worker.start({
+  serviceWorker: {
+    url: `${import.meta.env.BASE_URL}mockServiceWorker.js`,
+  },
+  onUnhandledRequest: "bypass",
+});
 
 export const sendMessageToClients = (state: WhiteBoardStateMessage) => whiteboard.broadcast(JSON.stringify(state));
 

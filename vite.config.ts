@@ -2,6 +2,8 @@ import path from "node:path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import svgr from "vite-plugin-svgr";
+import hono from "@hono/vite-build/bun";
+import honoDevServer from "@hono/vite-dev-server";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) =>
@@ -31,30 +33,31 @@ export default defineConfig(({ mode }) =>
           allowedHosts: ["mateuszkubu.coconet.pl", "mateuszkmbp.coconet.pl"],
         },
         server: {
+          port: 5173,
           proxy: {
-            "/api": "http://localhost:4123",
+            "/api": "http://localhost:5174",
           },
         },
       }
     : {
         cacheDir: "node_modules/.vite-backend",
+        plugins: [
+          hono({
+            entry: "./src/server/index.ts",
+            minify: false,
+          }),
+          honoDevServer({
+            entry: "./src/server/index.ts",
+          }),
+        ],
         build: {
-          emptyOutDir: false,
-          entry: "./src/index.ts",
-          outDir: "./dist",
-
           target: "node22",
           rollupOptions: {
-            input: "./src/server/index.ts",
-            output: {
-              entryFileNames: "[name].js",
-            },
-            external: [/node_modules/, /bun:/, /node:/],
+            external: /node_modules/,
           },
-          optimizeDeps: {
-            exclude: [/bun:/, /node:/],
-          },
-          minify: false,
+        },
+        server: {
+          port: 5174,
         },
       },
 );

@@ -32,15 +32,13 @@ export function Trailer() {
     }
   }, [previousState, state, navigate]);
 
-  return (
+  return view === "video" ? (
     <SpaceBackground>
       <div className={styles.trailer}>
-        {view === "video" ? (
-          <video src="intro.mp4" muted loop autoPlay controls={false} onEnded={nextView}></video>
-        ) : (
-          <TimedOutHighscore timeout={6000} onTimeout={nextView} key={view} useCase={useCase!} />
-        )}
+        <video src="intro.mp4" muted autoPlay controls={false} onEnded={nextView} />
       </div>
     </SpaceBackground>
+  ) : (
+    <TimedOutHighscore timeout={6000} onTimeout={nextView} key={view} useCase={useCase!} />
   );
 }

@@ -76,3 +76,40 @@
   font-style: normal;
   font-weight: 400;
 }
+
+.use-case {
+  position: absolute;
+  bottom: 3.61111111cqh;
+  right: 3.61111111cqh;
+  color: #fff;
+  text-align: center;
+  font-family: var(--pixel-font-family);
+  font-size: 4.16666667cqh;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 83.333%;
+  text-transform: uppercase;
+  padding: 3cqh 7cqh;
+
+  &:before,
+  &:after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    background: black;
+    inset: 0;
+    clip-path: polygon(0 100%, 10% 0, 100% 0, 90% 100%);
+  }
+
+  &:before {
+    background: #141232;
+    top: 1cqh;
+    right: 2cqh;
+  }
+
+  &:after {
+    background: #050321;
+    bottom: 1cqh;
+    left: 2cqh;
+  }
+}
