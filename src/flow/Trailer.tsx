@@ -25,8 +25,8 @@ export function Trailer() {
   useUpdateEffect(() => {
     if (
       JSON.stringify(previousState) !== JSON.stringify(state) &&
-      previousState !== undefined &&
-      !Object.values(state).includes("alien")
+      !Object.values(state).includes("alien") &&
+      (previousState ? !Object.values(previousState).includes("alien") : false)
     ) {
       navigate("/presents", { viewTransition: true, replace: false });
     }
@@ -39,6 +39,6 @@ export function Trailer() {
       </div>
     </SpaceBackground>
   ) : (
-    <TimedOutHighscore timeout={6000} onTimeout={nextView} key={view} useCase={useCase!} />
+    <TimedOutHighscore timeout={15000} onTimeout={nextView} key={view} useCase={useCase!} />
   );
 }
