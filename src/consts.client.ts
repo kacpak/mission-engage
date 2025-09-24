@@ -6,30 +6,25 @@ export const IS_MOCK = localStorage.getItem("MOCK") === "true";
 
 export const TANGIBLES_HELP_TEXT: Record<UseCaseTitle, Record<WorkflowTangible, ReactNode>> = {
   "Accept terms & conditions": {
-    approval:
-      "The Accept step allows users to either approve or decline the content or output of a specific step in the workflow.",
-    signature:
-      "The signature step enables users to accept or reject the content or output of a step by providing a signature to it.",
-    "form-flow": "This form step enables users to fill out forms to collect structured input.",
+    approval: "A checkpoint where the bank can review submitted information before it becomes final.",
+    signature: "Clients sign digitally to confirm acceptance. This legally binds the client to the updated terms.",
+    "form-flow": "Clients review the updated Terms & Conditions and select or confirm applicable sections.",
     "data-processing":
-      "The data processing step either sends data to an external system and waits for a response or receives it.",
+      "Handles everything in the background: it ensures all clients get the update and later records their confirmations in the bank’s systems.",
   },
   "Account opening": {
     approval:
-      "The Accept step allows users to either approve or decline the content or output of a specific step in the workflow.",
-    signature:
-      "The signature step enables users to accept or reject the content or output of a step by providing a signature to it.",
-    "form-flow": "This form step enables users to fill out forms to collect structured input.",
+      "The bank verifies all details for accuracy and compliance. Approved applications proceed to account creation.",
+    signature: "The client confirms the application with a secure digital signature, making the request legally valid.",
+    "form-flow":
+      "Collect all details for opening a new account, including business information and supporting documents.",
     "data-processing":
-      "The data processing step either sends data to an external system and waits for a response or receives it.",
+      "After approval, the new account is automatically added to the bank’s systems, ensuring immediate availability.",
   },
   "Self service": {
-    approval:
-      "The Accept step allows users to either approve or decline the content or output of a specific step in the workflow.",
-    signature:
-      "The signature step enables users to accept or reject the content or output of a step by providing a signature to it.",
-    "form-flow": "This form step enables users to fill out forms to collect structured input.",
-    "data-processing":
-      "The data processing step either sends data to an external system and waits for a response or receives it.",
+    approval: "Let the bank review the submitted information. Certain changes may require manual approval.",
+    signature: "The client confirms the change digitally. A Qualified Electronic Signature authorises the request.",
+    "form-flow": "Use this to collect all client information for the requested change (name, address, legal form).",
+    "data-processing": "The system automatically updates all relevant bank systems.",
   },
 };
