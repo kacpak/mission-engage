@@ -19,6 +19,10 @@ import { DB_FILENAME, USE_CASES } from "../consts.ts";
 import { logger } from "hono/logger";
 import Papa from "papaparse";
 
+declare const GIT_COMMIT: string;
+
+console.log("git commit version:", GIT_COMMIT);
+
 console.log("Migrating database...");
 migrate(db, { migrationsFolder: "./drizzle" });
 console.log("✅ Migrated database.");
@@ -121,6 +125,10 @@ const route = app
       return c.json(updatedScore);
     },
   );
+
+app.get("/api/version", async (c) => {
+  return c.text(GIT_COMMIT);
+});
 
 app.get("/api/export/:useCase", useCaseValidator, async (c) => {
   const { useCase } = c.req.valid("param");

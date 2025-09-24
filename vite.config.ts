@@ -4,6 +4,9 @@ import react from "@vitejs/plugin-react-swc";
 import svgr from "vite-plugin-svgr";
 import hono from "@hono/vite-build/bun";
 import honoDevServer from "@hono/vite-dev-server";
+import { execSync } from "node:child_process";
+
+const commitHash = execSync(`git rev-parse HEAD`).toString().trim();
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) =>
@@ -55,6 +58,9 @@ export default defineConfig(({ mode }) =>
           rollupOptions: {
             external: /node_modules/,
           },
+        },
+        define: {
+          GIT_COMMIT: JSON.stringify(commitHash),
         },
         server: {
           port: 5174,
