@@ -20,7 +20,7 @@ type HighscoreProps = {
 export function Highscore({ highlightedId, useCase, autoRefresh }: HighscoreProps) {
   const { data } = useQuery({
     queryKey: ["highscores", { highlightedId, useCase }],
-    refetchInterval: autoRefresh ? 1000 : false,
+    refetchInterval: autoRefresh ? 700 : false,
     queryFn: async () => {
       const res = await (highlightedId
         ? $getHighscoresForId({
