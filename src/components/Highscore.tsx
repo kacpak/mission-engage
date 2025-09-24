@@ -44,7 +44,7 @@ export function Highscore({ highlightedId, useCase, autoRefresh }: HighscoreProp
       <div className={styles.title}>Highscore list</div>
       {data?.length === 0 && (
         <div className={styles.beTheFirst}>
-          No one finished this use case yet.
+          No one solved this workflow yet.
           <br />
           Be the first and win prizes!
         </div>

@@ -123,7 +123,7 @@ export default function Dashboard() {
             }
           }}
         >
-          Delete ALL entries for ALL use cases
+          Delete ALL entries for ALL workflows
         </button>
       </div>
     </div>

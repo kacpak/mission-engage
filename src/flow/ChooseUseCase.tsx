@@ -55,18 +55,18 @@ export function ChooseUseCase() {
 
   return (
     <SpaceBackground className={styles.wrapper} contentClassName={styles.inner}>
-      <h1>Choose a use case</h1>
+      <h1>Choose a workflow</h1>
       {typeof timeLeft === "number" ? (
         <div className={styles.onSelectedText}>
           <div>
-            Use case selected. The game will start in:{" "}
+            Workflow selected. The game will start in:{" "}
             <span>00:{String(Math.max(0, Math.floor(timeLeft))).padStart(2, "0")}</span>
           </div>
           <div>You can still change your selection.</div>
         </div>
       ) : (
         <ol>
-          <li>Move the robot on one of the use cases</li>
+          <li>Move the robot on one of the workflows</li>
           <li>The game will start automatically after some time</li>
         </ol>
       )}
