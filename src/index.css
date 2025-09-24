@@ -29,8 +29,8 @@ body {
 }
 
 #root {
-  --aspect-ratio-x: 4;
-  --aspect-ratio-y: 3;
+  --aspect-ratio-x: 16;
+  --aspect-ratio-y: 9;
   color: #fff;
   background: black;
   width: 100vw;
