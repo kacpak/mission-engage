@@ -42,6 +42,13 @@ export function Highscore({ highlightedId, useCase, autoRefresh }: HighscoreProp
   return (
     <SpaceBackground type="gameplay">
       <div className={styles.title}>Highscore list</div>
+      {data?.length === 0 && (
+        <div className={styles.beTheFirst}>
+          No one finished this use case yet.
+          <br />
+          Be the first and win prizes!
+        </div>
+      )}
       <ul className={styles.list}>
         {data?.map(({ rank, id, playTimeInMs, nickname }) => {
           const isHighlighted = highlightedId === id;

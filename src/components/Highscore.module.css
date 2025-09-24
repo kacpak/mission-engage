@@ -113,3 +113,11 @@
     left: 2cqh;
   }
 }
+
+.be-the-first {
+  text-align: center;
+  margin-top: calc(50 / 1440 * 100cqh);
+  line-height: 134%;
+  font-family: var(--pixel-font-family);
+  font-size: calc(50 / 1440 * 100cqh);
+}
