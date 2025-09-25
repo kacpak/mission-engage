@@ -69,5 +69,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "patchedDependencies": {
+    "msw@2.11.3": "patches/msw@2.11.3.patch"
   }
 }
