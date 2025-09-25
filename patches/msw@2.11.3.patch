@@ -1,3 +1,28 @@
+diff --git a/node_modules/msw/.bun-tag-e89e4bb0feb89bad b/.bun-tag-e89e4bb0feb89bad
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/lib/browser/index.js b/lib/browser/index.js
+index 6c66a411fdb2d9e4d8d9fb2362300f244363ef1d..899aad4b4dff2bab346c9cf1297fe851a9702ab7 100644
+--- a/lib/browser/index.js
++++ b/lib/browser/index.js
+@@ -3079,7 +3079,7 @@ var SetupWorkerApi = class extends import_SetupApi.SetupApi {
+     this.subscriptions.push(() => {
+       import_webSocketInterceptor.webSocketInterceptor.dispose();
+     });
+-    if (!this.context.supports.serviceWorkerApi) {
++    // if (!this.context.supports.serviceWorkerApi) {
+       const fallbackInterceptor = createFallbackRequestListener(
+         this.context,
+         this.context.startOptions
+@@ -3093,7 +3093,7 @@ var SetupWorkerApi = class extends import_SetupApi.SetupApi {
+         quiet: this.context.startOptions.quiet
+       });
+       return void 0;
+-    }
++    // }
+     const startHandler = createStartHandler(this.context);
+     const registration = await startHandler(this.context.startOptions, options);
+     this.context.isMockingEnabled = true;
 diff --git a/lib/browser/index.mjs b/lib/browser/index.mjs
 index c835d81e7f777439f9eed335c43bfc2be2a61265..8ba68e56bf0d032ecc5bdf5abab9d483973e0b20 100644
 --- a/lib/browser/index.mjs
