@@ -31,6 +31,7 @@ import { useTimeoutFn } from "@reactuses/core";
 import classNames from "classnames";
 import { TANGIBLES_HELP_TEXT } from "../consts.client.ts";
 import { useSound } from "react-sounds";
+import { useUpdateEffect } from "@reactuses/core";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -115,7 +116,7 @@ export function Game() {
       workflow.every((_) => !!_) ? (isEqual(workflow, WINNING_ORDERS[useCase!]) ? "success" : "error") : "pending",
     [workflow, useCase],
   );
-  useEffect(() => {
+  useUpdateEffect(() => {
     playSlotIn();
   }, [boardState]);
   const [startTime] = useState(new Date());
