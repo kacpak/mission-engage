@@ -4,12 +4,12 @@ export const USE_CASES = [
   {
     title: "Self service",
     description:
-      "A 4 step self-service where customers perform tasks for themselves to get services, rather than relying on employees or attendants.",
+      "A four step self-service where customers perform tasks for themselves to get services, rather than relying on employees or attendants.",
   },
   {
     title: "Account opening",
     description:
-      "Users can ask to open a new account by walking through a 4 step process by providing information and signing their request for the bank to review.",
+      "Users can ask to open a new account by walking through a four step process by providing information and signing their request for the bank to review.",
   },
 
   {
