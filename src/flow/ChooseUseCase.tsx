@@ -8,6 +8,8 @@ import Arrow from "../assets/arrow.svg?react";
 import { useEffect, useMemo, useState } from "react";
 import { USE_CASES } from "../consts.ts";
 import { Slot } from "../components/Slot.tsx";
+import { useSound } from "react-sounds";
+import { useUpdateEffect } from "@reactuses/core";
 
 const useTimer = (choice: string | undefined) => {
   const [timeLeft, setTimeLeft] = useState<number | null>(0);
@@ -15,7 +17,7 @@ const useTimer = (choice: string | undefined) => {
   const to = useMemo(() => {
     if (choice) {
       const date = new Date();
-      date.setSeconds(date.getSeconds() + 11);
+      date.setSeconds(date.getSeconds() + 6);
       return date;
     } else {
       return null;
@@ -46,6 +48,14 @@ export function ChooseUseCase() {
     ([key, value]) => value === "astronaut" && ["s1", "s2", "s3"].includes(key),
   )?.[0];
   const timeLeft = useTimer(choice);
+
+  const { play } = useSound("sounds/success_bling.mp3");
+
+  useUpdateEffect(() => {
+    if (choice) {
+      void play();
+    }
+  }, [choice]);
 
   useEffect(() => {
     if (choice && typeof timeLeft === "number" && timeLeft <= 0) {

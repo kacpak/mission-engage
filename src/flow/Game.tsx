@@ -108,7 +108,7 @@ const useSpeechBubble = () => {
 export function Game() {
   const { play: playErrorSound } = useSound("sounds/error-sound-39539.mp3");
   const { play: playSlotIn } = useSound("sounds/slot-in-47863-shortened.mp3");
-  const { play: playBgMusic } = useSound("sounds/8-bit-Chiptune_AdobeStock_547309534_preview.m4a");
+  const { play: playBgMusic } = useSound("sounds/8-bit-Chiptune_AdobeStock_547309534_preview.m4a", { volume: 0.5 });
 
   useEffect(() => {
     void playBgMusic({ loop: true });
@@ -132,10 +132,13 @@ export function Game() {
   const { speechText, showSpeechBubble, hideSpeechBubble } = useSpeechBubble();
   const helpTangible = useMemo(() => boardState?.s5 as WorkflowTangible | null, [boardState]);
 
+  const { play: playPopupSound } = useSound("sounds/popup.mp3");
+
   useEffect(() => {
     if (!helpTangible) {
       hideSpeechBubble();
     } else {
+      void playPopupSound();
       showSpeechBubble({ text: TANGIBLES_HELP_TEXT[useCase!][helpTangible] });
     }
   }, [helpTangible, hideSpeechBubble, showSpeechBubble, useCase]);

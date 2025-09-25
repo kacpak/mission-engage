@@ -3,12 +3,13 @@ import { useNavigate } from "react-router";
 import { useUpdateEffect, usePrevious } from "@reactuses/core";
 import styles from "./Trailer.module.css";
 import { SpaceBackground } from "../components/SpaceBackground.tsx";
-import { useReducer } from "react";
+import { useMemo, useReducer } from "react";
 import type { UseCaseTitle } from "../consts.ts";
 import { TimedOutHighscore } from "../components/Highscore.tsx";
 
-const order: ("video" | `useCase:${UseCaseTitle}`)[] = [
-  "video",
+const order: (`video:${string}` | `useCase:${UseCaseTitle}`)[] = [
+  "video:intro.mp4",
+  "video:prizes.mp4",
   "useCase:Self service",
   "useCase:Account opening",
   "useCase:Accept terms & conditions",
@@ -19,8 +20,15 @@ export function Trailer() {
   const navigate = useNavigate();
   const previousState = usePrevious(state);
   const [viewIndex, nextView] = useReducer((state) => (state + 1) % order.length, 0);
-  const view = order[viewIndex];
-  const useCase = view.startsWith("useCase") ? (view.replace("useCase:", "") as UseCaseTitle) : null;
+
+  const mode = useMemo(() => {
+    const view = order[viewIndex];
+    const [type, specifier] = view.split(":");
+    return {
+      type,
+      specifier,
+    } as { type: "video"; specifier: string } | { type: "useCase"; specifier: UseCaseTitle };
+  }, [viewIndex]);
 
   useUpdateEffect(() => {
     if (
@@ -32,13 +40,13 @@ export function Trailer() {
     }
   }, [previousState, state, navigate]);
 
-  return view === "video" ? (
-    <SpaceBackground>
+  return mode.type === "video" ? (
+    <SpaceBackground key={mode.specifier}>
       <div className={styles.trailer}>
-        <video src="intro.mp4" muted autoPlay controls={false} onEnded={nextView} />
+        <video src={mode.specifier} muted autoPlay controls={false} onEnded={nextView} />
       </div>
     </SpaceBackground>
   ) : (
-    <TimedOutHighscore timeout={15000} onTimeout={nextView} key={view} useCase={useCase!} />
+    <TimedOutHighscore timeout={15000} onTimeout={nextView} key={mode.specifier} useCase={mode.specifier} />
   );
 }
