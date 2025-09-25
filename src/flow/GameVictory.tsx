@@ -12,19 +12,13 @@ import type { InferRequestType, InferResponseType } from "hono/client";
 import { hc } from "hono/client";
 import type { AppType } from "../server";
 import { queryClient } from "../main.tsx";
-import { useSound } from "react-sounds";
 
 const client = hc<AppType>("");
 const $addNewHighscore = client.api.highscore[":useCase"].$post;
 
 export default function GameVictory() {
   const { useCase, durationInMs } = useParams<{ useCase: UseCaseTitle; durationInMs: string }>();
-  const { play: playVictorySound } = useSound("sounds/victory-chime-366449.mp3");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    void playVictorySound();
-  }, []);
 
   const { data, mutate: addHighScore } = useMutation<
     InferResponseType<typeof $addNewHighscore>,
