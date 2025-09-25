@@ -108,6 +108,12 @@ const useSpeechBubble = () => {
 export function Game() {
   const { play: playErrorSound } = useSound("sounds/error-sound-39539.mp3");
   const { play: playSlotIn } = useSound("sounds/slot-in-47863-shortened.mp3");
+  const { play: playBgMusic } = useSound("sounds/8-bit-Chiptune_AdobeStock_547309534_preview.m4a");
+
+  useEffect(() => {
+    void playBgMusic({ loop: true });
+  }, []);
+
   const { boardState, sendMessage } = useBoardState();
   const { useCase } = useParams<{ useCase: UseCaseTitle }>();
   const workflow = useMemo(() => [boardState?.s1, boardState?.s2, boardState?.s3, boardState?.s4], [boardState]);
