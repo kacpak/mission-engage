@@ -30,6 +30,7 @@ import { SpeechBubble } from "../components/SpeechBubble.tsx";
 import { useTimeoutFn } from "@reactuses/core";
 import classNames from "classnames";
 import { TANGIBLES_HELP_TEXT } from "../consts.client.ts";
+import { useSound } from "react-sounds";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -104,6 +105,8 @@ const useSpeechBubble = () => {
 };
 
 export function Game() {
+  const { play: playErrorSound } = useSound("sounds/error-sound-39539.mp3");
+  const { play: playSlotIn } = useSound("sounds/slot-in-47863-shortened.mp3");
   const { boardState, sendMessage } = useBoardState();
   const { useCase } = useParams<{ useCase: UseCaseTitle }>();
   const workflow = useMemo(() => [boardState?.s1, boardState?.s2, boardState?.s3, boardState?.s4], [boardState]);
@@ -112,6 +115,9 @@ export function Game() {
       workflow.every((_) => !!_) ? (isEqual(workflow, WINNING_ORDERS[useCase!]) ? "success" : "error") : "pending",
     [workflow, useCase],
   );
+  useEffect(() => {
+    playSlotIn();
+  }, [boardState]);
   const [startTime] = useState(new Date());
   const [lifesLeft, setLifesLeft] = useState(MAX_LIFES);
   const { playTime, stopPlayTime } = usePlayTime(startTime);
@@ -138,6 +144,7 @@ export function Game() {
     500,
     { immediate: false },
   );
+  const [isShaking, setIsShaking] = useState(false);
 
   const isPendingNavigation = isPendingVictoryNavigation || isPendingGameOverNavigation;
 
@@ -158,6 +165,9 @@ export function Game() {
         ),
         timeout: 5000,
       });
+      void playErrorSound();
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 1000);
     } else if (gameState === "success") {
       stopPlayTime();
       sendMessage("blink");
@@ -172,7 +182,15 @@ export function Game() {
       // });
       startNavigationToVictoryScreen();
     }
-  }, [gameState, isPendingNavigation, sendMessage, showSpeechBubble, startNavigationToVictoryScreen, stopPlayTime]);
+  }, [
+    gameState,
+    isPendingNavigation,
+    // playErrorSound,
+    sendMessage,
+    showSpeechBubble,
+    startNavigationToVictoryScreen,
+    stopPlayTime,
+  ]);
 
   useEffect(() => {
     if (isPendingNavigation) {
@@ -200,7 +218,7 @@ export function Game() {
         <div className={styles.playTime}>{playTime}</div>
       </div>
       <img src={villanUrl} alt="" className={classNames(styles.villan)} />
-      <div className={styles.workflow}>
+      <div className={classNames(styles.workflow, isShaking && styles.slotsShaking)}>
         {workflow.map((tangible, i) => {
           const Tangible = tangible ? tangibles[tangible as keyof typeof tangibles] : null;
           return (
