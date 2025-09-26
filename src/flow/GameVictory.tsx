@@ -20,7 +20,7 @@ const $addNewHighscore = client.api.highscore[":useCase"].$post;
 export default function GameVictory() {
   const { useCase, durationInMs } = useParams<{ useCase: UseCaseTitle; durationInMs: string }>();
   const navigate = useNavigate();
-  const { play: playFireworks } = useSound("sounds/fireworks-by-WistanSound-from-envato.m4a");
+  const { play: playFireworks } = useSound("sounds/fireworks.mp3");
 
   useEffect(() => {
     void playFireworks({ loop: true, volume: 0.5 });
