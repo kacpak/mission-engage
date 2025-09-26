@@ -29,9 +29,12 @@ import { Slot } from "../components/Slot.tsx";
 import { SpeechBubble } from "../components/SpeechBubble.tsx";
 import { useTimeoutFn } from "@reactuses/core";
 import classNames from "classnames";
-import { TANGIBLES_HELP_TEXT } from "../consts.client.ts";
+import { tangibleName, TANGIBLES_HELP_TEXT } from "../consts.client.ts";
 import { useSound } from "react-sounds";
 import { useUpdateEffect } from "@reactuses/core";
+import TangibleHelpSecondaryAcceptIcon from "../assets/tangible-help-accept.svg?react";
+import TangibleHelpSecondaryFormIcon from "../assets/tangible-help-form.svg?react";
+import TangibleHelpSecondarySignatureIcon from "../assets/tangible-help-signature.svg?react";
 
 const usePlayTime = (startDate: Date) => {
   const [playTime, setPlayTime] = useState("00:00");
@@ -60,6 +63,12 @@ const tangibles: Record<WorkflowTangible, ComponentType<ComponentProps<"svg">>> 
   "data-processing": TangibleDataProcessing,
   approval: TangibleApproval,
   signature: TangibleSign,
+};
+
+const tangiblesSecondaryIcons: Partial<Record<WorkflowTangible, ComponentType<ComponentProps<"svg">>>> = {
+  "form-flow": TangibleHelpSecondaryFormIcon,
+  approval: TangibleHelpSecondaryAcceptIcon,
+  signature: TangibleHelpSecondarySignatureIcon,
 };
 
 export const ImproperTangible: FunctionComponent = () => "❌";
@@ -139,7 +148,21 @@ export function Game() {
       hideSpeechBubble();
     } else {
       void playPopupSound();
-      showSpeechBubble({ text: TANGIBLES_HELP_TEXT[useCase!][helpTangible] });
+      const TangibleIcon = tangibles[helpTangible];
+      const TangibleSecondaryIcon = tangiblesSecondaryIcons[helpTangible];
+
+      showSpeechBubble({
+        text: (
+          <div className={styles.tangibleHelpTextWrapper}>
+            <TangibleIcon className={styles.tangibleHelpIcon} />
+            <div className={styles.tangibleHelpName}>{tangibleName[helpTangible]}:</div>
+            <div className={styles.tangibleHelpText}>{TANGIBLES_HELP_TEXT[useCase!][helpTangible]}</div>
+            {TangibleSecondaryIcon && (
+              <TangibleSecondaryIcon data-tangible={helpTangible} className={styles.tangibleHelpSecondaryIcon} />
+            )}
+          </div>
+        ),
+      });
     }
   }, [helpTangible, hideSpeechBubble, showSpeechBubble, useCase]);
 

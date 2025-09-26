@@ -4,6 +4,13 @@ import type { UseCaseTitle, WorkflowTangible } from "./consts.ts";
 export const WHITEBOARD_WEBSOCKET_URL = localStorage.getItem("WS_URL") ?? "wss://192.168.0.2:8765";
 export const IS_MOCK = localStorage.getItem("MOCK") === "true";
 
+export const tangibleName: Record<WorkflowTangible, string> = {
+  approval: "Accept",
+  signature: "Signature",
+  "form-flow": "Form",
+  "data-processing": "Data processing",
+};
+
 export const TANGIBLES_HELP_TEXT: Record<UseCaseTitle, Record<WorkflowTangible, ReactNode>> = {
   "Accept terms & conditions": {
     approval: "A checkpoint where the bank can review submitted information before it becomes final.",

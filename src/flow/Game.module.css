@@ -107,8 +107,8 @@
 
 .speech-bubble.speech-bubble {
   position: absolute;
-  bottom: calc(338 / 1440 * 100cqh);
-  left: calc(100% + 58 / 1440 * 100cqh);
+  bottom: calc(429 / 1440 * 100cqh);
+  left: calc(200 / 1440 * 100cqh);
 }
 
 .use-case {
@@ -329,5 +329,55 @@
   }
   100% {
     transform: translateX(0) rotate(0);
+  }
+}
+
+.tangible-help-text-wrapper {
+  display: grid;
+  gap: 0 calc(50 / 1440 * 100cqh);
+  grid-template-areas: "icon title icon2" "icon description icon2";
+  grid-template-columns: max-content 1fr max-content;
+  align-items: center;
+
+  font-family: var(--pixel-font-family);
+  font-size: calc(40 / 1440 * 100cqh);
+  font-style: normal;
+  line-height: 150%;
+  text-align: left;
+}
+
+.tangible-help-icon {
+  grid-area: icon;
+  width: calc(169 / 1440 * 100cqh);
+  height: calc(189 / 1440 * 100cqh);
+}
+
+.tangible-help-name {
+  grid-area: title;
+  font-weight: 700;
+}
+
+.tangible-help-text {
+  grid-area: description;
+  font-weight: 600;
+  width: calc(869 / 1440 * 100cqh);
+}
+
+.tangible-help-secondary-icon {
+  grid-area: icon2;
+
+  &[data-tangible="approval"] {
+    width: calc(430 / 1440 * 100cqh);
+    height: auto;
+  }
+
+  &[data-tangible="signature"] {
+    width: calc(359 / 1440 * 100cqh);
+    height: auto;
+  }
+
+  &[data-tangible="form-flow"] {
+    width: calc(203 / 1440 * 100cqh);
+    height: auto;
   }
 }

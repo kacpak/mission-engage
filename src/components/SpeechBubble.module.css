@@ -6,7 +6,6 @@
   --pixel: calc(13 / 1440 * 100cqh);
   background: #fff;
   width: max-content;
-  max-width: calc(890 / 1440 * 100cqh);
   padding: calc(3 * var(--pixel));
   clip-path: polygon(
     /* top left*/ calc(2 * var(--pixel)) 0,
@@ -44,6 +43,6 @@
   position: absolute;
   width: calc(103 / 1440 * 100cqh);
   height: calc(51 / 1440 * 100cqh);
-  bottom: calc(-25 / 1440 * 100cqh);
-  left: calc(-42 / 1440 * 100cqh);
+  bottom: calc(-35 / 1440 * 100cqh);
+  left: calc(154 / 1440 * 100cqh);
 }
