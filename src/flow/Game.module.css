@@ -78,7 +78,7 @@
 .bankling {
   position: absolute;
   bottom: calc(-247 / 1440 * 100cqh);
-  left: calc(-68 / 1440 * 100cqh);
+  left: calc(121 / 1440 * 100cqh);
   width: auto;
   height: calc(858 / 1440 * 100cqh);
   aspect-ratio: 625/858;
@@ -91,7 +91,7 @@
 .robot-container {
   position: absolute;
   bottom: calc(-90 / 1440 * 100cqh);
-  left: calc(474 / 1440 * 100cqh);
+  left: calc(663 / 1440 * 100cqh);
   z-index: 2;
 }
 
@@ -182,7 +182,7 @@
   view-transition-name: villan;
   position: absolute;
   top: calc(143 / 1440 * 100cqh);
-  right: calc(199 / 1440 * 100cqh);
+  right: calc(536 / 1440 * 100cqh);
   width: calc(630 / 1440 * 100cqh);
   height: calc(826 / 1440 * 100cqh);
   aspect-ratio: 45/59;
@@ -207,7 +207,7 @@
 .villan-hand {
   position: absolute;
   top: calc(460 / 1440 * 100cqh);
-  right: calc(260 / 1440 * 100cqh);
+  right: calc(598 / 1440 * 100cqh);
   width: calc(175 / 1440 * 100cqh);
   height: auto;
   aspect-ratio: 661/907;

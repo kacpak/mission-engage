@@ -159,11 +159,7 @@ export function Game() {
   const isPendingNavigation = isPendingVictoryNavigation || isPendingGameOverNavigation;
 
   useEffect(() => {
-    if (isPendingNavigation) {
-      return;
-    }
-
-    if (gameState === "error") {
+    if (!isPendingNavigation && gameState === "error") {
       setLifesLeft((_) => _ - 1);
       showSpeechBubble({
         text: (
@@ -178,29 +174,21 @@ export function Game() {
       void playErrorSound();
       setIsShaking(true);
       setTimeout(() => setIsShaking(false), 1000);
-    } else if (gameState === "success") {
-      stopPlayTime();
-      sendMessage("blink");
-      // showSpeechBubble({
-      //   text: (
-      //     <>
-      //       Woohoo!
-      //       <br />
-      //       We made it!
-      //     </>
-      //   ),
-      // });
-      startNavigationToVictoryScreen();
     }
   }, [
     gameState,
     isPendingNavigation,
     // playErrorSound,
-    sendMessage,
     showSpeechBubble,
-    startNavigationToVictoryScreen,
-    stopPlayTime,
   ]);
+
+  useEffect(() => {
+    if (!isPendingNavigation && gameState === "success") {
+      stopPlayTime();
+      sendMessage("blink");
+      startNavigationToVictoryScreen();
+    }
+  }, [gameState, isPendingNavigation, sendMessage, startNavigationToVictoryScreen, stopPlayTime]);
 
   useEffect(() => {
     if (isPendingNavigation) {

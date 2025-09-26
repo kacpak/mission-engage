@@ -6,7 +6,7 @@
 .title {
   position: absolute;
   top: 23cqh;
-  left: 11cqh;
+  left: calc(414 / 1440 * 100cqh);
   view-transition-name: title-wrapper;
 
   header {
@@ -68,7 +68,7 @@
 
 .robot {
   position: absolute;
-  right: calc(628 / 1440 * 100cqh);
+  right: calc(926 / 1440 * 100cqh);
   bottom: calc(108 / 1440 * 100cqh);
   width: auto;
   height: calc(502 / 1440 * 100cqh);
@@ -77,7 +77,7 @@
 
 .bankling {
   position: absolute;
-  right: calc(36 / 1440 * 100cqh);
+  right: calc(334 / 1440 * 100cqh);
   bottom: calc(103 / 1440 * 100cqh);
   width: auto;
   height: calc(882 / 1440 * 100cqh);
