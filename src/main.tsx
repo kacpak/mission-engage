@@ -24,7 +24,7 @@ import HighscoreForScreenshots from "./flow/HighscoreForScreenshots.tsx";
 import GameVictoryOutroVideo from "./flow/GameVictoryOutroVideo.tsx";
 import GameOverOutroVideo from "./flow/GameOverOutroVideo.tsx";
 import GameIntro from "./flow/GameIntro.tsx";
-// import { useSound } from "react-sounds";
+import { GameVictoryLayout } from "./flow/GameVictoryLayout.tsx";
 
 if (IS_MOCK) {
   const { default: WhiteboardDevTools } = await import("./_mock/ui-part/DevToolsOverlay.tsx");
@@ -78,12 +78,17 @@ const router = createHashRouter([
             path: "victory/:durationInMs",
             children: [
               {
-                index: true,
-                Component: GameVictoryOutroVideo,
-              },
-              {
-                path: "congrats",
-                Component: GameVictory,
+                Component: GameVictoryLayout,
+                children: [
+                  {
+                    index: true,
+                    Component: GameVictoryOutroVideo,
+                  },
+                  {
+                    path: "congrats",
+                    Component: GameVictory,
+                  },
+                ],
               },
               {
                 path: ":id/register-and-cleanup",
