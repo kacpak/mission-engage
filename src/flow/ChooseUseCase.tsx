@@ -11,13 +11,15 @@ import { Slot } from "../components/Slot.tsx";
 import { useSound } from "react-sounds";
 import { useUpdateEffect } from "@reactuses/core";
 
+const COUNTDOWN_FROM = 5;
+
 const useTimer = (choice: string | undefined) => {
   const [timeLeft, setTimeLeft] = useState<number | null>(0);
 
   const to = useMemo(() => {
     if (choice) {
       const date = new Date();
-      date.setSeconds(date.getSeconds() + 6);
+      date.setSeconds(date.getSeconds() + COUNTDOWN_FROM + 1);
       return date;
     } else {
       return null;
@@ -48,8 +50,18 @@ export function ChooseUseCase() {
     ([key, value]) => value === "astronaut" && ["s1", "s2", "s3"].includes(key),
   )?.[0];
   const timeLeft = useTimer(choice);
+  const timeLeftFormatted = useMemo(
+    () => (timeLeft ? `00:${String(Math.max(0, Math.floor(timeLeft))).padStart(2, "0")}` : null),
+    [timeLeft],
+  );
 
   const { play } = useSound("sounds/success_bling.mp3");
+
+  useUpdateEffect(() => {
+    if (timeLeftFormatted && timeLeftFormatted !== `00:${("" + COUNTDOWN_FROM).padStart(2, "0")}`) {
+      void play();
+    }
+  }, [timeLeftFormatted]);
 
   useUpdateEffect(() => {
     if (choice) {
@@ -69,8 +81,7 @@ export function ChooseUseCase() {
       {typeof timeLeft === "number" ? (
         <div className={styles.onSelectedText}>
           <div>
-            Workflow selected. The game will start in:{" "}
-            <span>00:{String(Math.max(0, Math.floor(timeLeft))).padStart(2, "0")}</span>
+            Workflow selected. The game will start in: <span>{timeLeftFormatted}</span>
           </div>
           <div>You can still change your selection.</div>
         </div>
