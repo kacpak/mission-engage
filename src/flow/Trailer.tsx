@@ -15,19 +15,22 @@ const order: (`video:${string}` | `useCase:${UseCaseTitle}`)[] = [
   "useCase:Accept terms & conditions",
 ];
 
+type Parse<T> = T extends `${infer Type}:${infer Specifier}` ? { type: Type; specifier: Specifier } : never;
+type ParsedOrder = Parse<(typeof order)[number]>;
+
 export function Trailer() {
   const { boardState: state } = useBoardState();
   const navigate = useNavigate();
   const previousState = usePrevious(state);
   const [viewIndex, nextView] = useReducer((state) => (state + 1) % order.length, 0);
 
-  const mode = useMemo(() => {
+  const mode = useMemo((): ParsedOrder => {
     const view = order[viewIndex];
     const [type, specifier] = view.split(":");
     return {
       type,
       specifier,
-    } as { type: "video"; specifier: string } | { type: "useCase"; specifier: UseCaseTitle };
+    } as ParsedOrder;
   }, [viewIndex]);
 
   useUpdateEffect(() => {
