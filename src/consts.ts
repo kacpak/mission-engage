@@ -22,6 +22,7 @@ export type UseCaseTitle = (typeof USE_CASES)[number]["title"];
 
 export const TANGIBLES = ["astronaut", "alien", "form-flow", "signature", "approval", "data-processing"] as const;
 export type WorkflowTangible = Exclude<(typeof TANGIBLES)[number], "alien" | "astronaut">;
+export const WORKFLOW_TANGIBLES: WorkflowTangible[] = ["form-flow", "signature", "approval", "data-processing"];
 
 export const WINNING_ORDERS: Record<UseCaseTitle, WorkflowTangible[]> = {
   "Accept terms & conditions": ["data-processing", "form-flow", "signature", "data-processing"],

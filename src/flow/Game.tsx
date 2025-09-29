@@ -15,7 +15,7 @@ import PlayerStatsBG from "../assets/player-stats-bg.svg?react";
 import HeartFull from "../assets/heart_full.svg?react";
 import HeartEmpty from "../assets/heart_empty.svg?react";
 import { useNavigate, useParams } from "react-router";
-import { MAX_LIFES, type UseCaseTitle, WINNING_ORDERS, type WorkflowTangible } from "../consts.ts";
+import { MAX_LIFES, type UseCaseTitle, WINNING_ORDERS, WORKFLOW_TANGIBLES, type WorkflowTangible } from "../consts.ts";
 import { useBoardState } from "../useBoardState.ts";
 import TangibleForm from "../assets/tangible-form.svg?react";
 import TangibleSign from "../assets/tangible-sign.svg?react";
@@ -146,7 +146,7 @@ export function Game() {
   useEffect(() => {
     if (!helpTangible) {
       hideSpeechBubble();
-    } else {
+    } else if (WORKFLOW_TANGIBLES.includes(helpTangible)) {
       void playPopupSound();
       const TangibleIcon = tangibles[helpTangible];
       const TangibleSecondaryIcon = tangiblesSecondaryIcons[helpTangible];
